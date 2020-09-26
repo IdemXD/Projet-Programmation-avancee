@@ -1,8 +1,11 @@
-#include "Salle.h"
+#include "salle.h"
+#include "personnages.h"
 #include "Plateau.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 
 
-salle_t mortelle(tab_t * pl, joueur_t*jou)
+salle_t mortelle(tab_t* pl, character_t jou){
+
+}
