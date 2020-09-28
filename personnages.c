@@ -5,6 +5,8 @@
 */
 
 #include "character.h"
+#include "constantes.h"
+
 
  character_s*  create_characters()
  {
