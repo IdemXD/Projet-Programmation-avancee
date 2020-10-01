@@ -1,8 +1,12 @@
+#ifndef PERSONNAGES_H
+#define PERSONNAGES_H
+
 /**
 	*\file personnages.h
 	*\author Chloe Mathias
 	*\version 1.0
 */
+
 
 struct character_t {
 	int coord_x; /*!< Tableau contenant la coordonnée x du personnage */
@@ -20,3 +24,4 @@ typedef struct character_t character_s;
 
 character_s*  create_characters();
 
+#endif

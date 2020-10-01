@@ -23,5 +23,5 @@
 
  void free_characters( character_s*  ch)
  {
- 	free(player);
+ 	free(ch);
  }

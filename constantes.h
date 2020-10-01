@@ -1,3 +1,6 @@
+#ifndef CONSTANTES_H
+#define CONSTANTES_H
+
 /**
 	*\file constantes.h
 	*\author Medi Boudhane
@@ -21,3 +24,5 @@
  */
 
 #define SCREEN_WIDTH 900
+
+#endif
