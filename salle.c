@@ -8,5 +8,5 @@
 
 salle_t mortelle(tab_t* pl, character_s* player){
     
-
+    
 }

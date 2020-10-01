@@ -9,11 +9,11 @@
 
 #include "plateau.h"
 
-struct Salle
+struct salle_s
 {
     int x;      /*!< Tableau contenant la coordonnée x de la salle */
     int y;      /*!< Tableau contenant la coordonnée y de la salle */
     int state;   /*!< Etat de la salle(1 si la salle est utilisable )*/
-    char A;      /*!< Char représentant la salle*/
+    char type;      /*!< Char représentant la salle*/
 };
-typedef struct Salle Salle_t;
+typedef struct salle_s salle_t;
