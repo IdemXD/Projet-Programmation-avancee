@@ -17,3 +17,69 @@ struct salle_s
     char type;      /*!< Char représentant la salle*/
 };
 typedef struct salle_s salle_t;
+
+
+
+
+salle_t Salle_mortelle(tab_t* pl, character_s* player){
+    
+    
+}
+
+
+
+salle_t Salle_vide(tab_t* pl, character_s* player){
+    
+    
+}
+
+
+
+salle_t Salle_chute(){
+
+
+}
+
+
+
+
+
+salle_t Salle_vision(){
+
+}
+
+
+
+salle_t Salle_contrôle(){
+
+}
+
+
+
+salle_t Salle_vortex(){
+
+}
+
+salle_t Salle_tunnel(){
+
+}
+
+salle_t Salle_25(){
+
+}
+
+salle_t Salle_froide(){
+
+}
+
+salle_t Salle_mobile(){
+
+}
+
+salle_t Salle_départ(){
+
+}
+
+#endif
+
+

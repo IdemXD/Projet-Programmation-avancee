@@ -1,5 +1,5 @@
 /**
-	*\file Salle.c
+	*\file salle.c
 	*\author Boudhane Medi 
 	*\version 1.0
 */
