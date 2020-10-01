@@ -12,9 +12,10 @@
 
 
 
-salle_t Salle_mortelle(tab_t* pl, character_s* player){
-    
-    
+salle_t Salle_mortelle(int** pl, character_s* player){
+    state=1;
+    visible=0;
+    player[i].state = 1 
 }
 
 
