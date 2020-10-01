@@ -6,6 +6,7 @@
 
 
 
-salle_t mortelle(tab_t* pl, character_t jou){
+salle_t mortelle(tab_t* pl, character_s* player){
+    
 
 }
