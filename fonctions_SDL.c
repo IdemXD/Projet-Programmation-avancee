@@ -74,3 +74,4 @@ SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font 
 
 
 }
+
