@@ -1,3 +1,9 @@
+/**
+	*\file Salle.c
+	*\author Boudhane Medi 
+	*\version 1.0
+*/
+
 #include "salle.h"
 #include "personnages.h"
 #include "Plateau.h"
@@ -6,7 +12,65 @@
 
 
 
-salle_t mortelle(tab_t* pl, character_s* player){
+salle_t Salle_mortelle(tab_t* pl, character_s* player){
     
     
 }
+
+
+
+salle_t Salle_vide(tab_t* pl, character_s* player){
+    
+    
+}
+
+
+
+salle_t Salle_chute(){
+
+
+}
+
+
+
+
+
+salle_t Salle_vision(){
+
+}
+
+
+
+salle_t Salle_contrôle(){
+
+}
+
+
+
+salle_t Salle_vortex(){
+
+}
+
+salle_t Salle_tunnel(){
+
+}
+
+salle_t Salle_25(){
+
+}
+
+salle_t Salle_froide(){
+
+}
+
+salle_t Salle_mobile(){
+
+}
+
+salle_t Salle_départ(){
+
+}
+
+
+
+
