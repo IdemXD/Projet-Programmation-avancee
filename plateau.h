@@ -1,5 +1,5 @@
 /**
-  * \file plateau
+  * \file plateau.c
   * \author Trunkenwald Marie
   * \brief Création d'un tableau pl à deux dimensions de structures
 */

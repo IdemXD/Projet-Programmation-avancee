@@ -8,20 +8,20 @@
 #include "constantes.h"
 
 
- character_s*  create_characters()
+ perso_s*  creer_persos()
  {
- 	character_s* player = malloc (sizeof(character_s)*NB_PERSONNAGES); //les personnages du joueur
+ 	cperso_s* persos = malloc (sizeof(perso_s)*NB_PERSONNAGES); //les personnages du joueur
  	for (int i=0; i<NB_PERSONNAGES;i++){
- 		player[i].coord_x = 2;//On place les personnages dans la salle de départ (au centre)
- 		player[i].coord_y = 2;
- 		player[i].state = 1 ; //les personnages sont vivants
+ 		persos[i].coord_x = 2;//On place les personnages dans la salle de départ (au centre)
+ 		persos[i].coord_y = 2;
+ 		persos[i].state = 1 ; //les personnages sont vivants
  		
  	}
  	return player ;
 
  }
 
- void free_characters( character_s*  ch)
+ void free_characters( perso_s*  persos)
  {
- 	free(ch);
+ 	free(persos);
  }
