@@ -5,12 +5,16 @@
 #include <stdbool.h>
 #include "fonctions_SDL.h"
 #include <SDL2/SDL_ttf.h>
+#include "personnages.h"
 
 int main(int argc, char *argv[]){
 	SDL_Window* fenetre;  
 	// Déclaration de la fenêtre
 	SDL_Event evenements; 
 	// Événements liés à la fenêtre
+	SDL_Renderer* ecran;
+	persos_s* joueur;
+	ressources textures;
 	bool terminer = false;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) 
@@ -32,39 +36,22 @@ int main(int argc, char *argv[]){
 	return EXIT_FAILURE;
 	}
 
+	joueur = creer_persos();
+
 	// Mettre en place un contexte de rendu de l’écran
-	SDL_Renderer* ecran;
-	ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
-	// Charger l’image
-	SDL_Texture* fond = charger_image("ressources/background.bmp", ecran );
-
-	// Charger l’image avec la transparence
-	Uint8 r = 255, g = 0, b = 255;
-	SDL_Texture* obj = charger_image_transparente("ressources/character1.bmp", ecran,r,g,b);
 	
-	int objetW;
-	int objetH;
+	ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
+	init_textures(&textures,ecran);
 
-	SDL_QueryTexture(obj, NULL, NULL, &objetW,&objetH);
-
-	SDL_Rect SrcR, DestR;
-	SrcR.x = 0;
-	SrcR.y = 0;
-	SrcR.w = objetW; // Largeur de l’objet en pixels 
-	SrcR.h = objetH; // Hauteur de l’objet en pixels 
-
-	DestR.x = 350;
-	DestR.y = 350;
-	DestR.w = objetW;
-	DestR.h = objetH;
 
 	// Boucle principale
 	while(!terminer)
 	{
 		SDL_RenderClear(ecran);
-		SDL_RenderCopy(ecran, fond, NULL, NULL);
-		SDL_RenderCopy(ecran, obj, &SrcR, &DestR);
-
+		SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
+		affiche_joueur(ecran,textures.j1,joueur[0],0);
+		affiche_joueur(ecran,textures.j2,joueur[1],1);
+	
 
 
 		while( SDL_PollEvent( &evenements ) )
@@ -87,7 +74,9 @@ int main(int argc, char *argv[]){
 	}
 	// Fermer la police et quitter SDL_ttf
 	TTF_Quit();
-	// Libération de l’écran (renderer)
+	//Libération de l’écran (renderer)
+	liberer_textures(&textures);
+	liberer_persos(joueur);
 	SDL_DestroyRenderer(ecran);
 	SDL_DestroyWindow(fenetre);
 	SDL_Quit();

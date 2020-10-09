@@ -8,13 +8,13 @@
 */
 
 
-struct perso_t {
+struct persos_t {
 	int coord_x; /*!< Tableau contenant la coordonnée x du personnage */
 	int coord_y; /*!< Tableau contenant la coordonnée y du personnage */
 	int state; /*!< Etat du personnage(1 quand le joueur est vivant)*/
-}
+};
 
-typedef struct perso_t perso_s;
+typedef struct persos_t persos_s;
 
 
 /**
@@ -22,6 +22,8 @@ typedef struct perso_t perso_s;
 	*\return tableau des struct de joueurs
 */
 
-perso_s*  creer_persos();
+persos_s*  creer_persos();
+
+void liberer_persos( persos_s*  persos);
 
 #endif
