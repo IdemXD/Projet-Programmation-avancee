@@ -35,6 +35,11 @@ salle_t** creer_plateau()
      return pl;
 }
 
+void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl){
+    SDL_Texture * image_salle;
+    // en cours d'ecriture
+}
+
 void free_plateau(salle_t** pl)
 {
   for(i=0; i<5; i++)

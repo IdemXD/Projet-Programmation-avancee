@@ -8,7 +8,7 @@
 
 
 SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
-	
+
 	// Chargement d' une image
 	SDL_Surface* surface = NULL;
 	SDL_Texture* texture = NULL;
@@ -44,7 +44,7 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 		printf("Erreur de la transparence : %s\n",SDL_GetError());
 		return NULL;
 	}
-	
+
 	texture = SDL_CreateTextureFromSurface(renderer,surface) ;
 	SDL_FreeSurface(surface);
 
@@ -83,11 +83,11 @@ SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font 
 
 void init_textures(ressources * textures,SDL_Renderer* renderer){
 
-	
+
 	textures->fond = charger_image("ressources/background.bmp", renderer );
 
  	textures->j1 = charger_image_transparente("ressources/character1.bmp", renderer,255,0,255);
- 
+
  	textures->j2 = charger_image_transparente("ressources/character2.bmp", renderer,255,0,255);
 
 }
@@ -109,13 +109,17 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 
 	int persoW;
 	int persoH;
-	
+
 	//On demande la largeur et hauteur de l'image
 	SDL_QueryTexture(perso, NULL, NULL, &persoW,&persoH);
-	
+
 	SDL_Rect SrcR = {0,0,persoW,persoH};
 
 	SDL_Rect DestR = {105*donnees_perso.coord_x + i*55,119*donnees_perso.coord_y,persoW,persoH};
 
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
+}
+
+void affiche_salle(SDL_Renderer* renderer, SDL_Texture image_salle, salle_t* ){
+	// en cours d'écriture
 }
