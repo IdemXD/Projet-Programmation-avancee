@@ -5,14 +5,15 @@
 */
 
 #include "salle.h"
-#include "personnages.h"
-#include "plateau.h"
-#include "actions.h"
-#include <stdlib.h>
+#include "personnages.h"        
+#include "plateau.h"        
+#include "actions.h"        
+#include <stdlib.h>     
 #include <stdio.h>
 
 
 
+//
 void Salle_mortelle(salle_t**  pl, persos_s* player,salle_t* salle){
     salle->state=1;
     salle->visible=0;
