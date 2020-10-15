@@ -7,8 +7,9 @@
 #include "actions.h"
 #include "plateau.h"
 #include "salle.h"
+#include "personnages.h"
 
-void deplacer(salle_t** plateau,perso_t* perso){
+void deplacer(salle_t** plateau,persos_s* perso){
 
 	//Cas où le joueur choisit droite
 	if(perso->coord_x+1<5){
@@ -20,7 +21,7 @@ void deplacer(salle_t** plateau,perso_t* perso){
 
 }
 
-void regarder(salle_t** plateau,perso_t* perso){
+void regarder(salle_t** plateau,persos_s* perso){
 	//Cas où le joueur veut regarder à droite
 
 	if(perso->coord_x+1<5){

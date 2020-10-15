@@ -6,21 +6,25 @@
 
 #include "salle.h"
 #include "personnages.h"
-#include "Plateau.h"
+#include "plateau.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 
 
-void Salle_mortelle(int** pl, character_s* player){
+void Salle_mortelle(int** pl, persos_s* player){
     state=1;
     visible=0;
-    player[i].state = 1 
+    player[i].state = 1
+    visible=1;
+    state=0;
 }
 
 
 
-void  Salle_vide(tab_t* pl, character_s* player){
+void  Salle_vide(int* pl, persos_s* player){
+     state=1;
+     visible=1;    
     
     
 }

@@ -35,7 +35,7 @@ salle_t** creer_plateau()
      return pl;
 }
 
-void free_plateau(struct_t** pl)
+void free_plateau(salle_t** pl)
 {
   for(i=0; i<5; i++)
   {

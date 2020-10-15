@@ -13,11 +13,11 @@
   * \brief Création du tableau de structures 2D
   * \return Pointeur du tableau créé
 */
-struct_t** creer_plateau();
+salle_t** creer_plateau();
 
 /**
   * \brief Libère l'espace alloué au tableau
 */
-void free_plateau(struct_t** pl);
+void free_plateau(salle_t** pl);
 
 #endif
