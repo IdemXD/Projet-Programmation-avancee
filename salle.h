@@ -22,65 +22,39 @@ typedef struct salle_s salle_t;
 
 
 
-salle_t Salle_mortelle(int** pl, character_s* player){
-    
-    
-    
-}
+void Salle_mortelle(int** pl, character_s* player);
 
 
 
-salle_t Salle_vide(tab_t* pl, character_s* player){
-    
-    
-}
+void Salle_vide(tab_t* pl, character_s* player);
 
 
 
-salle_t Salle_chute(){
-
-
-}
+void Salle_chute();
 
 
 
 
 
-salle_t Salle_vision(){
-
-}
+void Salle_vision();
 
 
 
-salle_t Salle_contrôle(){
-
-}
+void Salle_contrôle();
 
 
 
-salle_t Salle_vortex(){
+void Salle_vortex();
 
-}
+void Salle_tunnel();
 
-salle_t Salle_tunnel(){
+void Salle_25();
 
-}
+void Salle_froide();
 
-salle_t Salle_25(){
+void  Salle_mobile();
 
-}
-
-salle_t Salle_froide(){
-
-}
-
-salle_t Salle_mobile(){
-
-}
-
-salle_t Salle_départ(){
-
-}
+void Salle_départ();
 
 #endif
 
