@@ -11,7 +11,7 @@ struct textures_s{
 	SDL_Texture * fond;
 	SDL_Texture * j1;
 	SDL_Texture * j2;
-	
+
 	SDL_Texture * s_depart;
 	SDL_Texture * s_25;
 	SDL_Texture * s_vide;
@@ -24,6 +24,7 @@ struct textures_s{
 	SDL_Texture * s_mobile;
 	SDL_Texture * s_controle;
 	SDL_Texture * s_noire;
+	SDL_Texture * s_cache;
 	}
 
 };
@@ -43,3 +44,11 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font *font, SDL_Color color) ;
 
 void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_perso,int i);
+
+/**
+	* \brief Affiche l'image correspondante à une salle
+	* \param renderer Surface de l'écran de joueur
+	* \param image_salle Texture de l'image que l'on veut afficher
+	* \param salle Salle que l'on veut afficher
+*/
+void affiche_salle(SDL_Renderer* renderer, SDL_Texture image_salle, salle_t salle);

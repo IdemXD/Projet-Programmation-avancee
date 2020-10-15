@@ -120,6 +120,17 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 
-void affiche_salle(SDL_Renderer* renderer, SDL_Texture image_salle, salle_t* ){
-	// en cours d'écriture
+void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salle, salle_t salle){
+
+	int salleW;
+	int salleH;
+
+	//On demande la largeur et hauteur de l'image
+	SDL_QueryTexture(image_salle, NULL, NULL, &salleW, &salleH);
+
+	SDL_Rect SrcR = {0, 0, salleW, salleH};
+
+	SDL_Rect DestR = {salle.x*salleW, salle.y*salleH, salleW, salleH};
+
+	SDL_RenderCopy(renderer, image_salle, &SrcR, &DestR);
 }
