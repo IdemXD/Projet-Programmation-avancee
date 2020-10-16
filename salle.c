@@ -54,6 +54,7 @@ void salle_visible(salle_t* salle){
 
         if (salle->type != 'T')//A modifier pour mettre le cas avec les salles tunnels
             salle->state=1;
+        
     }
 }
 
