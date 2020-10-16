@@ -7,14 +7,25 @@
 	*\version 1.0
 */
 
+
+#include "personnages.h"
 #include "plateau.h"
 #include "salle.h"
-#include "personnages.h"
 
-void regarder(salle_t** plateau);
+/**
+ * \brief Action se déplacer du joueur
+ * \param plateau le tableau des 
+ * \param perso le personnage se truvant dans la salle
+ * \
+*/
+void deplacer(salle_t** plateau,persos_s* perso,char* direction, );
 
-void deplacer(salle_t** plateau,perso_t* perso);
 
-void controler(salle_t** plateau);
+/**
+ * \brief Action se déplacer du joueur
+ * \param plateau le tableau des salles
+
+*/
+void regarder(salle_t** plateau,int x, int y);
 
 #endif

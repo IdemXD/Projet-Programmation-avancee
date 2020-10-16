@@ -19,6 +19,15 @@ struct salle_s
 };
 typedef struct salle_s salle_t;
 
+
+void init_salles(salle_t**  pl);
+
+
+void action_salle(salle_t**  pl,persos_s* joueur,char* type);
+
+
+void salle_visible(salle_t* salle);
+
 /**
 	*\brief Fonction qui tue le joueurs sur la case
 */

@@ -6,6 +6,7 @@
 #include "fonctions_SDL.h"
 #include <SDL2/SDL_ttf.h>
 #include "personnages.h"
+#include "actions.h"
 
 int main(int argc, char *argv[]){
 	SDL_Window* fenetre;  
@@ -16,6 +17,8 @@ int main(int argc, char *argv[]){
 	persos_s* joueur;
 	ressources textures;
 	bool terminer = false;
+	bool choix_action = false; // Si le joueur doit la direction de son action
+	char active_direction = NULL; // définit quel direction choisit le joueur 
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) 
 	// Initialisation de la SDL
@@ -67,6 +70,39 @@ int main(int argc, char *argv[]){
 						case SDLK_q:
 							terminer = true;  
 							break;
+
+						case SDLK_DOWN:
+							if(choix_action){ //Seulement si le joueur est en train de faire un choix de direction
+								active_direction = 'b';
+							}
+							else{
+								//Affichage que c'est impossible à faire pour les 4 directions
+							}
+
+							break;
+
+						case SDLK_UP:
+							if(choix_action){
+								active_direction = 'h';
+							}
+
+							break;
+
+						case SDLK_LEFT:
+							if(choix_action){ //Seulement si le joueur est en train de faire un choix de direction
+								active_direction = 'g';
+							}
+
+							break;
+
+						case SDLK_RIGHT:
+							if(choix_action){ //Seulement si le joueur est en train de faire un choix de direction
+								active_direction = 'd';
+							}
+
+							break;
+
+
 					}
 						
 			}

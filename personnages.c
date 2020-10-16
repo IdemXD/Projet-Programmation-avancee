@@ -17,7 +17,7 @@
  		persos[i].coord_x = 2;//On place les personnages dans la salle de départ (au centre)
  		persos[i].coord_y = 2;
  		persos[i].state = 1 ; //les personnages sont vivants
- 		
+ 		persos[i].nb_actions = 2;
  	}
  	return persos ;
 
