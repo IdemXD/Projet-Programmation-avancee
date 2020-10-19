@@ -8,7 +8,7 @@
 salle_t** creer_plateau()
 {
      // Creation d'un plateau à deux dimensions
-     int** pl=malloc(sizeof(salle_t*)*5);
+     salle_t** pl=malloc(sizeof(salle_t*)*5);
 
      // Ouverture du fichier contenant une representation du plateau
      FILE* plateau = fopen("plateau1","r");
@@ -48,64 +48,64 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
             if (pl[i][j].visible == 1)
             {
                 // Selon le char definissant le type de la salle, on associe la texture correspondante
-                switch (salle_t[i][j].type)
+                switch (pl[i][j].type)
                 {
-                    case "S":
+                    case 'S':
                     // Salle de départ
                         image_salle = textures_salles.s_depart;
                         break;
 
-                    case "R":
+                    case 'R':
                     // Salle 25
                         image_salle = textures_salles.s_25;
                         break;
 
-                    case "E":
+                    case 'E':
                     // Salle vide
                         image_salle = textures_salles.s_vide;
                         break;
 
-                    case "V":
+                    case 'V':
                     // Salle vision
                         image_salle = textures_salles.s_vision;
                         break;
 
-                    case "D":
+                    case 'D':
                     // Salle mortelle
                         image_salle = textures_salles.s_mortelle;
                         break;
 
-                    case "X":
+                    case 'X':
                     // Salle vortex
                         image_salle = textures_salles.s_vortex;
                         break;
 
-                    case "T":
+                    case 'T':
                     // Salle tunnel
                         image_salle = textures_salles.s_tunnel;
                         break;
 
-                    case "C":
+                    case 'C':
                     // Salle chute
                         image_salle = textures_salles.s_chute;
                         break;
 
-                    case "F":
+                    case 'F':
                     // Salle froide
                         image_salle = textures_salles.s_froide;
                         break;
 
-                    case "M":
+                    case 'M':
                     // Salle mobile
                         image_salle = textures_salles.s_mobile;
                         break;
 
-                    case "O":
+                    case 'O':
                     // Salle controle
                         image_salle = textures_salles.s_controle;
                         break;
 
-                    case "N":
+                    case 'N':
                     // Salle noire
                         image_salle = textures_salles.s_noire;
                         break;
@@ -123,7 +123,7 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
 
 void free_plateau(salle_t** pl)
 {
-  for(i=0; i<5; i++)
+  for(int i=0; i<5; i++)
   {
     free(pl[i]); // Libère l'espace des sous tableaux
   }
