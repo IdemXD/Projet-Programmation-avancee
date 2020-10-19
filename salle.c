@@ -29,61 +29,94 @@
 void init_salles(salle_t**  pl){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
-            //A remplir par Medi
+            pl[i][j].visible=0;
+            pl[i][j].state=0;
+            if (i==2 && j==2){
+                pl[i][j].visible=1;
+                pl[i][j].state=1;
+            }
+            
+            
         }
     }
 }
 
-void action_salle(salle_t**  pl,persos_s* joueur,char* type){
-    switch (type){
-        //Pour l'instant seulement l'exemple pour 2 cas (à continuer)
+void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t* salle){
+    switch (*type){
         case 'V':
-            salle_vision(pl, joueur);
+            salle_vision(pl,x,y);
             break;
         case 'M':
-            Salle_mobile();
+            Salle_mobile(pl,salle,joueur);
             break;
-            // ...A finir par Medi
+        case 'D':
+            Salle_mortelle(joueur,pl);
+            break;
+        case 'C':
+            Salle_chute(pl,joueur,salle);
+            break;
+        case 'F':
+            Salle_froide();
+            break;
+        case 'N':
+            Salle_noire();
+            break;
+        case 'O':
+            Salle_controle();
+            break;
+        case 'X':
+            Salle_vortex(pl,joueur);
+            break;
+        case 'T':
+            Salle_tunnel();
+            break;
+        case 'R':
+            Salle_25();
+            break;
     }
 }
 
 void salle_visible(salle_t* salle){
     //le si sera peut-être à modifier avec la salle noire
+    
+    
     if (salle->visible==0){
         salle->visible=1;
 
-        if (salle->type != 'T')//A modifier pour mettre le cas avec les salles tunnels
-            salle->state=1;
-        
-    }
-}
+        if (salle->type ='N'){
+            salle->visible=0;
+        }
 
-void Salle_mortelle(salle_t**  pl, persos_s* player,salle_t* salle){
+        if (salle->type != 'T'){// Cas des salles tunnels 
+            salle->state=1;
+        }
+        else{
+            if (salle->type = 'T' && salle->visible==0){
+                salle->state=0;
+            }
+            
+        }
+    }
+               
+    }
+
+
+void Salle_mortelle(persos_s* player,salle_t* salle){
     player->state = 0;//Le joueur meurt s'il rentre dans la salle
     salle->state=0;
 }
 
 
 
-
-//
-void Salle_mortelle(salle_t**  pl, persos_s* player,salle_t* salle){
-    salle->visible=1;
-    player->state = 0;
-    salle->state = 1;
-    salle->state = 0;
-}
-
-
-
-void  Salle_vide(salle_t**  pl, persos_s* player,salle_t* salle){
-    
-}
-
-
-
-void Salle_chute(){
-
+void Salle_chute(salle_t** pl,persos_s* perso,salle_t* salle){
+    int temp;
+        while((perso->coord_x && perso->coord_y)==(salle->x &&salle->y)){
+            temp=0;
+        }
+    temp=1;
+        if (temp==1){
+            perso->state=0;
+        }
 
 }
 
@@ -91,31 +124,26 @@ void Salle_chute(){
 
 
 
-void Salle_vision(salle_t** pl, persos_s* player){
-
-    regarder(pl,player);
-    
-
+void Salle_vision(salle_t** pl, int x, int y){
+    regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
 }
 
 
 
 void Salle_controle(){
-
+    
 }
 
 
 
 void Salle_vortex(salle_t**  pl, persos_s* perso){
-    perso->coord_x=2;
-    perso->coord_y=2;
+    perso->coord_x=2;   // Changement des coordonées du personnages pour le renvoyer sur la cases de départ
+    perso->coord_y=2;   
 }
 
 
 void Salle_tunnel(){
     
-
-
 }
 
 void Salle_25(){
@@ -126,14 +154,16 @@ void Salle_froide(){
 
 }
 
-void Salle_mobile(){
-
+void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
+    int new_x,new_y;
+    if(pl[salle->new_x][salle->new_y].visible = 1 ){
+        if (salle->type= 'M'){
+            salle->x=new_x;
+            salle->y=new_y;
+            perso->coord_x=new_x;
+            perso->coord_y=new_y;
+        }      
+    }            
 }
-
-void Salle_depart(){
-
-}
-
-
 
 

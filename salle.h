@@ -13,6 +13,8 @@ struct salle_s
 {
     int x;       /*!< Tableau contenant la coordonnée x de la salle */
     int y;       /*!< Tableau contenant la coordonnée y de la salle */
+	int new_x;
+	int new_y;  
     int state;   /*!< Etat de la salle(1 si la salle est utilisable )*/
     int visible; /*!< Etat de la salle (1 si la salle est visible)*/
     char type;   /*!< Char représentant la salle*/
@@ -32,7 +34,7 @@ void salle_visible(salle_t* salle);
 	*\brief Fonction qui tue le joueurs sur la case
 */
 
-void Salle_mortelle(salle_t **, persos_s *player);
+void Salle_mortelle(persos_s *player,salle_t* salle);
 
 /**
 	*\brief Fonction qui appel à un choix d'action
@@ -78,12 +80,12 @@ void Salle_25();
 /**
 	*\brief Fonction qui oblige le joueur à programmer une seule action 
 */
-void Salle_froide();
+void Salle_froide(salle_t** pl,persos_s* perso,salle_t* salle);
 
 /**
 	*\brief Fonction qui permet d'échanger la position du joueur étant sur la salle mobile avec la position d'une autre salle caché 
 */
-void Salle_mobile();
+void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso );
 
 
 /**
@@ -91,4 +93,7 @@ void Salle_mobile();
 */
 void Salle_depart();
 
+
+
+void Salle_noire();
 #endif
