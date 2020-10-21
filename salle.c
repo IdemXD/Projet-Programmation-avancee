@@ -11,33 +11,17 @@
 #include <stdlib.h>     
 #include <stdio.h>
 
-
-/**
-    *\file salle.c
-    *\author Boudhane Medi 
-    *\version 1.0
-*/
-
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "actions.h"
-#include "personnages.h"
-#include "plateau.h"
-#include "salle.h"
-
 void init_salles(salle_t**  pl){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
             pl[i][j].visible=0;
             pl[i][j].state=0;
-            if (i==2 && j==2){
-                pl[i][j].visible=1;
-                pl[i][j].state=1;
-            }
             
         }
     }
+    pl[2][2].visible=1;
+    pl[2][2].state=1;
+
 }
 
 void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t* salle){
@@ -121,11 +105,11 @@ void Salle_mortelle(persos_s* player,salle_t* salle){
 void Salle_chute(salle_t** pl,persos_s* perso,salle_t* salle){
     int temp;
         while((perso->coord_x && perso->coord_y)==(salle->x &&salle->y)){
-            temp=0;
+            temp=0;                                                     // Ne pas prendre en compte cette fonction boucle infini
         }
-    temp=1;
+    temp++;
         if (temp==1){
-            perso->state=0;
+            perso->state=0;                     
         }
 
 }
@@ -166,14 +150,18 @@ void Salle_froide(){
 
 void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
     int new_x,new_y;
+    int coord_i,coord_j;
     if(pl[salle->new_x][salle->new_y].visible = 1 ){
-        if (salle->type= 'M'){
-            salle->x=new_x;
-            salle->y=new_y;
-            perso->coord_x=new_x;
-            perso->coord_y=new_y;
+        if (salle->type= 'M'){                         
+            coord_i= salle->x;
+            coord_j= salle->y;                 // coordonné tampon de la salle mobile
+            salle->x=new_x;                
+            salle->y=new_y;                    // affectation des coordonnées de la salle à échanger
+            perso->coord_x=new_x;             // place le personnages sur la salle échanger 
+            perso->coord_y=new_y;                   
+            salle->new_x=coord_i;            //affectation des coordonées initiales de la salle mobile  
+            salle->new_y=coord_j;
         }      
     }            
 }
-
 
