@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "personnages.h"
+#include "salle.h"
 
 struct textures_s{
 
@@ -25,7 +26,6 @@ struct textures_s{
 	SDL_Texture * s_controle;
 	SDL_Texture * s_noire;
 	SDL_Texture * s_cache;
-	}
 
 };
 

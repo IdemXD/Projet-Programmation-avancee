@@ -3,12 +3,28 @@
     *\author TRUNKENWALD Marie
 */
 #include <stdio.h>
+
+#include "constantes.h"
+#include "fonctions_SDL.h"
 #include "salle.h"
+#include "personnages.h"
+
+int is_in(int element, int* tab, int tab_length)
+{
+    for (int i = 0; i < tab_length; i++)
+    {
+        if (tab[i] == element)
+        {
+            return 1; // l'element est dans le tableau
+        }
+        return 0;
+    }
+}
 
 salle_t** creer_plateau()
 {
      // Creation d'un plateau à deux dimensions
-     salle_t** pl=malloc(sizeof(salle_t*)*5);
+     salle_t** pl = malloc(sizeof(salle_t*)*5);
 
      // Ouverture du fichier contenant une representation du plateau
      FILE* plateau = fopen("plateau1","r");
@@ -16,25 +32,51 @@ salle_t** creer_plateau()
      // Curseur de lecture du fichier
      int char_curseur = 0;
 
+     // Flag permettant de s'assurer qu'on ne prend en compts que des lettres reconnu par le jeu
+     int flag_char = 0;
+
      if (plateau != NULL)
      {
           do
           {
-               for(int i=0; i<5; i++)
+               for(int i = 0; i < 5; i++)
                {
-                    pl[i]=malloc(sizeof(salle_t)*5);
-                    for(int j=0; j<5; j++)
+                    pl[i] = malloc(sizeof(salle_t)*5);
+                    for(int j = 0; j < 5; j++)
                     {
-                         char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
-                         pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
-                         pl[i][j].x = i;
-                         pl[i][j].y = j;
+                        char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
+                        if !(is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère lu n'est pas celui d'une salle
+                            {
+                                flag_char = 1;
+                            }
+                        pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
+                        pl[i][j].x = i; // initialisation des coordonées des salles
+                        pl[i][j].y = j;
                     }
                }
-          } while (char_curseur != EOF); // EOF est le character de fin de fichier
+          } while ((char_curseur != EOF) && !(flag_char)); // EOF est le character de fin de fichier
+
+          if (flag_char) // La boucle s'est arreté car un char non exploitable a été lu
+          {
+              return -1; // on ne retourne pas un plateau incorrect, -1 erreur par convention
+          }
+
           fclose(plateau);
      }
      return pl;
+}
+
+void affichage_plateau_brut(salle_t** pl)
+{
+    // On parcourt le plateau case par case
+    for(int i = 0; i < 5; i++)
+    {
+        for (int j = 0; i < 5; j++)
+        {
+            printf("%c", pl[i][j]); // affichage du char de la case
+        }
+        printf("\n"); // saut à la ligne
+    }
 }
 
 void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl)
@@ -116,7 +158,7 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
                 // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
                 image_salle = textures_salles.s_cache;
             }
-            affichage_salle(renderer, image_salle, pl[i][j])
+            affichage_salle(renderer, image_salle, pl[i][j]);
         }
     }
 }
