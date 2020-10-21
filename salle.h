@@ -28,7 +28,14 @@ void init_salles(salle_t**  pl);
 void action_salle(salle_t**  pl,persos_s* joueur,char* type);
 
 
-void salle_visible(salle_t* salle);
+/**
+	*\brief Actualise la visibilité de la salle aux coordonnées (x,y) et son état
+	*\param plateau le tableau des salles
+	*\param x l'abscisse de la salle concernée (l'origine étant en haut à gauche)
+	*\param y l'ordonnée de la salle concernée(l'origine étant en haut à gauche)
+*/
+
+void modif_visible_et_etat(salle_t** plateau,int x, int y);
 
 /**
 	*\brief Fonction qui tue le joueurs sur la case

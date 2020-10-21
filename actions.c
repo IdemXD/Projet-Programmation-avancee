@@ -1,10 +1,11 @@
 /**
 	*\file actions.c
 	*\author Chloe Mathias
-	*\version 1.0
 */
 
 #include <stdbool.h.h>
+#include <stdlib.h>
+
 #include "actions.h"
 #include "personnages.h"
 #include "plateau.h"
@@ -38,9 +39,7 @@ void deplacer(salle_t** plateau,persos_s* perso,char,char* direction,bool * choi
 			*choix_dir = false;
 			*direction = NULL;
 			
-			if (plateau[perso->coord_x][perso->coord_y].visible != 1 ){//Si la case n'est pas visible, on l'a met en visible
-				salle_visible(plateau[perso->coord_x][perso->coord_y]);
-			}
+			visible_et_etat(plateau,perso->coord_x,perso->coord_y);
 			action_salle(plateau,perso,plateau[perso->coord_x][perso->coord_y].type);
 
 		}
@@ -51,6 +50,10 @@ void deplacer(salle_t** plateau,persos_s* perso,char,char* direction,bool * choi
 
 }
 
-/*void regarder(salle_t** plateau,int x,int y){
+void regarder(salle_t** plateau,int x,int y){
+	modif_visible_et_etat(plateau,x,y);
+}
 
-}*/
+void controler(salle_t** plateau, char* direction, int nbRangee){
+
+}

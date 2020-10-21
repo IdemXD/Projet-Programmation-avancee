@@ -15,6 +15,7 @@ struct persos_t {
 	int coord_y; /*!< Tableau contenant la coordonnée y du personnage */
 	int state; /*!< Etat du personnage(1 quand le joueur est vivant)*/
 	int nb_actions;/*!< Nombre d'actions que le personnage peut faire*/
+	//char* actions; tableau des actions du perso
 };
 
 typedef struct persos_t persos_s;

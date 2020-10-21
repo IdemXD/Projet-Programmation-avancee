@@ -36,7 +36,6 @@ void init_salles(salle_t**  pl){
                 pl[i][j].state=1;
             }
             
-            
         }
     }
 }
@@ -76,29 +75,40 @@ void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t*
     }
 }
 
-void salle_visible(salle_t* salle){
-    //le si sera peut-être à modifier avec la salle noire
-    
-    
-    if (salle->visible==0){
-        salle->visible=1;
+void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
-        if (salle->type ='N'){
-            salle->visible=0;
-        }
+    //Si la salle n'est pas visible, on la met en visible
+    if (plateau[x][y].visible == 0){
 
-        if (salle->type != 'T'){// Cas des salles tunnels 
-            salle->state=1;
+        if (plateau[x][y].type == 'T'){//Le cas de la salle tunnel
+            int i = 0, j = 0;
+            int trouve = 0;
+            while (i<5 && !trouve){
+                while(j<5 && !trouve){
+                    if (plateau[i][j].type=='T'&&plateau[i][j].visible == 1){
+
+                        //Si les deux salles sont visibles, on les rend utilisable
+                        plateau[i][j].state = 1;
+                        plateau[x][y].state = 1;
+
+                        trouve = 1;
+                    }
+                    j++;
+                }
+                i++;
+            }
+            //Dans le cas où l'autre salle tunnel n'est pas découverte, on ne change rien car elle est inutilisable à l'initialisation
         }
         else{
-            if (salle->type = 'T' && salle->visible==0){
-                salle->state=0;
-            }
+
+            plateau[x][y].state = 1;
             
         }
+
+        plateau[x][y].visible = 1; //On rend la salle visible après pour que la boucle ne puisse trouver que l'autre salle tunnel, si elle est visible
     }
                
-    }
+}
 
 
 void Salle_mortelle(persos_s* player,salle_t* salle){
