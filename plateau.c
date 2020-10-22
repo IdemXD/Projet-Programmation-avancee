@@ -9,7 +9,7 @@
 #include "fonctions_SDL.h"
 #include "salle.h"
 
-int is_in(int element, int* tab, int tab_length)
+int is_in(int element,const char* tab, int tab_length)
 {
     int trouve = 0;
     int i = 0;
@@ -55,13 +55,14 @@ salle_t** creer_plateau()
                         pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
                         pl[i][j].x = i; // initialisation des coordonées des salles
                         pl[i][j].y = j;
+
                     }
                }
           } while ((char_curseur != EOF) && !(flag_char)); // EOF est le character de fin de fichier
 
           if (flag_char) // La boucle s'est arreté car un char non exploitable a été lu
           {
-              return -1; // on ne retourne pas un plateau incorrect, -1 erreur par convention
+              return NULL; // on ne retourne pas un plateau incorrect, -1 erreur par convention
           }
           fclose(plateau);
      }
@@ -75,7 +76,7 @@ void affichage_plateau_brut(salle_t** pl)
     {
         for (int j = 0; i < TAILLE_PL; j++)
         {
-            printf("%c", pl[i][j]); // affichage du char de la case
+            printf("%c", pl[i][j].type); // affichage du char de la case
         }
         printf("\n"); // saut à la ligne
     }
@@ -160,7 +161,7 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
                 // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
                 image_salle = texture_salles.s_cache;
             }
-            affichage_salle(renderer, image_salle, pl[i][j]);
+            affiche_salle(renderer, image_salle, pl[i][j]);
         }
     }
 }

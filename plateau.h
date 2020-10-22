@@ -14,9 +14,12 @@
 
 /**
   * \brief Parcours d'un tableau d'elements
+  * \param element que l'on cherche
+  * \param tab Tableau que l'on parcourt
+  * \param tab_length longueur du tableau 
   * \return 1 si l'element est dans le tableau, 0 sinon
 */
-int is_in(int element, int* tab, int tab_length);
+int is_in(int element,const char* tab, int tab_length);
 
 /**
   * \brief Création du tableau de structures 2D
