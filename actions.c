@@ -3,7 +3,6 @@
 	*\author Chloe Mathias
 */
 
-#include <stdbool.h.h>
 #include <stdlib.h>
 
 #include "actions.h"
@@ -12,7 +11,7 @@
 #include "salle.h"
 
 
-void deplacer(salle_t** plateau,persos_s* perso,char,char* direction,bool * choix_dir){
+void deplacer(salle_t** plateau,persos_s* perso,char,char* direction,int * choix_dir){
 	// Le plateau sera utilisé pour l'appel de la fonction des salles
 	if (*choix_dir){
 		//Lorsque le joueur choisit une direction
@@ -45,15 +44,74 @@ void deplacer(salle_t** plateau,persos_s* perso,char,char* direction,bool * choi
 		}
 	}
 	else{
+
 		*choix_dir = true;// Pour que l'entrée d'une touche permette de choisir la direction 
+
 	}
 
 }
 
 void regarder(salle_t** plateau,int x,int y){
+	
 	modif_visible_et_etat(plateau,x,y);
 }
 
 void controler(salle_t** plateau, char* direction, int nbRangee){
+
+	if (nbRangee != 2){
+		int mvt, case_tmp;
+
+		/*Commentaires en cours d'écriture
+		 */
+		switch (*direction)
+		{
+			case 'h' : 
+			case 'g' :
+
+				case_tmp = 0;
+				mvt = 1
+				break;
+
+			case 'b' :
+			case 'd' :
+
+				case_tmp = 4;
+				mvt = -1
+				break;
+		}
+		//Déplacement du joueur à ajouter
+
+			if (*direction == 'h'||*direction == 'b')
+				salle_t tmp = plateau[case_tmp][nbRangee];
+			else 
+				salle_t tmp = plateau[nbRangee][case_tmp];
+			for (int i = 0 ; i<4 ; i++){
+				if (*direction == 'h'||*direction == 'b')
+					plateau[i][nbRangee] = plateau[i+mvt][nbRangee];
+				else
+					plateau[nbRangee][i] = plateau[nbRangee][i+mvt];
+			}
+			if (*direction == 'h'||*direction == 'b')
+				plateau[4-case_tmp][nbRangee] = tmp;
+			else 
+				plateau[nbRangee][4-case_tmp] = tmp;
+
+		///////////////////////////////////////
+		/*
+		if (*direction == 'h'||*direction == 'b'){
+			salle_t tmp = plateau[case_tmp][nbRangee];
+			for (int i = 0 ; i<4 ; i++){
+				plateau[i][nbRangee] = plateau[i+mvt][nbRangee];
+			}
+			plateau[4-case_tmp][nbRangee] = tmp;
+		}
+		else if (*direction == 'g'||*direction == 'd'){
+			salle_t tmp = plateau[nbRangee][case_tmp];
+			for (int i = 0 ; i<4 ; i++){
+				plateau[nbRangee][i] = plateau[nbRangee][i+mvt];
+			}
+			plateau[nbRangee][4-case_tmp] = tmp;
+		*/
+	}
 
 }

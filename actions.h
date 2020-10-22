@@ -18,7 +18,7 @@
  * \param perso le personnage se trouvant dans la salle
  * \param direction 
 */
-void deplacer(salle_t** plateau,persos_s* perso,char* direction,bool * choix_dir );
+void deplacer(salle_t** plateau,persos_s* perso,char* direction,int * choix_dir );
 
 
 /**
