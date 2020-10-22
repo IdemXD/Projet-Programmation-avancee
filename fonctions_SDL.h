@@ -51,4 +51,4 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 	* \param image_salle Texture de l'image que l'on veut afficher
 	* \param salle Salle que l'on veut afficher
 */
-void affiche_salle(SDL_Renderer* renderer, SDL_Texture image_salle, salle_t salle);
+void affiche_salle(SDL_Renderer* renderer, SDL_Texture* image_salle, salle_t salle);

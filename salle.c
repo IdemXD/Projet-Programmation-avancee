@@ -4,16 +4,20 @@
 	*\version 1.0
 */
 
-#include "salle.h"
-#include "personnages.h"        
-#include "plateau.h"        
-#include "actions.h"        
+
 #include <stdlib.h>     
 #include <stdio.h>
 
-void init_salles(salle_t**  pl){
+#include "salle.h"
+#include "personnages.h"        
+#include "plateau.h"        
+
+
+void init_salles(salle_t** pl){
+
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
+
             pl[i][j].visible = 0;
             pl[i][j].state = 0;
             
@@ -27,19 +31,19 @@ void init_salles(salle_t**  pl){
 void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t* salle){
     switch (*type){
         case 'V':
-            salle_vision(pl,x,y);
+            Salle_vision(pl,x,y);
             break;
         case 'M':
             Salle_mobile(pl,salle,joueur);
             break;
         case 'D':
-            Salle_mortelle(joueur,pl);
+            Salle_mortelle(joueur,salle);
             break;
         case 'C':
-            Salle_chute(pl,joueur,salle);
+            Salle_chute(joueur,salle);
             break;
         case 'F':
-            Salle_froide();
+            Salle_froide(pl,joueur,salle);
             break;
         case 'N':
             Salle_noire();
@@ -48,7 +52,7 @@ void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t*
             Salle_controle();
             break;
         case 'X':
-            Salle_vortex(pl,joueur);
+            Salle_vortex(joueur);
             break;
         case 'T':
             Salle_tunnel();
@@ -65,7 +69,7 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
     if (plateau[x][y].visible == 0){
 
         if (plateau[x][y].type == 'T'){//Le cas de la salle tunnel
-            int i = 0;
+            int i = 0,j;
             int trouve = 0;
             while (i < 5 && !trouve){
                 j = 0;
@@ -103,7 +107,7 @@ void Salle_mortelle(persos_s* player,salle_t* salle){
 
 
 
-void Salle_chute(salle_t** pl,persos_s* perso,salle_t* salle){
+void Salle_chute(persos_s* perso,salle_t* salle){
     int temp;
         while((perso->coord_x && perso->coord_y)==(salle->x &&salle->y)){
             temp=0;                                                     // Ne pas prendre en compte cette fonction boucle infinie
@@ -120,33 +124,33 @@ void Salle_chute(salle_t** pl,persos_s* perso,salle_t* salle){
 
 
 void Salle_vision(salle_t** pl, int x, int y){
-    regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
+    //regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
 }
 
 
 
 void Salle_controle(){
-    printf("");
+    printf("a");
 }
 
 
 
-void Salle_vortex(salle_t**  pl, persos_s* perso){
+void Salle_vortex(persos_s* perso){
     perso->coord_x=2;   // Changement des coordonnées du personnage pour le renvoyer sur la cases de départ
     perso->coord_y=2;   
 }
 
 
 void Salle_tunnel(){
-     printf("");
+     printf("b");
 }
 
 void Salle_25(){
-    printf("");
+    printf("c");
 }
 
-void Salle_froide(){
-     printf("");
+void Salle_froide(salle_t** pl,persos_s* perso,salle_t* salle){
+     printf("d");
 }
 
 void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){

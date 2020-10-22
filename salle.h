@@ -7,7 +7,6 @@
 	*\version 1.0
 */
 
-#include "plateau.h"
 #include "personnages.h"
 
 struct salle_s
@@ -23,10 +22,9 @@ struct salle_s
 typedef struct salle_s salle_t;
 
 
+void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t* salle);
+
 void init_salles(salle_t**  pl);
-
-
-void action_salle(salle_t**  pl,persos_s* joueur,char* type);
 
 
 /**
@@ -39,10 +37,10 @@ void action_salle(salle_t**  pl,persos_s* joueur,char* type);
 void modif_visible_et_etat(salle_t** plateau,int x, int y);
 
 /**
-	*\brief Fonction qui tue le joueurs sur la case
+	*\brief Fonction qui tue le joueur sur la case
 */
 
-void Salle_mortelle(persos_s *player,salle_t* salle);
+void Salle_mortelle(persos_s* player,salle_t* salle);
 
 /**
 	*\brief Fonction qui appel à un choix d'action
@@ -55,12 +53,12 @@ void Salle_vide(salle_t **, persos_s *player, salle_t *salle);
 /**
 	*\brief Fonction qui tue un personnage après une activation de la case
 */
-void Salle_chute();
+void Salle_chute(persos_s* perso,salle_t* salle);
 
 /**
 	*\brief Fonction qui appel la fonction regarder pour une cases sur le plateau
 */
-void Salle_vision(salle_t **, persos_s *perso, salle_t *salle);
+void Salle_vision(salle_t ** pl, int x, int y);
 
 
 /**
@@ -71,7 +69,7 @@ void Salle_controle();
 /**
 	*\brief Fonction qui place le personnage sur la case de départ
 */
-void Salle_vortex(salle_t **pl, persos_s *perso, salle_t *salle);
+void Salle_vortex(persos_s *perso);
 
 /**
 	*\brief Fonction qui déplace le personnage sur un deuxième case tunnel si elle est découverte

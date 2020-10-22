@@ -11,9 +11,9 @@
 
 int is_in(int element, int* tab, int tab_length)
 {
-    trouve = 0;
-    i = 0;
-    while (!(trouve) && (i < tab_length))
+    int trouve = 0;
+    int i = 0;
+    while (!trouve && (i < tab_length))
     {
         if (tab[i] == element)
         {
@@ -48,7 +48,7 @@ salle_t** creer_plateau()
                     for(int j = 0; j < TAILLE_PL; j++)
                     {
                         char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
-                        if !(is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
+                        if (!is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
                             {
                                 flag_char = 1;
                             }
@@ -96,69 +96,69 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
                 {
                     case 'S':
                     // Salle de départ
-                        image_salle = textures_salles.s_depart;
+                        image_salle = texture_salles.s_depart;
                         break;
 
                     case 'R':
                     // Salle 25
-                        image_salle = textures_salles.s_25;
+                        image_salle = texture_salles.s_25;
                         break;
 
                     case 'E':
                     // Salle vide
-                        image_salle = textures_salles.s_vide;
+                        image_salle = texture_salles.s_vide;
                         break;
 
                     case 'V':
                     // Salle vision
-                        image_salle = textures_salles.s_vision;
+                        image_salle = texture_salles.s_vision;
                         break;
 
                     case 'D':
                     // Salle mortelle
-                        image_salle = textures_salles.s_mortelle;
+                        image_salle = texture_salles.s_mortelle;
                         break;
 
                     case 'X':
                     // Salle vortex
-                        image_salle = textures_salles.s_vortex;
+                        image_salle = texture_salles.s_vortex;
                         break;
 
                     case 'T':
                     // Salle tunnel
-                        image_salle = textures_salles.s_tunnel;
+                        image_salle = texture_salles.s_tunnel;
                         break;
 
                     case 'C':
                     // Salle chute
-                        image_salle = textures_salles.s_chute;
+                        image_salle = texture_salles.s_chute;
                         break;
 
                     case 'F':
                     // Salle froide
-                        image_salle = textures_salles.s_froide;
+                        image_salle = texture_salles.s_froide;
                         break;
 
                     case 'M':
                     // Salle mobile
-                        image_salle = textures_salles.s_mobile;
+                        image_salle = texture_salles.s_mobile;
                         break;
 
                     case 'O':
                     // Salle controle
-                        image_salle = textures_salles.s_controle;
+                        image_salle = texture_salles.s_controle;
                         break;
 
                     case 'N':
                     // Salle noire
-                        image_salle = textures_salles.s_noire;
+                        image_salle = texture_salles.s_noire;
                         break;
                 }
             }
             else
             {
                 // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
-                image_salle = textures_salles.s_cache;
+                image_salle = texture_salles.s_cache;
             }
             affichage_salle(renderer, image_salle, pl[i][j]);
         }
