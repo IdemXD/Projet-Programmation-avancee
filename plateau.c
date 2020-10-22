@@ -42,6 +42,8 @@ salle_t** creer_plateau()
      int i = 0;
      int j = 0;
 
+     char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
+
      if (plateau != NULL)
      {
           do

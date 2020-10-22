@@ -10,6 +10,9 @@ OBJ = $(SRC:.c=.o)
 SRCPL = testPlateau.c personnages.c salle.c fonctions_SDL.c plateau.c
 TPL = $(SRCPL:.c=.o)
 
+SRCA = testActions.c actions.c personnages.c salle.c fonctions_SDL.c plateau.c
+OBJA = $(SRCA:.c=.o)
+
 all: $(EXEC)
 main: $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIBS) $(LDFLAGS)
@@ -21,4 +24,7 @@ mrproper: clean
 	rm -rf $(EXEC)
 
 testPlateau: $(TPL)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIBS) $(LDFLAGS)
+
+testActions: $(OBJA)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIBS) $(LDFLAGS)

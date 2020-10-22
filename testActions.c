@@ -7,11 +7,13 @@
 #include <stdlib.h>
 
 #include "actions.h"
+#include "personnages.h"
 #include "plateau.h"
+#include "salle.h"
 
-int main (int argv,char* argv[]){
+int main(int argc, char* argv[]) {
 
-	salle ** pl;
+	salle_t ** pl;
 	persos_s* p;
 
 	pl = creer_plateau();

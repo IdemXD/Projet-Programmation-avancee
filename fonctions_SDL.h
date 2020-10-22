@@ -2,6 +2,10 @@
 	*\file fonctions_SDL.h
 	*\author Chloe Mathias
 */
+
+#ifndef FONCTIONSSDL_H
+#define FONCTIONSSDL_H
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "personnages.h"
@@ -52,3 +56,5 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 	* \param salle Salle que l'on veut afficher
 */
 void affiche_salle(SDL_Renderer* renderer, SDL_Texture* image_salle, salle_t salle);
+
+#endif

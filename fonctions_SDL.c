@@ -7,6 +7,7 @@
 #include <SDL2/SDL_ttf.h>
 
 
+
 SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
 
 	// Chargement d' une image

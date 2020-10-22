@@ -20,7 +20,7 @@
 /**
  * \brief Tableau des char de toutes les salles du jeu
 */
-const char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
+//const char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
 
 
 #endif
