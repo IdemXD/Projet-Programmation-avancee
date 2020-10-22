@@ -38,14 +38,18 @@ salle_t** creer_plateau()
      // Flag permettant de s'assurer qu'on ne prend en compts que des lettres reconnu par le jeu
      int flag_char = 0;
 
+     // Indices
+     int i = 0;
+     int j = 0;
+
      if (plateau != NULL)
      {
           do
           {
-               for(int i = 0; i < TAILLE_PL; i++)
+               while ((i < TAILLE_PL) && !(flag_char))
                {
                     pl[i] = malloc(sizeof(salle_t)*TAILLE_PL);
-                    for(int j = 0; j < TAILLE_PL; j++)
+                    while((j < TAILLE_PL) && !(flag_char))
                     {
                         char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
                         if (!is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
@@ -56,7 +60,9 @@ salle_t** creer_plateau()
                         pl[i][j].x = i; // initialisation des coordonées des salles
                         pl[i][j].y = j;
 
+                        j++;
                     }
+                    i++;
                }
           } while ((char_curseur != EOF) && !(flag_char)); // EOF est le character de fin de fichier
 
