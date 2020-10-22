@@ -12,6 +12,10 @@
  */
 #define NB_PERSONNAGES 2
 
+/**
+ * \brief Le coté du plateau
+*/
+#define TAILLE_PL 5
 
 /**
  * \brief Hauteur de l'écran de jeu
@@ -29,5 +33,6 @@
  * \brief Tableau des char de toutes les salles du jeu
 */
 const char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
+
 
 #endif

@@ -3,28 +3,31 @@
     *\author TRUNKENWALD Marie
 */
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "constantes.h"
 #include "fonctions_SDL.h"
 #include "salle.h"
-#include "personnages.h"
 
 int is_in(int element, int* tab, int tab_length)
 {
-    for (int i = 0; i < tab_length; i++)
+    trouve = 0;
+    i = 0;
+    while (!(trouve) && (i < tab_length))
     {
         if (tab[i] == element)
         {
-            return 1; // l'element est dans le tableau
+            trouve = 1; // l'element est dans le tableau
         }
-        return 0;
+        i++;
     }
+    return trouve;
 }
 
 salle_t** creer_plateau()
 {
      // Creation d'un plateau à deux dimensions
-     salle_t** pl = malloc(sizeof(salle_t*)*5);
+     salle_t** pl = malloc(sizeof(salle_t*)*TAILLE_PL);
 
      // Ouverture du fichier contenant une representation du plateau
      FILE* plateau = fopen("plateau1","r");
@@ -39,13 +42,13 @@ salle_t** creer_plateau()
      {
           do
           {
-               for(int i = 0; i < 5; i++)
+               for(int i = 0; i < TAILLE_PL; i++)
                {
-                    pl[i] = malloc(sizeof(salle_t)*5);
-                    for(int j = 0; j < 5; j++)
+                    pl[i] = malloc(sizeof(salle_t)*TAILLE_PL);
+                    for(int j = 0; j < TAILLE_PL; j++)
                     {
                         char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
-                        if !(is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère lu n'est pas celui d'une salle
+                        if !(is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
                             {
                                 flag_char = 1;
                             }
@@ -60,7 +63,6 @@ salle_t** creer_plateau()
           {
               return -1; // on ne retourne pas un plateau incorrect, -1 erreur par convention
           }
-
           fclose(plateau);
      }
      return pl;
@@ -69,9 +71,9 @@ salle_t** creer_plateau()
 void affichage_plateau_brut(salle_t** pl)
 {
     // On parcourt le plateau case par case
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < TAILLE_PL; i++)
     {
-        for (int j = 0; i < 5; j++)
+        for (int j = 0; i < TAILLE_PL; j++)
         {
             printf("%c", pl[i][j]); // affichage du char de la case
         }
@@ -83,9 +85,9 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
 {
     SDL_Texture * image_salle;
     // On parcourt le plateau case par case
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < TAILLE_PL; i++)
     {
-        for (int j = 0; i < 5; j++)
+        for (int j = 0; i < TAILLE_PL; j++)
         {
             if (pl[i][j].visible == 1)
             {
@@ -165,7 +167,7 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
 
 void free_plateau(salle_t** pl)
 {
-  for(int i=0; i<5; i++)
+  for(int i = 0; i < TAILLE_PL; i++)
   {
     free(pl[i]); // Libère l'espace des sous tableaux
   }

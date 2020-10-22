@@ -12,7 +12,6 @@
 #include "salle.h"
 #include "personnages.h"
 
-
 /**
   * \brief Parcours d'un tableau d'elements
   * \return 1 si l'element est dans le tableau, 0 sinon
