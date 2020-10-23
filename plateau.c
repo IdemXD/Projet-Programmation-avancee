@@ -30,7 +30,7 @@ salle_t** creer_plateau()
      salle_t** pl = malloc(sizeof(salle_t*)*TAILLE_PL);
 
      // Ouverture du fichier contenant une representation du plateau
-     FILE* plateau = fopen("plateau1","r");
+     FILE* plateau = fopen("plateau1.txt","r");
 
      // Curseur de lecture du fichier
      int char_curseur = 0;
@@ -46,19 +46,21 @@ salle_t** creer_plateau()
 
      if (plateau != NULL)
      {
+        
           do
           {
                while ((i < TAILLE_PL) && !(flag_char))
                {
                     pl[i] = malloc(sizeof(salle_t)*TAILLE_PL);
-                    while((j < TAILLE_PL) && !(flag_char))
-                    {
+                    while((j < TAILLE_PL) && !(flag_char)){
                         char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
+
                         if (!is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
                             {
                                 flag_char = 1;
                             }
                         pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
+
                         pl[i][j].x = i; // initialisation des coordonées des salles
                         pl[i][j].y = j;
 
@@ -84,6 +86,7 @@ void affichage_plateau_brut(salle_t** pl)
     {
         for (int j = 0; i < TAILLE_PL; j++)
         {
+
             printf("%c", pl[i][j].type); // affichage du char de la case
         }
         printf("\n"); // saut à la ligne
