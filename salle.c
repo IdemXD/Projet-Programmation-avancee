@@ -66,9 +66,9 @@ void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t*
 void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
     //Si la salle n'est pas visible, on la met en visible
-    if (plateau[x][y].visible == 0){
+    if (plateau[y][x].visible == 0){
 
-        if (plateau[x][y].type == 'T'){//Le cas de la salle tunnel
+        if (plateau[y][x].type == 'T'){//Le cas de la salle tunnel
             int i = 0,j;
             int trouve = 0;
             while (i < 5 && !trouve){
@@ -78,7 +78,7 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
                         //Si les deux salles sont visibles, on les rend utilisable
                         plateau[i][j].state = 1;
-                        plateau[x][y].state = 1;
+                        plateau[y][x].state = 1;
 
                         trouve = 1;
                     }
@@ -90,11 +90,11 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
         }
         else{
 
-            plateau[x][y].state = 1;
+            plateau[y][x].state = 1;
 
         }
 
-        plateau[x][y].visible = 1; //On rend la salle visible après pour que la boucle ne puisse trouver que l'autre salle tunnel, si elle est visible
+        plateau[y][x].visible = 1; //On rend la salle visible après pour que la boucle ne puisse trouver que l'autre salle tunnel, si elle est visible
     }
 
 }

@@ -40,12 +40,11 @@ void deplacer(salle_t** plateau,persos_s* perso,char* direction,int * choix_dir)
 			
 			modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
 			action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
-
 		}
 	}
 	else{
 
-		*choix_dir = 1;// Pour que l'entrée d'une touche permette de choisir la direction 
+		*choix_dir = 1;// Le joueur peut choisir sa direction
 
 	}
 

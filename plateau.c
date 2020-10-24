@@ -52,22 +52,33 @@ salle_t** creer_plateau()
                while ((i < TAILLE_PL) && !(flag_char))
                {
                     pl[i] = malloc(sizeof(salle_t)*TAILLE_PL);
+                    j = 0;
                     while((j < TAILLE_PL) && !(flag_char)){
+                       // printf("||2 c = %c , i = %d , j = %d,||",char_curseur,i,j);
                         char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
+                        
 
+                        if (char_curseur == '\n'){//Lorsqu'on arrive à la fin d'une ligne, on passe au caractère d'après pour accéder à la ligne du dessous
+                          
+                          char_curseur = fgetc(plateau); 
+                        }
+                        
                         if (!is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
                             {
                                 flag_char = 1;
                             }
-                        pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
-
+                        else{
+                          pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
+                        }
                         pl[i][j].x = i; // initialisation des coordonées des salles
                         pl[i][j].y = j;
-
                         j++;
                     }
+
                     i++;
+
                }
+               char_curseur = fgetc(plateau); 
           } while ((char_curseur != EOF) && !(flag_char)); // EOF est le character de fin de fichier
 
           if (flag_char) // La boucle s'est arreté car un char non exploitable a été lu
@@ -75,6 +86,7 @@ salle_t** creer_plateau()
               return NULL; // on ne retourne pas un plateau incorrect, -1 erreur par convention
           }
           fclose(plateau);
+
      }
      return pl;
 }
@@ -84,7 +96,7 @@ void affichage_plateau_brut(salle_t** pl)
     // On parcourt le plateau case par case
     for(int i = 0; i < TAILLE_PL; i++)
     {
-        for (int j = 0; i < TAILLE_PL; j++)
+        for (int j = 0; j < TAILLE_PL; j++)
         {
 
             printf("%c", pl[i][j].type); // affichage du char de la case
@@ -99,7 +111,7 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
     // On parcourt le plateau case par case
     for(int i = 0; i < TAILLE_PL; i++)
     {
-        for (int j = 0; i < TAILLE_PL; j++)
+        for (int j = 0; j < TAILLE_PL; j++)
         {
             if (pl[i][j].visible == 1)
             {
