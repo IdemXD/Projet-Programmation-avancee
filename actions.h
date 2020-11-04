@@ -33,5 +33,5 @@ void regarder(salle_t** plateau,int x,int y);
  *\brief Permet au personnage de déplacer sa colonne ou sa ligne d'un cran  
  *\param plateau le tableau des salles
 */
-void controler(salle_t** plateau, char* direction, int nbRangee);
+void controler(salle_t** plateau, char* direction, int nbRangee,persos_s* p);
 #endif

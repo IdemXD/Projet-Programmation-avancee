@@ -55,70 +55,110 @@ void regarder(salle_t** plateau,int x,int y){
 	modif_visible_et_etat(plateau,x,y);
 }
 
-void controler(salle_t** plateau, char* direction, int nbRangee){
+void controler(salle_t** plateau, char* direction, int nbRangee, persos_s* p){
 
 	if (nbRangee != 2){
-		int mvt, case_tmp;
+		int mvt, case_depl;
 
-		/* 
-			mvt est la direction 
-		 */
+		/*
+			Dans le cas où on déplace vers le haut et la gauche, on commence par enregistrer la case 0.
+			Ensuite, on déplace chaque case vers le haut ou la gauche du rang 0 à 3([0]<=[1]...[3]<=[4])
+			case_depl indique l'indice de la carte recevant la nouvelle salle
+			Enfin, on place la salle sauvegardé dans la dernière case de la ligne ([4]<=tmp soit [0] précédent)
+
+			Dans le cas où on déplace vers le bas et la droite, on commence par enregistrer la dernière case.
+			Ensuite, on déplace chaque case vers le haut ou la gauche du rang 4 à 1 ([4]<=[3]...[1]<=[0])
+			La case qui va recevoir tmp est la première case de la rangée ([0]<=tmp soit [4] précédent)
+
+			sens_depl_s?mvt permet de déterminer l'indice de la salle déplacé (par ex : pour d et b, [2]<=[1] 1 = 2 + mvt = 2 - 1)
+
+		*/
+
 		switch (*direction)
 		{
 			case 'h' : 
 			case 'g' :
 
-				case_tmp = 0;
+				case_depl = 0;
 				mvt = 1;
 				break;
 
 			case 'b' :
 			case 'd' :
 
-				case_tmp = 4;
+				case_depl = 4;
 				mvt = -1;
 				break;
 		}
-		//Déplacement du joueur à ajouter
-			salle_t tmp;
 
-			if (*direction == 'h'||*direction == 'b'){
-				tmp = plateau[case_tmp][nbRangee];
-			}
-			else {
-				tmp = plateau[nbRangee][case_tmp];
-			}
-			for (int i = 0 ; i<4 ; i++){
+		
+		for (int i = 0 ;i<NB_PERSONNAGES;i++){
+			//Le joueur se trouve sur la rangée déplacée
+			if ((p[i].coord_x==nbRangee && (*direction=='h'||*direction == 'b'))||(p[i].coord_y==nbRangee)&&(*direction=='g'||*direction == 'd')){
+				
 				if (*direction == 'h'||*direction == 'b'){
-					plateau[i][nbRangee] = plateau[i+mvt][nbRangee];
-				}
-				else{
-					plateau[nbRangee][i] = plateau[nbRangee][i+mvt];
-				}
-			}
-			if (*direction == 'h'||*direction == 'b'){
-				plateau[4-case_tmp][nbRangee] = tmp;
-			}
-			else {
-				plateau[nbRangee][4-case_tmp] = tmp;
-			}
 
-		///////////////////////////////////////
-		/*
-		if (*direction == 'h'||*direction == 'b'){
-			salle_t tmp = plateau[case_tmp][nbRangee];
-			for (int i = 0 ; i<4 ; i++){
-				plateau[i][nbRangee] = plateau[i+mvt][nbRangee];
+					if (p[i].coord_y==case_depl){
+						//Si le personnage est sur une case qui est replacée de l'autre côté de la rangée
+
+						//Deux cas possible, soit direction ='h' et case depl = 0 on a alors [4]<=[0], soit direction ='b' et case depl = 4 on a alors [0]<=[4]; 
+						p[i].coord_y = 4 - case_depl ;
+					}
+					else{
+						// Le personnage est sur une salle qui va être glissée d'un côté
+						// - mvt = +1 si on va vers le bas et -1 si on va vers le haut
+							p[i].coord_y = p[i].coord_y - mvt;
+
+
+					}
+				}
+				else {
+					if (p[i].coord_x==case_depl){
+							//Deux cas possible, soit direction ='g' et case depl = 0 on a alors [4]<=[0], soit direction ='d' et case depl = 4 on a alors [0]<=[4]; 
+							p[i].coord_x = 4 - case_depl;
+					}
+					else{
+							// - mvt = +1 si on va vers la droite et -1 si on va vers la gauche
+							p[i].coord_x = p[i].coord_x - mvt;
+						
+
+					}
+				}
 			}
-			plateau[4-case_tmp][nbRangee] = tmp;
+			
 		}
-		else if (*direction == 'g'||*direction == 'd'){
-			salle_t tmp = plateau[nbRangee][case_tmp];
-			for (int i = 0 ; i<4 ; i++){
-				plateau[nbRangee][i] = plateau[nbRangee][i+mvt];
+
+		salle_t tmp;
+
+		// On stock la salle qui va se retrouver de l'autre côté de la rangée
+		if (*direction == 'h'||*direction == 'b'){
+
+			tmp = plateau[case_depl][nbRangee];
+		}
+		else {
+			tmp = plateau[nbRangee][case_depl];
+		}
+
+
+		while (case_depl+mvt>=0&&case_depl+mvt<TAILLE_PL){
+			//On vérifie que la case dont on veut prendre le contenu est dans le plateau (exemple direction ='b',à la sortie case_depl = 0 mais case_depl+mvt =-1)
+
+			if (*direction == 'h'||*direction == 'b'){
+				plateau[case_depl][nbRangee] = plateau[case_depl+mvt][nbRangee];
 			}
-			plateau[nbRangee][4-case_tmp] = tmp;
-		*/
+			else{
+				plateau[nbRangee][case_depl] = plateau[nbRangee][case_depl+mvt];
+			}
+			case_depl = case_depl + mvt;
+		}
+
+		if (*direction == 'h'||*direction == 'b'){
+			plateau[case_depl][nbRangee] = tmp;
+		}
+		else {
+			plateau[nbRangee][case_depl] = tmp;
+		}
+		
 	}
 
 }
