@@ -28,7 +28,7 @@ void init_salles(salle_t** pl){
 
 }
 
-void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t* salle){
+void action_salle(salle_t**  pl,persos_s* joueur,char* type,char dir , char nbr,int x,int y,salle_t* salle){
     switch (*type){
         case 'V':
             Salle_vision(pl,x,y);
@@ -46,22 +46,24 @@ void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t*
             Salle_froide(pl,joueur,salle);
             break;
         case 'N':
-            //Salle_noire();
+            Salle_noire(pl,joueur);
             break;
         case 'O':
-            Salle_controle();
+            Salle_controle(pl,dir,nbr);
             break;
         case 'X':
             Salle_vortex(joueur);
             break;
         case 'T':
-            Salle_tunnel();
+            Salle_tunnel(pl,joueur);
             break;
         case 'R':
             Salle_25();
             break;
     }
 }
+
+
 
 void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
@@ -101,7 +103,7 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
 
 void Salle_mortelle(persos_s* player,salle_t* salle){
-    player->state = 0;//Le joueur meurt s'il rentre dans la salle
+    player->state= 0;//Le joueur meurt s'il rentre dans la salle
     salle->state=0;
 }
 
@@ -124,13 +126,13 @@ void Salle_chute(persos_s* perso,salle_t* salle){
 
 
 void Salle_vision(salle_t** pl, int x, int y){
-    //regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
+        //regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
 }
 
 
 
-void Salle_controle(){
-    printf("a");
+void Salle_controle(salle_t** pl, char* direction, int nbRangee){
+    //regarder(pl,dir,nbr);
 }
 
 
@@ -141,16 +143,25 @@ void Salle_vortex(persos_s* perso){
 }
 
 
-void Salle_tunnel(){
-     printf("b");
+void Salle_tunnel(salle_t** pl, persos_s* perso ){
+     for (int i = 0 ; i<5 ; i++){
+        for (int j =0 ; j<5 ; j++){
+            if ( pl[i][j].type == 'T' && pl[perso->coord_x][perso->coord_y] != pl[i][j] ){
+                perso->coord_x=i;
+                perso->coord_y=j;             
+
+            }
+        }
+     }
+
 }
 
 void Salle_25(){
     printf("c");
 }
 
-void Salle_froide(salle_t** pl,persos_s* perso,salle_t* salle){
-     printf("d");
+void Salle_froide(persos_s* perso){
+     perso->nb_actions=1
 }
 
 void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
@@ -166,6 +177,18 @@ void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
             perso->coord_y = new_y;
             salle->new_x = coord_i;            //affectation des coordonnées initiales de la salle mobile
             salle->new_y = coord_j;
+        }
+    }
+}
+
+
+void Salle_noire(salle_t** pl, persos_s* perso ){
+    for (int i = 0 ; i<5 ; i++){
+        for (int j =0 ; j<5 ; j++){
+            if(pl[i][j]!=pl[perso->coord_x][perso->coord_y]){        
+                pl[i][j].visible=0;                            
+            }                                           //rend toutes les salles non visible
+                             
         }
     }
 }
