@@ -10,6 +10,10 @@ Jeu
 Ce jeu est une adaptation du jeu de plateau Room-25,il se constitue d'un plateau de 25 cases représentant 25 salles toutes cachées au début de la partie à part la salle de départ.C'est un jeu tour par tour ou il faut programmer c'est action au début de chaque tour. Il y a un mode solo ou le joueur contrôle 4 personnages et devra trouver la Room-25 sans perdre de personnage. Dans le mode à plusieurs joueurs des gardiens peuvent se mêler aux personnages et peuvent empêcher la fuite en les sabotants.
 
 
+
+
+
+
 Action possible
 
 
@@ -18,9 +22,11 @@ Regarder
 Action permettant au joueur de regarder n'importe carte cachée du plateau
 
 
+
 Controler 
 
 Action permettant de faire glisser les salles en lignes ou en colonnes à l'exception de la ligne et de la colonne de la salle de départ.
+
 
 
 Se Déplacer
@@ -28,9 +34,11 @@ Se Déplacer
 Action permettant aux personnages de bouger d'une salle à une autre. 
 
 
+
 Pousser
 
 Action permettant aux personnages de pousser un autre personnage.
+
 
 
 
