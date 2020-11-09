@@ -97,6 +97,12 @@ Salle n'ayant aucun effet
 (D'autres salle pourront être ajouté)
 
 
+Prérequis
+
+
+-SDL2
+
+
 
 
 
