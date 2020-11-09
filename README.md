@@ -2,7 +2,7 @@
 
 Nom: Freedom
 
-Des personnages sont enfermés dans un complexe ayant 25 salles aux effets divers et dangereux. Le but est d'essayer de sortir le plus rapidement possibe sans mourir et arriver ensemble à trouver la Room 25 pour s’échapper.
+Des personnages sont enfermés dans un complexe ayant 25 salles aux effets divers et dangereux. Le but est d'essayer de sortir le plus rapidement possible sans mourir et arriver ensemble à trouver la Room 25 pour s’échapper.
 
 
 Jeu
@@ -94,7 +94,7 @@ Salle Vide
 Salle n'ayant aucun effet
 
 
-(D'autres salle pourront être ajouté)
+(D'autres salles pourront être ajoutées)
 
 
 Prérequis

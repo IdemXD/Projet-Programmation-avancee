@@ -14,22 +14,7 @@
 struct textures_s{
 
 	SDL_Texture * fond;
-	SDL_Texture * j1;
-	SDL_Texture * j2;
-
-	SDL_Texture * s_depart;
-	SDL_Texture * s_25;
-	SDL_Texture * s_vide;
-	SDL_Texture * s_vision;
-	SDL_Texture * s_mortelle;
-	SDL_Texture * s_vortex;
-	SDL_Texture * s_tunnel;
-	SDL_Texture * s_chute;
-	SDL_Texture * s_froide;
-	SDL_Texture * s_mobile;
-	SDL_Texture * s_controle;
-	SDL_Texture * s_noire;
-	SDL_Texture * s_cache;
+	SDL_Texture * sprites;
 
 };
 
@@ -57,4 +42,6 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 */
 void affiche_salle(SDL_Renderer* renderer, SDL_Texture* image_salle, salle_t salle);
 
+
+int * texture_salle (salle_t salle);
 #endif

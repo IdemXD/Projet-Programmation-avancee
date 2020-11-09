@@ -39,7 +39,7 @@ void deplacer(salle_t** plateau,persos_s* perso,char* direction,int * choix_dir)
 			*direction = 'n';
 			
 			modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
-			action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
+			action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
 		}
 	}
 	else{

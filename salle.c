@@ -43,7 +43,7 @@ void action_salle(salle_t**  pl,persos_s* joueur,char* type,char dir , char nbr,
             Salle_chute(joueur,salle);
             break;
         case 'F':
-            Salle_froide(pl,joueur,salle);
+            Salle_froide(joueur);
             break;
         case 'N':
             Salle_noire(pl,joueur);
@@ -146,7 +146,7 @@ void Salle_vortex(persos_s* perso){
 void Salle_tunnel(salle_t** pl, persos_s* perso ){
      for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
-            if ( pl[i][j].type == 'T' && pl[perso->coord_x][perso->coord_y] != pl[i][j] ){
+            if ( pl[i][j].type == 'T' && perso->coord_x != pl[i][j].x && perso->coord_y != pl[i][j].y){
                 perso->coord_x=i;
                 perso->coord_y=j;             
 
@@ -161,7 +161,7 @@ void Salle_25(){
 }
 
 void Salle_froide(persos_s* perso){
-     perso->nb_actions=1
+     perso->nb_actions=1;
 }
 
 void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
@@ -185,7 +185,7 @@ void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
 void Salle_noire(salle_t** pl, persos_s* perso ){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
-            if(pl[i][j]!=pl[perso->coord_x][perso->coord_y]){        
+            if(perso->coord_x==j && perso->coord_y==i){        
                 pl[i][j].visible=0;                            
             }                                           //rend toutes les salles non visible
                              

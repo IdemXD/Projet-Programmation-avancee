@@ -107,84 +107,12 @@ void affichage_plateau_brut(salle_t** pl)
 
 void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl)
 {
-    SDL_Texture * image_salle;
     // On parcourt le plateau case par case
     for(int i = 0; i < TAILLE_PL; i++)
     {
         for (int j = 0; j < TAILLE_PL; j++)
         {
-            if (pl[i][j].visible == 1)
-            {
-                // Selon le char definissant le type de la salle, on associe la texture correspondante
-                switch (pl[i][j].type)
-                {
-                    case 'S':
-                    // Salle de départ
-                        image_salle = texture_salles.s_depart;
-                        break;
-
-                    case 'R':
-                    // Salle 25
-                        image_salle = texture_salles.s_25;
-                        break;
-
-                    case 'E':
-                    // Salle vide
-                        image_salle = texture_salles.s_vide;
-                        break;
-
-                    case 'V':
-                    // Salle vision
-                        image_salle = texture_salles.s_vision;
-                        break;
-
-                    case 'D':
-                    // Salle mortelle
-                        image_salle = texture_salles.s_mortelle;
-                        break;
-
-                    case 'X':
-                    // Salle vortex
-                        image_salle = texture_salles.s_vortex;
-                        break;
-
-                    case 'T':
-                    // Salle tunnel
-                        image_salle = texture_salles.s_tunnel;
-                        break;
-
-                    case 'C':
-                    // Salle chute
-                        image_salle = texture_salles.s_chute;
-                        break;
-
-                    case 'F':
-                    // Salle froide
-                        image_salle = texture_salles.s_froide;
-                        break;
-
-                    case 'M':
-                    // Salle mobile
-                        image_salle = texture_salles.s_mobile;
-                        break;
-
-                    case 'O':
-                    // Salle controle
-                        image_salle = texture_salles.s_controle;
-                        break;
-
-                    case 'N':
-                    // Salle noire
-                        image_salle = texture_salles.s_noire;
-                        break;
-                }
-            }
-            else
-            {
-                // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
-                image_salle = texture_salles.s_cache;
-            }
-            affiche_salle(renderer, image_salle, pl[i][j]);
+            affiche_salle(renderer, texture_salles.sprites, pl[i][j]);
         }
     }
 }

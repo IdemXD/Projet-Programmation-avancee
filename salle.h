@@ -22,7 +22,7 @@ struct salle_s
 typedef struct salle_s salle_t;
 
 
-void action_salle(salle_t**  pl,persos_s* joueur,char* type,int x,int y,salle_t* salle);
+void action_salle(salle_t**  pl,persos_s* joueur,char* type,char dir,char nbr,int x,int y,salle_t* salle);
 
 void init_salles(salle_t**  pl);
 
@@ -86,7 +86,7 @@ void Salle_25();
 /**
 	*\brief Fonction qui oblige le joueur à programmer une seule action
 */
-void Salle_froide(salle_t** pl,persos_s* perso,salle_t* salle);
+void Salle_froide(persos_s* perso);
 
 /**
 	*\brief Fonction qui permet d'échanger la position du joueur étant sur la salle mobile avec la position d'une autre salle caché

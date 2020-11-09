@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "fonctions_SDL.h"
 #include <SDL2/SDL_ttf.h>
+#include "fonctions_SDL.h"
 #include "personnages.h"
 #include "actions.h"
 
@@ -16,9 +16,12 @@ int main(int argc, char *argv[]){
 	SDL_Renderer* ecran;
 	persos_s* joueur;
 	ressources textures;
+
+	salle_t** salles = creer_plateau();
+	init_salles(salles);
 	bool terminer = false;
 	bool choix_action = false; // Si le joueur doit la direction de son action
-	char active_direction = NULL; // définit quel direction choisit le joueur 
+	char active_direction = 'n'; // définit quel direction choisit le joueur 
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) 
 	// Initialisation de la SDL
@@ -52,10 +55,9 @@ int main(int argc, char *argv[]){
 	{
 		SDL_RenderClear(ecran);
 		SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
-		affiche_joueur(ecran,textures.j1,joueur[0],0);
-		affiche_joueur(ecran,textures.j2,joueur[1],1);
-	
-
+		affichage_plateau(ecran,textures,salles);
+		affiche_joueur(ecran,textures.sprites,joueur[0],0);
+		affiche_joueur(ecran,textures.sprites,joueur[1],1);
 
 		while( SDL_PollEvent( &evenements ) )
 			switch(evenements.type)
@@ -111,6 +113,7 @@ int main(int argc, char *argv[]){
 	// Fermer la police et quitter SDL_ttf
 	TTF_Quit();
 	//Libération de l’écran (renderer)
+	free_plateau(salles);
 	liberer_textures(&textures);
 	liberer_persos(joueur);
 	SDL_DestroyRenderer(ecran);

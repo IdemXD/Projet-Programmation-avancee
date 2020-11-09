@@ -22,5 +22,9 @@
 */
 //const char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
 
+/**
+ *\ brief Taille d'un sprite
+*/
+#define TAILLE_S 120
 
 #endif
