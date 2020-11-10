@@ -18,12 +18,12 @@ void init_salles(salle_t** pl){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
 
-            pl[i][j].visible = 0;
+            pl[i][j].visible = 1;
             pl[i][j].state = 0;
 
         }
     }
-    pl[2][2].visible = 1;
+    pl[2][2].visible = 0;
     pl[2][2].state = 1;
 
 }

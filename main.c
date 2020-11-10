@@ -19,6 +19,7 @@ int main(int argc, char *argv[]){
 
 	salle_t** salles = creer_plateau();
 	init_salles(salles);
+
 	bool terminer = false;
 	bool choix_action = false; // Si le joueur doit la direction de son action
 	char active_direction = 'n'; // définit quel direction choisit le joueur 
@@ -48,7 +49,6 @@ int main(int argc, char *argv[]){
 	
 	ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
 	init_textures(&textures,ecran);
-
 
 	// Boucle principale
 	while(!terminer)

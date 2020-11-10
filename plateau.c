@@ -70,8 +70,8 @@ salle_t** creer_plateau()
                         else{
                           pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
                         }
-                        pl[i][j].x = i; // initialisation des coordonées des salles
-                        pl[i][j].y = j;
+                        pl[i][j].x = j; // initialisation des coordonées des salles
+                        pl[i][j].y = i;
                         j++;
                     }
 
