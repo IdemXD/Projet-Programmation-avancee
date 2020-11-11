@@ -16,7 +16,7 @@
   * \brief Parcours d'un tableau d'elements
   * \param element que l'on cherche
   * \param tab Tableau que l'on parcourt
-  * \param tab_length longueur du tableau 
+  * \param tab_length longueur du tableau
   * \return 1 si l'element est dans le tableau, 0 sinon
 */
 int is_in(int element,const char* tab, int tab_length);
@@ -40,6 +40,12 @@ void affichage_plateau_brut(salle_t** pl);
     * \param pl Tableau 2D representant le plateau
 */
 void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl);
+
+/**
+    * \brief Sauvegarde le plateau dans un fichier
+    * \param pl Tableau 2D representant le plateau
+*/
+void sauvegarder_plateau(salle_t** pl);
 
 /**
   * \brief Libère l'espace alloué au tableau

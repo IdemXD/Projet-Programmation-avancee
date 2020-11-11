@@ -7,9 +7,10 @@
 
 #include "constantes.h"
 #include "fonctions_SDL.h"
+#include "plateau.h"
 #include "salle.h"
 
-int is_in(int element,const char* tab, int tab_length)
+int is_in(int element,const char *tab, int tab_length)
 {
     int trouve = 0;
     int i = 0;
@@ -27,66 +28,62 @@ int is_in(int element,const char* tab, int tab_length)
 salle_t** creer_plateau()
 {
      // Creation d'un plateau à deux dimensions
-     salle_t** pl = malloc(sizeof(salle_t*)*TAILLE_PL);
+     salle_t** pl = malloc(sizeof(salle_t*)*TAILLE_PL) ;
 
      // Ouverture du fichier contenant une representation du plateau
-     FILE* plateau = fopen("plateau1.txt","r");
+     FILE* plateau = fopen("plateau1_s.txt","r") ;
 
      // Curseur de lecture du fichier
-     int char_curseur = 0;
+     int char_curseur = 0 ;
 
      // Flag permettant de s'assurer qu'on ne prend en compts que des lettres reconnu par le jeu
-     int flag_char = 0;
+     int flag_char = 0 ;
 
      // Indices
-     int i = 0;
-     int j = 0;
+     int i = 0 ;
+     int j = 0 ;
 
-     char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
-
-     if (plateau != NULL)
-     {
-        
+     if (plateau == NULL) perror("Erreur lors de l'ouverture du plateau") ;
+     else {
           do
           {
                while ((i < TAILLE_PL) && !(flag_char))
                {
                     pl[i] = malloc(sizeof(salle_t)*TAILLE_PL);
                     j = 0;
-                    while((j < TAILLE_PL) && !(flag_char)){
-                       // printf("||2 c = %c , i = %d , j = %d,||",char_curseur,i,j);
-                        char_curseur = fgetc(plateau); // Utilisation de fgetc avance le curseur
-                        
+                    while ((j < TAILLE_PL) && !(flag_char))
+                    {
+                        // printf("||2 c = %c , i = %d , j = %d,||\n",char_curseur,i,j);
+                        char_curseur = fgetc(plateau) ; // Utilisation de fgetc avance le curseur
 
-                        if (char_curseur == '\n'){//Lorsqu'on arrive à la fin d'une ligne, on passe au caractère d'après pour accéder à la ligne du dessous
-                          
-                          char_curseur = fgetc(plateau); 
+                        if (char_curseur == '\n')
+                        { //Lorsqu'on arrive à la fin d'une ligne, on passe au caractère d'après pour accéder à la ligne du dessous
+                            char_curseur = fgetc(plateau) ;
                         }
-                        
+
                         if (!is_in(char_curseur, LETTRES_SALLES, 12)) // La charactère (lol) lu n'est pas celui d'une salle
-                            {
-                                flag_char = 1;
-                            }
-                        else{
-                          pl[i][j].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
+                        {
+                            flag_char = 1 ;
+                        } else { // le charactère peut être prit en compte par le jeu
+                            pl[i][j].type = char_curseur ; // Le charactère de la salle correspondate est affecté dans la struct
                         }
-                        pl[i][j].x = j; // initialisation des coordonées des salles
-                        pl[i][j].y = i;
-                        j++;
+                        pl[i][j].x = j ; // initialisation des coordonées des salles
+                        pl[i][j].y = i ;
+                        j++ ;
                     }
-
-                    i++;
+                    // On aimerait pouvoir implenter le retour à la ligne ici, supprimer le if (char_curseur == '\n')
+                    i++ ;
 
                }
-               char_curseur = fgetc(plateau); 
+               char_curseur = fgetc(plateau);
           } while ((char_curseur != EOF) && !(flag_char)); // EOF est le character de fin de fichier
+
 
           if (flag_char) // La boucle s'est arreté car un char non exploitable a été lu
           {
               return NULL; // on ne retourne pas un plateau incorrect, -1 erreur par convention
           }
           fclose(plateau);
-
      }
      return pl;
 }
@@ -114,6 +111,24 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
         {
             affiche_salle(renderer, texture_salles.sprites, pl[i][j]);
         }
+    }
+}
+
+void sauvegarder_plateau(salle_t** pl)
+{
+    // Création du fichier qui va contenir la sauvegarde
+    FILE* save = fopen("save.txt","w") ;
+
+    // On parcourt le plateau case par case
+    for(int i = 0; i < TAILLE_PL; i++)
+    {
+        for (int j = 0; j < TAILLE_PL; j++)
+        {
+            fputc(pl[i][j].type, save) ; // lettre
+            fputc(pl[i][j].state, save) ; // utilisabilité
+            fputc(pl[i][j].visible, save) ; // visibilité
+        }
+        fputc('\n', save) ; // saut à la ligne
     }
 }
 

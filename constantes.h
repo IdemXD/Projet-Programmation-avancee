@@ -20,7 +20,9 @@
 /**
  * \brief Tableau des char de toutes les salles du jeu
 */
-//const char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'};
+// extern const char LETTRES_SALLES[12] ;
+
+static const char LETTRES_SALLES[12] = {'R','C','O','S','E','F','M','D','N','T','X','V'} ;
 
 /**
  *\ brief Taille d'un sprite
