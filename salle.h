@@ -24,8 +24,8 @@ typedef struct salle_s salle_t;
 
 void action_salle(salle_t**  pl,persos_s* joueur,char* type,char dir,char nbr,int x,int y,salle_t* salle);
 
-void init_salles(salle_t**  pl);
 
+void init_salles(salle_t**  pl);
 
 /**
 	*\brief Actualise la visibilité de la salle aux coordonnées (x,y) et son état

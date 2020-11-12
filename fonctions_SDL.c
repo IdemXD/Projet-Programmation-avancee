@@ -2,10 +2,10 @@
 	*\file fonctions_SDL.c
 	*\author Chloe Mathias
 */
-#include "fonctions_SDL.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-
+#include "constantes.h"
+#include "fonctions_SDL.h"
 
 
 SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
@@ -125,17 +125,17 @@ int * texture_salle (salle_t salle){
 	//Possibles modifications  entre affiche_salle et texture_salle
 
 
-	int num_s; //numéro du sprite de la salle sur le fichier des sprites 
+	int num_s = 0; //numéro du sprite de la salle sur le fichier des sprites 
 	if (salle.visible == 1)
     	{
 
         // Selon le char definissant le type de la salle, on associe la texture correspondante
     	
-    	/////
-    	///
-        //Le switch va être enlevé lorsque le tableau de char des salles va être implanté en tant que constante
-        ///
-    	/////
+    	while (salle.type != LETTRES_SALLES[num_s]){
+    		num_s++;
+    	}
+ 		
+    	/*
         switch (salle.type)
         {
             
@@ -198,7 +198,7 @@ int * texture_salle (salle_t salle){
                 num_s = 11;
                 break;
 
-        }
+        }*/
 
     }
     else

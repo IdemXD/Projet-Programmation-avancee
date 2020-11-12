@@ -31,7 +31,7 @@ salle_t** creer_plateau()
      salle_t** pl = malloc(sizeof(salle_t*)*TAILLE_PL) ;
 
      // Ouverture du fichier contenant une representation du plateau
-     FILE* plateau = fopen("plateau1_s.txt","r") ;
+     FILE* plateau = fopen("plateau1.txt","r") ;
 
      // Curseur de lecture du fichier
      int char_curseur = 0 ;
