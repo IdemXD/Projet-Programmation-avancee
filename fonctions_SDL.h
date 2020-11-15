@@ -14,7 +14,8 @@
 struct textures_s{
 
 	SDL_Texture * fond;
-	SDL_Texture * sprites;
+	SDL_Texture * sprites_salles;
+	SDL_Texture * sprites_elements;
 
 };
 
@@ -47,6 +48,7 @@ void liberer_texture(SDL_Texture * texture);
 	* \brief Crée une texture à partir d'une image 
 	* \param nomFichier Chemin vers l'image qu'on veut importer
 	* \param renderer Surface de l'écran de jeu
+	* \return la texture de l'image
 */
 
 SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer);
@@ -58,6 +60,7 @@ SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer);
 	* \param r Valeur de rouge de la couleur de transparence (entre 0 et 255)
 	* \param g Valeur de vert de la couleur de transparence (entre 0 et 255)
 	* \param b Valeur de bleu de la couleur de transparence (entre 0 et 255)
+	* \return la texture de l'image
 */
 
 SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* renderer,Uint8 r, Uint8 g, Uint8 b) ;
@@ -68,9 +71,13 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 	* \param renderer Surface de l'écran de jeu
 	* \param font police d'écriture
 	* \param couleur couleur du message affiché
+	* \return la texture 
 */
 
 SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font *font, SDL_Color color) ;
+
+
+void affiche_actions(SDL_Renderer* renderer,SDL_Texture * actions,int numA);
 
 /**
 	* \brief Affiche le sprite d'un personnage
@@ -94,6 +101,7 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture* image_salle, salle_t sal
 /**
 	* \brief Renvoie les coordonnées du sprite d'une salle
 	* \param salle Salle dont on veut le sprite
+	* \return la position (les coordonnées) de la texture de la salle dans l'image de départ
 */
 
 int * texture_salle (salle_t salle);

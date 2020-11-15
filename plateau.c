@@ -109,7 +109,7 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
     {
         for (int j = 0; j < TAILLE_PL; j++)
         {
-            affiche_salle(renderer, texture_salles.sprites, pl[i][j]);
+            affiche_salle(renderer, texture_salles.sprites_salles, pl[i][j]);
         }
     }
 }

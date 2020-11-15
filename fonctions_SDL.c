@@ -87,13 +87,16 @@ void init_textures(ressources * textures,SDL_Renderer* renderer){
 
 	textures->fond = charger_image("ressources/background.bmp", renderer );
 
- 	textures->sprites = charger_image_transparente("ressources/sprites.bmp", renderer,255,0,255);
+ 	textures->sprites_salles = charger_image_transparente("ressources/sprites_salles.bmp", renderer,255,0,255);
+
+ 	textures->sprites_elements = charger_image_transparente("ressources/sprites_elements.bmp", renderer,255,0,255);
 
 }
 
 void liberer_textures(ressources * textures){
 	liberer_texture(textures->fond);
-	liberer_texture(textures->sprites);
+	liberer_texture(textures->sprites_salles);
+	liberer_texture(textures->sprites_elements);
 }
 
 void liberer_texture(SDL_Texture * texture){
@@ -112,13 +115,31 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 	SDL_QueryTexture(perso, NULL, NULL, &persoW,&persoH);
 
 	persoW = persoW/5;
-	persoH = persoH/3;
 
-	SDL_Rect SrcR = {(i+3)*120,240,persoW,persoH};
-	//La généralisation se fera plus tard 
+	SDL_Rect SrcR = {i*120,0,persoW,persoH};
+	
 	SDL_Rect DestR = {105*donnees_perso.coord_x + i*55,119*donnees_perso.coord_y,persoW,persoH}; //105,55,119 sont des valeurs arbitraires seulement pour avoir un meilleur affichage
 
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
+}
+
+void affiche_actions(SDL_Renderer* renderer,SDL_Texture * action, int numA){
+
+	int actionW;
+	int actionH;
+
+	SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
+
+	actionW = actionW/5;
+
+	SDL_Rect SrcR = {(numA+2)*120,0,actionW,actionH};
+
+	int abs = numA%2, ord = numA/2;
+
+	SDL_Rect DestR = {620+abs*120 ,360+ord*120,(actionW/4)*3,(actionH/4)*3}; 
+
+	SDL_RenderCopy(renderer,action, &SrcR, &DestR);
+
 }
 
 int * texture_salle (salle_t salle){

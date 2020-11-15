@@ -56,8 +56,11 @@ int main(int argc, char *argv[]){
 		SDL_RenderClear(ecran);
 		SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
 		affichage_plateau(ecran,textures,salles);
-		affiche_joueur(ecran,textures.sprites,joueur[0],0);
-		affiche_joueur(ecran,textures.sprites,joueur[1],1);
+		affiche_joueur(ecran,textures.sprites_elements,joueur[0],0);
+		affiche_joueur(ecran,textures.sprites_elements,joueur[1],1);
+		affiche_actions(ecran,textures.sprites_elements, 0);
+		affiche_actions(ecran,textures.sprites_elements, 1);
+		affiche_actions(ecran,textures.sprites_elements, 2);
 
 		while( SDL_PollEvent( &evenements ) )
 			switch(evenements.type)
