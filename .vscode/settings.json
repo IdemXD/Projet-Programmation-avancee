@@ -1,0 +1,7 @@
+{
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "files.associations": {
+        "fonctions_sdl.h": "c",
+        "salle.h": "c"
+    }
+}

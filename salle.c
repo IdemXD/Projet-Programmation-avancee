@@ -13,14 +13,16 @@
 #include "plateau.h"
 
 
-void init_salles(salle_t** pl){
+void init_salles(salle_t** pl,salle_t salle){
 
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
 
             pl[i][j].visible = 0;
             pl[i][j].state = 0;
-
+            //if(pl[i][j].type=='C' || pl[i][j].type=='P'){
+            // salle->pres=0   
+            //}
         }
     }
     pl[2][2].visible = 1;
@@ -84,6 +86,7 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
                         trouve = 1;
                     }
+                
                     j++;
                 }
                 i++;
@@ -110,14 +113,13 @@ void Salle_mortelle(persos_t* player,salle_t* salle){
 
 
 void Salle_chute(persos_t* perso,salle_t* salle){
-    int temp;
-        while((perso->coord_x && perso->coord_y)==(salle->x &&salle->y)){
-            temp=0;                                                     // Ne pas prendre en compte cette fonction boucle infinie
-        }
-    temp++;
-        if (temp==1){
-            perso->state=0;
-        }
+   if (salle->pres==0){
+       salle->pres= 1; //L'etat de présence passe à 1 et permet d'enclencher le piège au prochain marqueur de présence
+   }else{
+    perso->state=0; //Le joueur meurt 
+    salle->pres=0;   // La salle reprend son état original
+   }
+   
 
 }
 
@@ -126,13 +128,13 @@ void Salle_chute(persos_t* perso,salle_t* salle){
 
 
 void Salle_vision(salle_t** pl, int x, int y){
-        //regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
+        regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
 }
 
 
 
-void Salle_controle(salle_t** pl, char* direction, int nbRangee){
-    //regarder(pl,dir,nbr);
+void Salle_controle(salle_t** pl, char* direction, int nbRangee,persos_t* p){
+    regarder(pl,direction,nbRangee, p);
 }
 
 
@@ -164,8 +166,9 @@ void Salle_froide(persos_t* perso){
      perso->nb_actions=1;
 }
 
+
 void Salle_mobile(salle_t** pl,salle_t* salle, persos_t* perso ){
-    int new_x = 0,new_y = 0;
+    int new_x ,new_y;
     int coord_i,coord_j;
     if(pl[salle->new_x][salle->new_y].visible == 0 ){
         if (salle->type == 'M'){
@@ -192,3 +195,16 @@ void Salle_noire(salle_t** pl, persos_t* perso ){
         }
     }
 }
+
+
+
+void Salle_prison(salle_t** pl, persos_t* perso){
+int temp=0;
+    do
+    {
+        perso->nb_actions=0;
+        temp++;
+    } while (temp<1);
+    temp=0;
+}
+    
