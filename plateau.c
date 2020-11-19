@@ -6,9 +6,8 @@
 #include <stdlib.h>
 
 #include "constantes.h"
-#include "fonctions_SDL.h"
 #include "plateau.h"
-#include "salle.h"
+
 
 int is_in(int element,const char *tab, int tab_length)
 {
@@ -95,7 +94,6 @@ void affichage_plateau_brut(salle_t** pl)
     {
         for (int j = 0; j < TAILLE_PL; j++)
         {
-
             printf("%c", pl[i][j].type); // affichage du char de la case
         }
         printf("\n"); // saut à la ligne

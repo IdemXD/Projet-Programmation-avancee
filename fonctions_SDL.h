@@ -8,14 +8,15 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include "actions.h"
 #include "personnages.h"
 #include "salle.h"
 
 struct textures_s{
 
-	SDL_Texture * fond;
-	SDL_Texture * sprites_salles;
-	SDL_Texture * sprites_elements;
+	SDL_Texture * fond;/*<!Texture du fond de l'écran */
+	SDL_Texture * sprites_salles;/*<!Textures des salles */
+	SDL_Texture * sprites_elements;/*<!Textures des salles */
 
 };
 
@@ -77,7 +78,9 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font *font, SDL_Color color) ;
 
 
-void affiche_actions(SDL_Renderer* renderer,SDL_Texture * actions,int numA);
+void modif_taille(SDL_Texture * action,action_t* donnees_action);
+
+void affiche_actions(SDL_Renderer* renderer,SDL_Texture * actions,action_t donnees_action ,int numA);
 
 /**
 	* \brief Affiche le sprite d'un personnage
@@ -88,7 +91,7 @@ void affiche_actions(SDL_Renderer* renderer,SDL_Texture * actions,int numA);
 	* \param i numéro du personnage
 */
 
-void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_perso,int i);
+void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_t donnees_perso,int i);
 
 /**
 	* \brief Affiche l'image correspondante à une salle

@@ -9,6 +9,8 @@
 
 #include "constantes.h"
 #include "fonctions_SDL.h"
+#include "actions.h"
+#include "plateau.h"
 #include "salle.h"
 #include "personnages.h"
 

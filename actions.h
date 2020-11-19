@@ -4,13 +4,31 @@
 /**
 	*\file actions.h
 	*\author Chloe Mathias
-	*\version 1.0
+	*\version 1.1
 */
 
 
 #include "personnages.h"
-#include "plateau.h"
 #include "salle.h"
+
+struct action_s {
+	int x_pix;
+	int y_pix;
+	int hauteur_pix;
+	int largeur_pix;
+	int etat;
+};
+
+typedef struct action_s action_t;
+
+
+action_t * creer_actions();
+
+void init_action(action_t* action,int numA);
+
+void affiche_donnees_action(action_t action);
+
+int clic_action(action_t* action, int x_souris,int y_souris);
 
 /**
  * \brief Permet au personnage de se déplacer sur une des salles adjacentes
@@ -19,7 +37,7 @@
  * \param direction direction vers laquelle déplacer le personnage
  * \param choix_dir 1 si le joueur peut choisir une direction, 0 sinon
 */
-void deplacer(salle_t** plateau,persos_s* perso,char* direction,int * choix_dir);
+void deplacer(salle_t** plateau,persos_t* perso,char* direction,int * choix_dir);
 
 
 /**
@@ -37,5 +55,5 @@ void regarder(salle_t** plateau,int x,int y);
  * \param nbRangee numéro dde la rangée à déplacer
  * \param p les personnages
 */
-void controler(salle_t** plateau, char* direction, int nbRangee,persos_s* p);
+void controler(salle_t** plateau, char* direction, int nbRangee,persos_t* p);
 #endif

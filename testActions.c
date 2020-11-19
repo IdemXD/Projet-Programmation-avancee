@@ -31,7 +31,7 @@ void affichage_utilisable(salle_t** pl){
 	}
 }
 
-void affichage_joueur(persos_s* p){
+void affichage_joueur(persos_t* p){
     for(int i = 0; i < TAILLE_PL; i++)
     {
         for (int j = 0; j < TAILLE_PL; j++){
@@ -49,7 +49,7 @@ void affichage_joueur(persos_s* p){
 int main(int argc, char* argv[]) {
 
 	salle_t ** pl;
-	persos_s* p;
+	persos_t* p;
 
 	pl = creer_plateau();
 	init_salles(pl);

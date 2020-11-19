@@ -28,7 +28,7 @@ void init_salles(salle_t** pl){
 
 }
 
-void action_salle(salle_t**  pl,persos_s* joueur,char* type,char dir , char nbr,int x,int y,salle_t* salle){
+void action_salle(salle_t**  pl,persos_t* joueur,char* type,char dir , char nbr,int x,int y,salle_t* salle){
     switch (*type){
         case 'V':
             Salle_vision(pl,x,y);
@@ -102,14 +102,14 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 }
 
 
-void Salle_mortelle(persos_s* player,salle_t* salle){
+void Salle_mortelle(persos_t* player,salle_t* salle){
     player->state= 0;//Le joueur meurt s'il rentre dans la salle
     salle->state=0;
 }
 
 
 
-void Salle_chute(persos_s* perso,salle_t* salle){
+void Salle_chute(persos_t* perso,salle_t* salle){
     int temp;
         while((perso->coord_x && perso->coord_y)==(salle->x &&salle->y)){
             temp=0;                                                     // Ne pas prendre en compte cette fonction boucle infinie
@@ -137,13 +137,13 @@ void Salle_controle(salle_t** pl, char* direction, int nbRangee){
 
 
 
-void Salle_vortex(persos_s* perso){
+void Salle_vortex(persos_t* perso){
     perso->coord_x=2;   // Changement des coordonnées du personnage pour le renvoyer sur la cases de départ
     perso->coord_y=2;
 }
 
 
-void Salle_tunnel(salle_t** pl, persos_s* perso ){
+void Salle_tunnel(salle_t** pl, persos_t* perso ){
      for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
             if ( pl[i][j].type == 'T' && perso->coord_x != pl[i][j].x && perso->coord_y != pl[i][j].y){
@@ -160,11 +160,11 @@ void Salle_25(){
     printf("c");
 }
 
-void Salle_froide(persos_s* perso){
+void Salle_froide(persos_t* perso){
      perso->nb_actions=1;
 }
 
-void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
+void Salle_mobile(salle_t** pl,salle_t* salle, persos_t* perso ){
     int new_x = 0,new_y = 0;
     int coord_i,coord_j;
     if(pl[salle->new_x][salle->new_y].visible == 0 ){
@@ -182,7 +182,7 @@ void Salle_mobile(salle_t** pl,salle_t* salle, persos_s* perso ){
 }
 
 
-void Salle_noire(salle_t** pl, persos_s* perso ){
+void Salle_noire(salle_t** pl, persos_t* perso ){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
             if(perso->coord_x==j && perso->coord_y==i){        

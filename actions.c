@@ -4,16 +4,47 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 
 #include "actions.h"
-#include "personnages.h"
-#include "plateau.h"
-#include "salle.h"
+#include "constantes.h"
 
+action_t * creer_actions(){
+	//allocation mémore
+	action_t* actions = malloc(sizeof(action_t)*3);
 
-void deplacer(salle_t** plateau,persos_s* perso,char* direction,int * choix_dir){
+	//Initialisation des champs
+	for (int i = 0;i < 3;i++){
+		init_action(&actions[i],i);
+		
+	}
+	return actions;
+}
+
+void init_action(action_t* action,int numA){
+
+	int abs = numA%2, ord = numA/2;
+
+	action->x_pix = 610 + abs*130;
+	action->y_pix = 350 + ord*130;
+	action->etat = 1;
+	action->hauteur_pix = 0;
+	action->largeur_pix = 0;
+
+}
+
+void affiche_donnees_action(action_t action){
+	printf("x = %d\ny = %d\netat = %d\nhauteur = %d\nlargeur = %d\n",action.x_pix,action.y_pix,action.etat,action.hauteur_pix,action.largeur_pix);
+}
+
+int clic_action(action_t* action, int x_souris,int y_souris){
+	return sqrt((action->x_pix + (action->largeur_pix/2)- x_souris)*(action->x_pix + (action->largeur_pix/2)- x_souris) + (action->y_pix + (action->hauteur_pix/2)- y_souris)*(action->y_pix + (action->hauteur_pix/2)- y_souris)) <= action->hauteur_pix/2;
+}
+
+void deplacer(salle_t** plateau,persos_t* perso,char* direction,int * choix_dir){
 	// Le plateau sera utilisé pour l'appel de la fonction des salles
-	if (*choix_dir){
+	//if (*choix_dir){
 		//Lorsque le joueur choisit une direction
 
 		//Cas où le joueur choisit droite
@@ -41,12 +72,12 @@ void deplacer(salle_t** plateau,persos_s* perso,char* direction,int * choix_dir)
 			modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
 			action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
 		}
-	}
+	/*}
 	else{
 
 		*choix_dir = 1;// Le joueur peut choisir sa direction
 
-	}
+	}*/
 
 }
 
@@ -55,7 +86,7 @@ void regarder(salle_t** plateau,int x,int y){
 	modif_visible_et_etat(plateau,x,y);
 }
 
-void controler(salle_t** plateau, char* direction, int nbRangee, persos_s* p){
+void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 
 	if (nbRangee != 2){
 		int mvt, case_depl;
@@ -130,7 +161,7 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_s* p){
 
 		salle_t tmp;
 
-		// On stock la salle qui va se retrouver de l'autre côté de la rangée
+		// On stocke la salle qui va se retrouver de l'autre côté de la rangée
 		if (*direction == 'h'||*direction == 'b'){
 
 			tmp = plateau[case_depl][nbRangee];

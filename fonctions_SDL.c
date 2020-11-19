@@ -4,6 +4,8 @@
 */
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+
+
 #include "constantes.h"
 #include "fonctions_SDL.h"
 
@@ -106,7 +108,7 @@ void liberer_texture(SDL_Texture * texture){
 }
 
 
-void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_perso,int i){
+void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees_perso, int i){
 
 	int persoW;
 	int persoH;
@@ -123,7 +125,21 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso,persos_s donnees_
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 
-void affiche_actions(SDL_Renderer* renderer,SDL_Texture * action, int numA){
+void modif_taille(SDL_Texture * action, action_t* donnees_actions){
+
+	int actionW = 0;
+	int actionH = 0;
+
+	SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
+	printf("%d",donnees_actions[2].x_pix);
+	for (int i = 0;i<3;i++){
+		donnees_actions[i].hauteur_pix = actionH;
+		donnees_actions[i].largeur_pix = actionW/5;
+	}
+
+}
+
+void affiche_actions(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees_action ,int numA){
 
 	int actionW;
 	int actionH;
@@ -134,9 +150,8 @@ void affiche_actions(SDL_Renderer* renderer,SDL_Texture * action, int numA){
 
 	SDL_Rect SrcR = {(numA+2)*120,0,actionW,actionH};
 
-	int abs = numA%2, ord = numA/2;
-
-	SDL_Rect DestR = {620+abs*120 ,360+ord*120,(actionW/4)*3,(actionH/4)*3}; 
+	
+	SDL_Rect DestR = {donnees_action.x_pix,donnees_action.y_pix,donnees_action.largeur_pix,donnees_action.hauteur_pix}; 
 
 	SDL_RenderCopy(renderer,action, &SrcR, &DestR);
 
@@ -250,7 +265,10 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salles, salle_t s
 	SDL_Rect SrcR = {coord[0]*salleW, coord[1]*salleH, salleW, salleH};
 
 	SDL_Rect DestR = {salle.x*salleW, salle.y*salleH, salleW, salleH};
-
+	free(coord);
 	SDL_RenderCopy(renderer, image_salles, &SrcR, &DestR);
+	
 }
+
+
 
