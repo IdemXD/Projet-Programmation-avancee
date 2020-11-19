@@ -20,9 +20,9 @@ void init_salles(salle_t** pl,salle_t salle){
 
             pl[i][j].visible = 0;
             pl[i][j].state = 0;
-            //if(pl[i][j].type=='C' || pl[i][j].type=='P'){
-            // salle->pres=0   
-            //}
+            if(pl[i][j].type=='C' || pl[i][j].type=='P'){
+            salle->pres=0   
+            }
         }
     }
     pl[2][2].visible = 1;
@@ -114,7 +114,7 @@ void Salle_mortelle(persos_t* player,salle_t* salle){
 
 void Salle_chute(persos_t* perso,salle_t* salle){
    if (salle->pres==0){
-       salle->pres= 1; //L'etat de présence passe à 1 et permet d'enclencher le piège au prochain marqueur de présence
+       salle->pres=1; //L'etat de présence passe à 1 et permet d'enclencher le piège au prochain marqueur de présence
    }else{
     perso->state=0; //Le joueur meurt 
     salle->pres=0;   // La salle reprend son état original
@@ -199,12 +199,10 @@ void Salle_noire(salle_t** pl, persos_t* perso ){
 
 
 void Salle_prison(salle_t** pl, persos_t* perso){
-int temp=0;
-    do
-    {
-        perso->nb_actions=0;
-        temp++;
-    } while (temp<1);
-    temp=0;
+    if (salle->pres=1){
+        perso->nb_actions=2;
+        salle->pres=0
+    }else{
+        perso->nb_actions=0;   
+    }
 }
-    
