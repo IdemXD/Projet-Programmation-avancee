@@ -77,6 +77,7 @@ Marie:
 * Création et gestions du plateau
 * Gestions des fichiers (chargements/sauvegardes)
 * Implementation des sprites_world
+* Affichage SDL de description de salles en jeu 
        
 Chloé: 
 * Gestions des personnages et de leur actions 
@@ -110,6 +111,14 @@ Marie: Optimisation de la fonction créer plateau pour permettre l'integration u
 
 Chloé: Gestions de l'interaction joueur/jeu à travers souris/clavier
 
+
+### Semaine 4 
+
+Medi: Preparation des tests de salles 
+
+Marie: Création d'une branche pour implementer une nouvelle méthode de mise en forme des fichier niveau + adapter création/sauvegarde + verifications 
+
+Chloé: Ajout des boutons cliquable des actions (et possiblement de déplacement) 
 
 
 
