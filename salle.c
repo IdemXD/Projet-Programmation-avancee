@@ -21,7 +21,7 @@ void init_salles(salle_t** pl,salle_t salle){
             pl[i][j].visible = 0;
             pl[i][j].state = 0;
             if(pl[i][j].type=='C' || pl[i][j].type=='P'){
-            salle->pres=0   
+            salle->pres=0;   
             }
         }
     }
@@ -30,7 +30,7 @@ void init_salles(salle_t** pl,salle_t salle){
 
 }
 
-void action_salle(salle_t**  pl,persos_t* joueur,char* type,char dir , char nbr,int x,int y,salle_t* salle){
+void action_salle(salle_t**  pl,persos_t* joueur,char* type,char* dir , char nbr,int x,int y,salle_t* salle){
     switch (*type){
         case 'V':
             Salle_vision(pl,x,y);
@@ -51,7 +51,7 @@ void action_salle(salle_t**  pl,persos_t* joueur,char* type,char dir , char nbr,
             Salle_noire(pl,joueur);
             break;
         case 'O':
-            Salle_controle(pl,dir,nbr);
+            Salle_controle(pl,dir,nbr,joueur);
             break;
         case 'X':
             Salle_vortex(joueur);
@@ -106,7 +106,7 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
 
 void Salle_mortelle(persos_t* player,salle_t* salle){
-    player->state= 0;//Le joueur meurt s'il rentre dans la salle
+    player->state=0;//Le joueur meurt s'il rentre dans la salle
     salle->state=0;
 }
 
@@ -134,7 +134,7 @@ void Salle_vision(salle_t** pl, int x, int y){
 
 
 void Salle_controle(salle_t** pl, char* direction, int nbRangee,persos_t* p){
-    regarder(pl,direction,nbRangee, p);
+   controler(pl,direction,nbRangee, p);
 }
 
 
@@ -198,10 +198,10 @@ void Salle_noire(salle_t** pl, persos_t* perso ){
 
 
 
-void Salle_prison(salle_t** pl, persos_t* perso){
+void Salle_prison(salle_t** pl,salle_t salle,persos_t* perso){
     if (salle->pres=1){
         perso->nb_actions=2;
-        salle->pres=0
+        salle->pres=0;
     }else{
         perso->nb_actions=0;   
     }

@@ -43,18 +43,11 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y);
 
 void Salle_mortelle(persos_t* player,salle_t* salle);
 
-/**
-	*\brief Fonction qui appel à un choix d'action
-*/
-void Salle_vide(salle_t **, persos_s *player, salle_t *salle);
-
-
-
 
 /**
 	*\brief Fonction qui tue un personnage après une activation de la case
 */
-void Salle_chute(persos_t* perso,salle_t* salle;
+void Salle_chute(persos_t* perso,salle_t* salle);
 
 /**
 	*\brief Fonction qui appel la fonction regarder pour une cases sur le plateau
@@ -96,4 +89,7 @@ void Salle_mobile(salle_t** pl,salle_t* salle, persos_t* perso );
 
 
 void Salle_noire(salle_t** pl, persos_t* perso);
+
+
+void Salle_prison(salle_t** pl, persos_t* perso){
 #endif
