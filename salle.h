@@ -23,7 +23,7 @@ struct salle_s
 typedef struct salle_s salle_t;
 
 
-void action_salle(salle_t**  pl,persos_s* joueur,char* type,char dir,char nbr,int x,int y,salle_t* salle);
+void action_salle(salle_t**  pl,persos_t* joueur,char* type,char dir,char nbr,int x,int y,salle_t* salle);
 
 
 void init_salles(salle_t**  pl);
