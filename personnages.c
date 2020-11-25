@@ -18,6 +18,9 @@
  		persos[i].coord_y = 2;
  		persos[i].state = 1 ; //les personnages sont vivants
  		persos[i].nb_actions = 2;
+ 		persos[i].actions = (int *) malloc(sizeof(int)*2);
+ 		persos[i].actions[0] = -1;
+ 		persos[i].actions[1] = -1;
  	}
  	return persos ;
 
@@ -26,5 +29,8 @@
 
  void liberer_persos(persos_t*  persos)
  {
+ 	for (int i=0; i<NB_PERSONNAGES;i++){
+ 		free(persos[i].actions);
+ 	}
  	free(persos);
  }

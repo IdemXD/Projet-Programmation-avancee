@@ -37,7 +37,7 @@ int clic_action(action_t* action, int x_souris,int y_souris);
  * \param direction direction vers laquelle déplacer le personnage
  * \param choix_dir 1 si le joueur peut choisir une direction, 0 sinon
 */
-void deplacer(salle_t** plateau,persos_t* perso,char* direction,int * choix_dir);
+void deplacer(salle_t** plateau,persos_t* perso,char* direction);
 
 
 /**

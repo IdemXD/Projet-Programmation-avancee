@@ -13,7 +13,7 @@
 #include "plateau.h"
 
 
-void init_salles(salle_t** pl,salle_t salle){
+void init_salles(salle_t** pl){
 
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
@@ -21,7 +21,7 @@ void init_salles(salle_t** pl,salle_t salle){
             pl[i][j].visible = 0;
             pl[i][j].state = 0;
             if(pl[i][j].type=='C' || pl[i][j].type=='P'){
-            salle->pres=0;   
+                pl[i][j].pres=0;   
             }
         }
     }
@@ -199,9 +199,9 @@ void Salle_noire(salle_t** pl, persos_t* perso ){
 
 
 void Salle_prison(salle_t** pl,salle_t salle,persos_t* perso){
-    if (salle->pres=1){
+    if (salle.pres=1){
         perso->nb_actions=2;
-        salle->pres=0;
+        salle.pres=0;
     }else{
         perso->nb_actions=0;   
     }

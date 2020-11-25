@@ -12,10 +12,10 @@
 
 action_t * creer_actions(){
 	//allocation mémore
-	action_t* actions = malloc(sizeof(action_t)*3);
+	action_t* actions = malloc(sizeof(action_t)*4);
 
 	//Initialisation des champs
-	for (int i = 0;i < 3;i++){
+	for (int i = 0;i < 4;i++){
 		init_action(&actions[i],i);
 		
 	}
@@ -42,10 +42,7 @@ int clic_action(action_t* action, int x_souris,int y_souris){
 	return sqrt((action->x_pix + (action->largeur_pix/2)- x_souris)*(action->x_pix + (action->largeur_pix/2)- x_souris) + (action->y_pix + (action->hauteur_pix/2)- y_souris)*(action->y_pix + (action->hauteur_pix/2)- y_souris)) <= action->hauteur_pix/2;
 }
 
-void deplacer(salle_t** plateau,persos_t* perso,char* direction,int * choix_dir){
-	// Le plateau sera utilisé pour l'appel de la fonction des salles
-	//if (*choix_dir){
-		//Lorsque le joueur choisit une direction
+void deplacer(salle_t** plateau,persos_t* perso,char* direction){
 
 		//Cas où le joueur choisit droite
 		if(perso->coord_x+1 < 5 && *direction == 'd'){
@@ -64,20 +61,9 @@ void deplacer(salle_t** plateau,persos_t* perso,char* direction,int * choix_dir)
 			perso->coord_y = perso->coord_y - 1 ;	
 		}
 
-		if (*direction != 'n'){//None : aucune action n'a été choisi
-		//Lorsque le joueur a choisit une direction , il ne peut plus choisir de direction,on rend visible la salle (s'il faut) et on fait l'action de la salle
-			*choix_dir = 0;
-			*direction = 'n';
-			
-			modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
-			action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
-		}
-	/*}
-	else{
+		modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
+		action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
 
-		*choix_dir = 1;// Le joueur peut choisir sa direction
-
-	}*/
 
 }
 
@@ -132,7 +118,7 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 					if (p[i].coord_y==case_depl){
 						//Si le personnage est sur une case qui est replacée de l'autre côté de la rangée
 
-						//Deux cas possible, soit direction ='h' et case depl = 0 on a alors [4]<=[0], soit direction ='b' et case depl = 4 on a alors [0]<=[4]; 
+						//Deux cas possibles, soit direction ='h' et case depl = 0 on a alors [4]<=[0], soit direction ='b' et case depl = 4 on a alors [0]<=[4]; 
 						p[i].coord_y = 4 - case_depl ;
 					}
 					else{
@@ -145,7 +131,7 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 				}
 				else {
 					if (p[i].coord_x==case_depl){
-							//Deux cas possible, soit direction ='g' et case depl = 0 on a alors [4]<=[0], soit direction ='d' et case depl = 4 on a alors [0]<=[4]; 
+							//Deux cas possibles, soit direction ='g' et case depl = 0 on a alors [4]<=[0], soit direction ='d' et case depl = 4 on a alors [0]<=[4]; 
 							p[i].coord_x = 4 - case_depl;
 					}
 					else{

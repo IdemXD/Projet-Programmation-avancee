@@ -116,7 +116,7 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees
 	//On demande la largeur et hauteur de l'image
 	SDL_QueryTexture(perso, NULL, NULL, &persoW,&persoH);
 
-	persoW = persoW/5;
+	persoW = persoW/6;
 
 	SDL_Rect SrcR = {i*120,0,persoW,persoH};
 	
@@ -131,29 +131,29 @@ void modif_taille(SDL_Texture * action, action_t* donnees_actions){
 	int actionH = 0;
 
 	SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
-	printf("%d",donnees_actions[2].x_pix);
-	for (int i = 0;i<3;i++){
+	for (int i = 0;i<4;i++){
 		donnees_actions[i].hauteur_pix = actionH;
-		donnees_actions[i].largeur_pix = actionW/5;
+		donnees_actions[i].largeur_pix = actionW/6;
 	}
 
 }
 
 void affiche_actions(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees_action ,int numA){
+	if (donnees_action.etat){ //On affiche seulement si la salle est visible
+		int actionW;
+		int actionH;
 
-	int actionW;
-	int actionH;
+		SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
 
-	SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
+		actionW = actionW/6;
 
-	actionW = actionW/5;
+		SDL_Rect SrcR = {(numA+2)*120,0,actionW,actionH};//Les deux premiers sprites sont ceux des personnages
 
-	SDL_Rect SrcR = {(numA+2)*120,0,actionW,actionH};
+		
+		SDL_Rect DestR = {donnees_action.x_pix,donnees_action.y_pix,donnees_action.largeur_pix,donnees_action.hauteur_pix}; 
 
-	
-	SDL_Rect DestR = {donnees_action.x_pix,donnees_action.y_pix,donnees_action.largeur_pix,donnees_action.hauteur_pix}; 
-
-	SDL_RenderCopy(renderer,action, &SrcR, &DestR);
+		SDL_RenderCopy(renderer,action, &SrcR, &DestR);
+	}
 
 }
 
