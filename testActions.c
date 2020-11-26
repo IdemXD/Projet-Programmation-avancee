@@ -91,39 +91,18 @@ int main(int argc, char* argv[]) {
 
 
 
-
+	char direction;
 	printf("\n\n##########TEST DEPLACER##########\n");
 
-	printf("\nLe joueur n'a pas encore choisit de direction\n");
-	int choix_dir = 0;
-	char direction = 'n';
-
-	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
-	deplacer(pl,&p[0],&direction,&choix_dir);
-
-	if (choix_dir){
-		printf("Le joueur peut choisir la direction.\n");
-	}else{
-		printf("Le joueur ne peut pas choisir la direction.\n");
-	}
-	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
-
-
-
 	printf("\nLe joueur choisit la droite\n");
-	choix_dir = 1;
 	direction = 'd';
 	printf("direction = %c\n",direction);
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 
-	deplacer(pl,&p[0],&direction,&choix_dir);
+	deplacer(pl,&p[0],&direction);
 	printf("direction = %c\n",direction);
 
-	if (choix_dir){
-		printf("Le joueur peut choisir la direction.\n");
-	}else{
-		printf("Le joueur ne peut pas choisir la direction.\n");
-	}
+
 
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 
@@ -135,19 +114,13 @@ int main(int argc, char* argv[]) {
 
 
 	printf("\nLe joueur choisit le haut\n");
-	choix_dir = 1;
 	direction = 'h';
 	printf("direction = %c\n",direction);
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 
-	deplacer(pl,&p[0],&direction,&choix_dir);
+	deplacer(pl,&p[0],&direction);
 	printf("direction = %c\n",direction);
 
-	if (choix_dir){
-		printf("Le joueur peut choisir la direction.\n");
-	}else{
-		printf("Le joueur ne peut pas choisir la direction.\n");
-	}
 
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 
@@ -158,25 +131,23 @@ int main(int argc, char* argv[]) {
 	affichage_joueur(p);
 
 	printf("\nLe joueur choisit le bas\n");
-	choix_dir = 1;
 	direction = 'b';
-	deplacer(pl,&p[0],&direction,&choix_dir);
+	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
+	deplacer(pl,&p[0],&direction);
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
 
 	printf("\nLe joueur choisit la gauche\n");
-	choix_dir = 1;
 	direction = 'g';
-	deplacer(pl,&p[0],&direction,&choix_dir);
+	deplacer(pl,&p[0],&direction);
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
 
 	p[0].coord_x = 2;
 	p[0].coord_y = 3;
-	choix_dir = 1;
 	direction = 'b';
-	printf("Avant de se déplacer, état du joueur : %d\n",p[0].state);
-	deplacer(pl,&p[0],&direction,&choix_dir);
+	printf("Avant de se déplacer, état du joueur : %d et position : (%d,%d)\n",p[0].state,p[0].coord_x,p[0].coord_y);
+	deplacer(pl,&p[0],&direction);
 	printf("Après s'être déplacé, état du joueur : %d\n",p[0].state);
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);

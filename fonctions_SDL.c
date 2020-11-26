@@ -118,10 +118,9 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees
 
 	persoW = persoW/6;
 
-	SDL_Rect SrcR = {i*120,0,persoW,persoH};
+	SDL_Rect SrcR = {i*persoW,0,persoW,persoH};
 	
-	SDL_Rect DestR = {105*donnees_perso.coord_x + i*55,119*donnees_perso.coord_y,persoW,persoH}; //105,55,119 sont des valeurs arbitraires seulement pour avoir un meilleur affichage
-
+	SDL_Rect DestR = {persoW*donnees_perso.coord_x + i*55,persoW*donnees_perso.coord_y,persoW,persoH}; 
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 

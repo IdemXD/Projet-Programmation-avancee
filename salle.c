@@ -31,6 +31,7 @@ void init_salles(salle_t** pl){
 }
 
 void action_salle(salle_t**  pl,persos_t* joueur,char* type,char* dir , char nbr,int x,int y,salle_t* salle){
+
     switch (*type){
         case 'V':
             Salle_vision(pl,x,y);
@@ -51,7 +52,7 @@ void action_salle(salle_t**  pl,persos_t* joueur,char* type,char* dir , char nbr
             Salle_noire(pl,joueur);
             break;
         case 'O':
-            Salle_controle(pl,dir,nbr,joueur);
+            Salle_controle(pl,dir,x,joueur);
             break;
         case 'X':
             Salle_vortex(joueur);
@@ -148,10 +149,9 @@ void Salle_vortex(persos_t* perso){
 void Salle_tunnel(salle_t** pl, persos_t* perso ){
      for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
-            if ( pl[i][j].type == 'T' && perso->coord_x != pl[i][j].x && perso->coord_y != pl[i][j].y){
-                perso->coord_x=i;
-                perso->coord_y=j;             
-
+            if (pl[i][j].type == 'T' && perso->coord_x != pl[i][j].x && perso->coord_y != pl[i][j].y && pl[perso->coord_y][perso->coord_x].state){
+                perso->coord_x=j;
+                perso->coord_y=i;
             }
         }
      }

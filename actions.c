@@ -43,7 +43,6 @@ int clic_action(action_t* action, int x_souris,int y_souris){
 }
 
 void deplacer(salle_t** plateau,persos_t* perso,char* direction){
-
 		//Cas où le joueur choisit droite
 		if(perso->coord_x+1 < 5 && *direction == 'd'){
 			perso->coord_x = perso->coord_x + 1 ;
@@ -60,11 +59,11 @@ void deplacer(salle_t** plateau,persos_t* perso,char* direction){
 		else if (perso->coord_y-1 >= 0 && *direction == 'h'){
 			perso->coord_y = perso->coord_y - 1 ;	
 		}
-
+		
 		modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
-		action_salle(plateau,perso,&plateau[perso->coord_x][perso->coord_y].type,0,0,0,0,&plateau[perso->coord_x][perso->coord_y]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
-
-
+		char c = 'g'; //Variable à enléver quand action_salle sera modifié
+		action_salle(plateau,perso,&plateau[perso->coord_y][perso->coord_x].type,&c,'g',0,0,&plateau[perso->coord_y][perso->coord_x]);// Les 3 derniers paramètres sont seulement là pour utiliser la fonction
+		
 }
 
 void regarder(salle_t** plateau,int x,int y){
@@ -76,7 +75,7 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 
 	if (nbRangee != 2){
 		int mvt, case_depl;
-
+		
 		/*
 			Dans le cas où on déplace vers le haut et la gauche, on commence par enregistrer la case 0.
 			Ensuite, on déplace chaque case vers le haut ou la gauche du rang 0 à 3([0]<=[1]...[3]<=[4])
@@ -87,15 +86,14 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 			Ensuite, on déplace chaque case vers le haut ou la gauche du rang 4 à 1 ([4]<=[3]...[1]<=[0])
 			La case qui va recevoir tmp est la première case de la rangée ([0]<=tmp soit [4] précédent)
 
-			sens_depl_s?mvt permet de déterminer l'indice de la salle déplacé (par ex : pour d et b, [2]<=[1] 1 = 2 + mvt = 2 - 1)
+			mvt permet de déterminer l'indice de la salle déplacé (par ex : pour d et b, [2]<=[1] 1 = 2 + mvt = 2 - 1)
 
 		*/
-
 		switch (*direction)
 		{
 			case 'h' : 
 			case 'g' :
-
+				
 				case_depl = 0;
 				mvt = 1;
 				break;
@@ -108,7 +106,6 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 				break;
 		}
 
-		
 		for (int i = 0 ;i<NB_PERSONNAGES;i++){
 			//Le joueur se trouve sur la rangée déplacée
 			if ((p[i].coord_x==nbRangee && (*direction=='h'||*direction == 'b'))||(p[i].coord_y==nbRangee)&&(*direction=='g'||*direction == 'd')){
@@ -175,6 +172,7 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 		else {
 			plateau[nbRangee][case_depl] = tmp;
 		}
+		
 		
 	}
 

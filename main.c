@@ -126,9 +126,12 @@ int main(int argc, char *argv[]){
 
 					if (etape == 1){
 
-						while (nb_action<4 && !trouve){//On détermine si le joueur clique sur un bouton d'actions
+						while (nb_action<4 && actions[nb_action].etat && !trouve){//On détermine si le joueur clique sur un bouton d'actions
 							trouve = clic_action(&actions[nb_action],evenements.button.x,evenements.button.y);
 							nb_action++;
+						}
+						if (!trouve){
+							nb_action = 0;
 						}
 					}
 
@@ -142,6 +145,9 @@ int main(int argc, char *argv[]){
 		if (trouve){
 			nb_action--;
 
+			joueur[tour_perso].actions[tour_action] = nb_action;//On enregistre le numéro de l'action choisie
+			printf("%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
+			
 			if (tour_action == 0){//Lorsque le joueur a choisi la première action
 
 				tour_action++;
@@ -169,7 +175,6 @@ int main(int argc, char *argv[]){
 			}
 
 
-			joueur[tour_perso].actions[tour_perso] = nb_action;//On enregistre le numéro de l'action choisie
 			trouve = 0;
 			nb_action = 0;
 
@@ -193,12 +198,16 @@ int main(int argc, char *argv[]){
 				controler(salles,&active_direction,rangee,&joueur[tour_perso]);
 
 			}
+			printf("%d  %d  %d %d\n",tour_perso,tour_action,joueur[tour_perso].coord_x,joueur[tour_perso].coord_y);
 
 
 			if (tour_perso == NB_PERSONNAGES-1){//
 
 				if (tour_action == 1){//On a appliqué la dernière action du dernier joueur
 					etape--;
+					actions[0].etat = 1;//On affiche plus les boutons d'actions à l'écran
+					actions[1].etat = 1;
+					actions[2].etat = 1;
 					tour_action = 0;
 				}
 				else{// On a appliqué la premère action de chaque personnage
