@@ -1,4 +1,3 @@
-
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,9 +8,9 @@
 #include "actions.h"
 
 int main(int argc, char *argv[]){
-	SDL_Window* fenetre;  
+	SDL_Window* fenetre;
 	// Déclaration de la fenêtre
-	SDL_Event evenements; 
+	SDL_Event evenements;
 	// Événements liés à la fenêtre
 	SDL_Renderer* ecran;
 	persos_t* joueur;
@@ -24,21 +23,21 @@ int main(int argc, char *argv[]){
 	int terminer = 0;
 	int choix_action = 1; // Si le joueur choisit son action
 	int etape = 1; //etape 1 : choix de l'action
-	char active_direction = 'n'; // définit quel direction choisit le joueur 
+	char active_direction = 'n'; // définit quel direction choisit le joueur
 	int nb_action = 0, trouve = 0, tour_perso = 0,tour_action = 0;
 
-	if(SDL_Init(SDL_INIT_VIDEO) < 0) 
+	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	// Initialisation de la SDL
 	{
 		printf("Erreur d’initialisation de la SDL: %s",SDL_GetError());
 		SDL_Quit();
 		return EXIT_FAILURE;
 	}
-	
+
 	// Créer la fenêtre
 	fenetre = SDL_CreateWindow("Freedom", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 900, 600, SDL_WINDOW_RESIZABLE);
-	
-	if(fenetre == NULL) 
+
+	if(fenetre == NULL)
 		// En cas d’erreur
 	{
 		printf("Erreur de la creation d’une fenetre: %s",SDL_GetError());
@@ -48,7 +47,7 @@ int main(int argc, char *argv[]){
 
 
 	// Mettre en place un contexte de rendu de l’écran
-	
+
 	ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
 
 	init_textures(&textures,ecran);
@@ -56,16 +55,16 @@ int main(int argc, char *argv[]){
 	actions = creer_actions();
 	actions[3].etat = 0;
 
-	
+
 	modif_taille(textures.sprites_elements,actions);
-	
+
 	// Boucle principale
 	while(!terminer)
 	{
 
 		SDL_RenderClear(ecran);
 		SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
-		
+
 
 		affichage_plateau(ecran,textures,salles);
 
@@ -81,14 +80,14 @@ int main(int argc, char *argv[]){
 			switch(evenements.type)
 			{
 				case SDL_QUIT:
-					terminer = 1; 
+					terminer = 1;
 					break;
 				case SDL_KEYDOWN:
 					switch(evenements.key.keysym.sym)
 					{
 						case SDLK_ESCAPE:
 						case SDLK_q:
-							terminer = 1;  
+							terminer = 1;
 							break;
 
 						case SDLK_DOWN:
@@ -114,7 +113,7 @@ int main(int argc, char *argv[]){
 							break;
 
 						case SDLK_RIGHT:
-							if(etape == 2 && (joueur[tour_perso].actions[tour_action] == 1 || joueur[tour_perso].actions[tour_action] == 2)){ 
+							if(etape == 2 && (joueur[tour_perso].actions[tour_action] == 1 || joueur[tour_perso].actions[tour_action] == 2)){
 								active_direction = 'd';
 							}
 
@@ -123,28 +122,28 @@ int main(int argc, char *argv[]){
 
 					}
 					break;
-				case SDL_MOUSEBUTTONDOWN: 
+				case SDL_MOUSEBUTTONDOWN:
 
 					if (etape == 1){
-						
+
 						while (nb_action<4 && !trouve){//On détermine si le joueur clique sur un bouton d'actions
 							trouve = clic_action(&actions[nb_action],evenements.button.x,evenements.button.y);
 							nb_action++;
 						}
 					}
-					
+
 					if (etape == 2 && joueur[tour_perso].actions[tour_perso] == 0){//Le joueur a choisi "regarder"
 						//Déterminer l'emplacement de la souris dans les cases
 					}
 					break;
-						
+
 			}
-		
+
 		if (trouve){
 			nb_action--;
 
 			if (tour_action == 0){//Lorsque le joueur a choisi la première action
-				
+
 				tour_action++;
 				actions[3].etat = 1;//Mettre "aucune action" en visible pour la seconde action
 			}
@@ -207,7 +206,7 @@ int main(int argc, char *argv[]){
 				}
 				tour_perso = 0;
 			}
-			else{ 
+			else{
 				tour_perso++;
 			}
 			active_direction = 'n';//None : aucune action n'a été choisi
