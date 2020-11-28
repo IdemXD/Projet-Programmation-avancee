@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
 	action_t* actions;
 	ressources textures;
 
-	salle_t** salles = creer_plateau();
+	salle_t** salles = charger_plateau();
 	init_salles(salles);
 
 	int terminer = 0;
@@ -128,13 +128,13 @@ int main(int argc, char *argv[]){
 						clic_action(actions,&nb_action,&trouve,evenements.button.x,evenements.button.y);
 
 					}
-					
-					if (etape == 2 && joueur[tour_perso].actions[tour_action] == 0){//Le joueur a choisi "regarder"
-						
 
-						int x,y; 
+					if (etape == 2 && joueur[tour_perso].actions[tour_action] == 0){//Le joueur a choisi "regarder"
+
+
+						int x,y;
 						pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
-						
+
 						regarder(salles,x,y);
 						change_action(actions,&tour_action,&tour_perso,&etape);
 						printf("AA%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
@@ -149,7 +149,7 @@ int main(int argc, char *argv[]){
 			printf("Action et J :%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
 			change_perso(actions,joueur,&tour_action,&tour_perso,&etape,&nb_action);
 			trouve = 0;
-			
+
 		}
 
 		if (active_direction!='n'){

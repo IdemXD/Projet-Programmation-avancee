@@ -24,7 +24,7 @@ typedef struct textures_s ressources;
 
 /**
 	* \brief Charge les textures
-	* \param textures l'ensemble des textures 
+	* \param textures l'ensemble des textures
 	* \param renderer Surface de l'écran de jeu
 */
 
@@ -32,7 +32,7 @@ void init_textures(ressources * textures, SDL_Renderer* renderer);
 
 /**
 	* \brief Libère l'ensemble des textures utilisées
-	* \param textures l'ensemble des textures 
+	* \param textures l'ensemble des textures
 */
 
 void liberer_textures(ressources * textures);
@@ -46,7 +46,7 @@ void liberer_textures(ressources * textures);
 void liberer_texture(SDL_Texture * texture);
 
 /**
-	* \brief Crée une texture à partir d'une image 
+	* \brief Crée une texture à partir d'une image
 	* \param nomFichier Chemin vers l'image qu'on veut importer
 	* \param renderer Surface de l'écran de jeu
 	* \return la texture de l'image
@@ -72,7 +72,7 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 	* \param renderer Surface de l'écran de jeu
 	* \param font police d'écriture
 	* \param couleur couleur du message affiché
-	* \return la texture 
+	* \return la texture
 */
 
 SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font *font, SDL_Color color) ;
@@ -109,4 +109,12 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture* image_salle, salle_t sal
 */
 
 int * texture_salle (salle_t salle);
+
+/**
+    * \brief Affiche le plateau sur l'ecran de jeu
+    * \param renderer Surface de l'écran de joueur
+    * \param texture_salles Ensemble des images correspondants aux salles
+    * \param pl Tableau 2D representant le plateau
+*/
+void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl);
 #endif

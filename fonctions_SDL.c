@@ -119,8 +119,8 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees
 	persoW = persoW/6;
 
 	SDL_Rect SrcR = {i*persoW,0,persoW,persoH};
-	
-	SDL_Rect DestR = {persoW*donnees_perso.coord_x + i*55,persoW*donnees_perso.coord_y,persoW,persoH}; 
+
+	SDL_Rect DestR = {persoW*donnees_perso.coord_x + i*55,persoW*donnees_perso.coord_y,persoW,persoH};
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 
@@ -148,8 +148,8 @@ void affiche_action(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees
 
 		SDL_Rect SrcR = {(numA+2)*120,0,actionW,actionH};//Les deux premiers sprites sont ceux des personnages
 
-		
-		SDL_Rect DestR = {donnees_action.x_pix,donnees_action.y_pix,donnees_action.largeur_pix,donnees_action.hauteur_pix}; 
+
+		SDL_Rect DestR = {donnees_action.x_pix,donnees_action.y_pix,donnees_action.largeur_pix,donnees_action.hauteur_pix};
 
 		SDL_RenderCopy(renderer,action, &SrcR, &DestR);
 	}
@@ -160,25 +160,25 @@ int * texture_salle (salle_t salle){
 	//Possibles modifications  entre affiche_salle et texture_salle
 
 
-	int num_s = 0; //numéro du sprite de la salle sur le fichier des sprites 
+	int num_s = 0; //numéro du sprite de la salle sur le fichier des sprites
 	if (salle.visible == 1)
     	{
 
         // Selon le char definissant le type de la salle, on associe la texture correspondante
-    	
+
     	while (salle.type != LETTRES_SALLES[num_s]){
     		num_s++;
     	}
- 		
+
     	/*
         switch (salle.type)
         {
-            
+
             case 'R':
             // Salle 25
                 num_s = 0;
                 break;
- 
+
             case 'V':
             // Salle vision
                 num_s = 1;
@@ -248,7 +248,6 @@ int * texture_salle (salle_t salle){
 
 }
 
-
 void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salles, salle_t salle){
 
 	int salleW;
@@ -266,8 +265,17 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salles, salle_t s
 	SDL_Rect DestR = {salle.x*salleW, salle.y*salleH, salleW, salleH};
 	free(coord);
 	SDL_RenderCopy(renderer, image_salles, &SrcR, &DestR);
-	
+
 }
 
-
-
+void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl)
+{
+    // On parcourt le plateau case par case
+    for(int i = 0; i < TAILLE_PL; i++)
+    {
+        for (int j = 0; j < TAILLE_PL; j++)
+        {
+            affiche_salle(renderer, texture_salles.sprites_salles, pl[i][j]);
+        }
+    }
+}

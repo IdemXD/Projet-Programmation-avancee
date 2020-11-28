@@ -8,7 +8,6 @@
 #define PLATEAU_H
 
 #include "constantes.h"
-#include "fonctions_SDL.h"
 #include "actions.h"
 #include "plateau.h"
 #include "salle.h"
@@ -21,27 +20,25 @@
   * \param tab_length longueur du tableau
   * \return 1 si l'element est dans le tableau, 0 sinon
 */
-int is_in(int element,const char* tab, int tab_length);
+int is_in(char element,const char* tab, int tab_length);
 
 /**
-  * \brief Création du tableau de structures 2D
+  * \brief Creation et allocation d'un tableau de structures 2D
   * \return Pointeur du tableau créé
 */
 salle_t** creer_plateau();
+
+/**
+  * \brief Creation et remplissage d'un plateau en tableau 2D
+  * \return Pointeur du tableau créé
+*/
+salle_t** charger_plateau();
 
 /**
   * \brief Affichage du tableau résultant de la création du plateau
   * \param pl Tableau 2D representant le plateau
 */
 void affichage_plateau_brut(salle_t** pl);
-
-/**
-    * \brief Affiche le plateau sur l'ecran de jeu
-    * \param renderer Surface de l'écran de joueur
-    * \param texture_salles Ensemble des images correspondants aux salles
-    * \param pl Tableau 2D representant le plateau
-*/
-void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl);
 
 /**
     * \brief Sauvegarde le plateau dans un fichier
