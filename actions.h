@@ -28,7 +28,11 @@ void init_action(action_t* action,int numA);
 
 void affiche_donnees_action(action_t action);
 
-int clic_action(action_t* action, int x_souris,int y_souris);
+int est_choisie(action_t* action, int x_souris,int y_souris);
+
+void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y);
+
+void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action);
 
 /**
  * \brief Permet au personnage de se déplacer sur une des salles adjacentes
@@ -39,7 +43,7 @@ int clic_action(action_t* action, int x_souris,int y_souris);
 */
 void deplacer(salle_t** plateau,persos_t* perso,char* direction);
 
-
+void pixToSalle(int x_pix,int y_pix,int* x, int* y);
 /**
  * \brief Permet au personnage de regarder dans n'importe quelle salle
  * \param plateau le tableau des salles
@@ -56,4 +60,9 @@ void regarder(salle_t** plateau,int x,int y);
  * \param p les personnages
 */
 void controler(salle_t** plateau, char* direction, int nbRangee,persos_t* p);
+
+void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action);
+
+void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape);
+
 #endif

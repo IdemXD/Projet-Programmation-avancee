@@ -124,12 +124,8 @@ void Salle_chute(persos_t* perso,salle_t* salle){
 
 }
 
-
-
-
-
 void Salle_vision(salle_t** pl, int x, int y){
-        regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
+    regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
 }
 
 

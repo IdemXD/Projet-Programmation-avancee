@@ -137,7 +137,7 @@ void modif_taille(SDL_Texture * action, action_t* donnees_actions){
 
 }
 
-void affiche_actions(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees_action ,int numA){
+void affiche_action(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees_action ,int numA){
 	if (donnees_action.etat){ //On affiche seulement si la salle est visible
 		int actionW;
 		int actionH;

@@ -80,7 +80,8 @@ SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font 
 
 void modif_taille(SDL_Texture * action,action_t* donnees_action);
 
-void affiche_actions(SDL_Renderer* renderer,SDL_Texture * actions,action_t donnees_action ,int numA);
+
+void affiche_action(SDL_Renderer* renderer,SDL_Texture * actions,action_t donnees_action ,int numA);
 
 /**
 	* \brief Affiche le sprite d'un personnage
