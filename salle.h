@@ -25,8 +25,13 @@ typedef struct salle_s salle_t;
 
 void action_salle(salle_t**  pl,persos_t* joueur,char* type,char* dir , char nbr,int x,int y,salle_t* salle);
 
-
-void init_salles(salle_t** pl);
+/**
+	*\brief Initialise les caractéristique des salles
+    *\param pl plateau considéré 
+	*\param n indice du parcours du fichier niveau
+    *\param curseur permet d'affecter la lettre correspondante à la salle
+*/
+void init_salles(salle_t** pl, int n, char curseur);
 
 /**
 	*\brief Actualise la visibilité de la salle aux coordonnées (x,y) et son état

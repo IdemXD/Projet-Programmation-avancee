@@ -18,7 +18,6 @@ int main(int argc, char *argv[]){
 	ressources textures;
 
 	salle_t** salles = charger_plateau();
-	init_salles(salles);
 
 	int terminer = 0;
 	int choix_action = 1; // Si le joueur choisit son action

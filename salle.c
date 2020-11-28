@@ -13,21 +13,22 @@
 #include "plateau.h"
 
 
-void init_salles(salle_t** pl){
+void init_salles(salle_t** pl, int n, char curseur){
 
-    for (int i = 0 ; i<5 ; i++){
-        for (int j =0 ; j<5 ; j++){
-
-            pl[i][j].visible = 0;
-            pl[i][j].state = 0;
-            if(pl[i][j].type=='C' || pl[i][j].type=='P'){
-                pl[i][j].pres=0;   
-            }
-        }
+    int i = n/TAILLE_PL;
+    int j = n%TAILLE_PL;
+    pl[i][j].visible = 0;
+    pl[i][j].state = 0;
+    pl[i][j].type = curseur; // Le charactère de la salle correspondate est affecté dans la struct
+    pl[i][j].x = j ; // initialisation des coordonées des salles
+    pl[i][j].y = i ;
+    if(pl[i][j].type=='C' || pl[i][j].type=='P'){
+        pl[i][j].pres=0;
     }
-    pl[2][2].visible = 1;
-    pl[2][2].state = 1;
-
+    if (i = j = 2){
+        pl[2][2].visible = 1;
+        pl[2][2].state = 1;
+    }
 }
 
 void action_salle(salle_t**  pl,persos_t* joueur,char* type,char* dir , char nbr,int x,int y,salle_t* salle){
@@ -87,7 +88,7 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 
                         trouve = 1;
                     }
-                
+
                     j++;
                 }
                 i++;
@@ -117,10 +118,10 @@ void Salle_chute(persos_t* perso,salle_t* salle){
    if (salle->pres==0){
        salle->pres=1; //L'etat de présence passe à 1 et permet d'enclencher le piège au prochain marqueur de présence
    }else{
-    perso->state=0; //Le joueur meurt 
+    perso->state=0; //Le joueur meurt
     salle->pres=0;   // La salle reprend son état original
    }
-   
+
 
 }
 
@@ -184,10 +185,10 @@ void Salle_mobile(salle_t** pl,salle_t* salle, persos_t* perso ){
 void Salle_noire(salle_t** pl, persos_t* perso ){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){
-            if(perso->coord_x==j && perso->coord_y==i){        
-                pl[i][j].visible=0;                            
+            if(perso->coord_x==j && perso->coord_y==i){
+                pl[i][j].visible=0;
             }                                           //rend toutes les salles non visible
-                             
+
         }
     }
 }
@@ -199,6 +200,6 @@ void Salle_prison(salle_t** pl,salle_t salle,persos_t* perso){
         perso->nb_actions=2;
         salle.pres=0;
     }else{
-        perso->nb_actions=0;   
+        perso->nb_actions=0;
     }
 }

@@ -72,9 +72,7 @@ salle_t** charger_plateau()
                         char_curseur = fgetc(plateau) ; // saut de ligne, on prend le char suivant
                     }
 
-                    pl[i/TAILLE_PL][i%TAILLE_PL].type = char_curseur; // Le charactère de la salle correspondate est affecté dans la struct
-                    pl[i/TAILLE_PL][i%TAILLE_PL].x = i%TAILLE_PL ; // initialisation des coordonées des salles
-                    pl[i/TAILLE_PL][i%TAILLE_PL].y = i/TAILLE_PL ;
+                    init_salles(pl, i, char_curseur); 
 
                     i++; }
             /**} else { // Trop de chars dans tableau
