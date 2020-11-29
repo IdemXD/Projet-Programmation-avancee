@@ -35,12 +35,6 @@ salle_t** creer_plateau();
 salle_t** charger_plateau();
 
 /**
-  * \brief Affichage du tableau résultant de la création du plateau
-  * \param pl Tableau 2D representant le plateau
-*/
-void affichage_plateau_brut(salle_t** pl);
-
-/**
     * \brief Sauvegarde le plateau dans un fichier
     * \param pl Tableau 2D representant le plateau
 */

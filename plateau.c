@@ -95,19 +95,6 @@ salle_t** charger_plateau()
     //return pl;
 }
 
-void affichage_plateau_brut(salle_t** pl)
-{
-    // On parcourt le plateau case par case
-    for(int i = 0; i < TAILLE_PL; i++)
-    {
-        for (int j = 0; j < TAILLE_PL; j++)
-        {
-            printf("%c", pl[i][j].type); // affichage du char de la case
-        }
-        printf("\n"); // saut à la ligne
-    }
-}
-
 void sauvegarder_plateau(salle_t** pl)
 {
     // Création du fichier qui va contenir la sauvegarde
