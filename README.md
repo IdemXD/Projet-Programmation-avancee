@@ -121,6 +121,15 @@ Marie: Création d'une branche pour implementer une nouvelle méthode de mise en
 Chloé: Ajout des boutons cliquable des actions (et possiblement de déplacement) 
 
 
+### Semaine 5
+
+Medi: Modification des fonctions salles après implementations des tests 
+
+Marie: Factorisation des fcts plateau.c, mise en place de 2 nouveaux plateaux avc demande de niveau, ajouts fcts testPlateau
+
+Chloé: Organisation du main, corrections de bugs liés à l'implementation des boutons cliquable 
+
+
 
 
 
