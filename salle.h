@@ -27,7 +27,7 @@ void action_salle(salle_t**  pl,persos_t* joueur,char* type,char* dir , char nbr
 
 /**
 	*\brief Initialise les caractéristique des salles
-    *\param pl plateau considéré 
+    *\param pl plateau considéré
 	*\param n indice du parcours du fichier niveau
     *\param curseur permet d'affecter la lettre correspondante à la salle
 */

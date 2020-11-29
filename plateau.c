@@ -5,9 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "constantes.h"
 #include "plateau.h"
-
 
 int is_in(char element,const char *tab, int tab_length)
 {
@@ -42,13 +40,11 @@ salle_t** charger_plateau()
      // Ouverture du fichier contenant une representation du plateau
      FILE* plateau = fopen("plateau1.txt","r") ;
 
-     // Curseur de lecture du fichier
-     int char_curseur = 0 ;
+     int char_curseur = 0 ; // Curseur de lecture du fichier
 
      // Flag permettant de s'assurer qu'on ne prend en compts que des lettres reconnu par le jeu
      int flag_char = 0 ;
 
-     // Indices
      int i = 0 ;
 
      if (plateau == NULL) perror("Erreur lors de l'ouverture du plateau") ;
@@ -72,7 +68,7 @@ salle_t** charger_plateau()
                         char_curseur = fgetc(plateau) ; // saut de ligne, on prend le char suivant
                     }
 
-                    init_salles(pl, i, char_curseur); 
+                    init_salles(pl, i, char_curseur);
 
                     i++; }
             /**} else { // Trop de chars dans tableau
