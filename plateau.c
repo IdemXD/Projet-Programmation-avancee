@@ -51,12 +51,7 @@ salle_t** charger_plateau()
      else {
          do
          {
-
-             // #################### -- Travaux sur verif nb char fichier > 25 en cours -- ##########################
-             //printf("i = %d, char_lu = %c, flag_char =%d \n", i, char_curseur, flag_char);
-             //if (!(i/5 >= TAILLE_PL)) {
-             //if (i < TAILLE_PL*TAILLE_PL) {
-
+                // Vérification nb char fichier > 25 pas assuré, en cours de travail 
                 char_curseur = fgetc(plateau) ; // Utilisation de fgetc avance le curseur
 
                 if ((!is_in(char_curseur, LETTRES_SALLES, 12)) && (char_curseur != '\n'))
@@ -71,28 +66,13 @@ salle_t** charger_plateau()
                     init_salles(pl, i, char_curseur);
 
                     i++; }
-            /**} else { // Trop de chars dans tableau
-                printf("i/5 = %d \n", i/5);
-                printf("--- Entrée dans le else flag_char du do \n");
-                printf("char_curseur = %c \n", char_curseur);
-                printf("EOF = %c \n", EOF);
-                flag_char = 1;
-            }*/
+
         } while ((char_curseur != EOF) && !(flag_char) && (i < 25)); // EOF est le character de fin de fichier
          fclose(plateau);
 
-         //printf("Valeur de i avant Flag zone i= %d \n",i);
-         if ((flag_char) || (i != TAILLE_PL*TAILLE_PL)) {
-             /*printf("Flag_char = %d, Taille_carre = %d, i = %d \n", flag_char, TAILLE_PL*TAILLE_PL, i);
-             perror("Erreur lors du remplissage du plateau \n") ;
-             printf("Flag zone \n");*/
-             return pl;
-         }  else {
-             //printf("Safe zone \n");
-             return pl;
-         }
-    }
-    //return pl;
+         if ((flag_char) || (i != TAILLE_PL*TAILLE_PL)) return pl;
+         else return pl;
+
 }
 
 void sauvegarder_plateau(salle_t** pl)

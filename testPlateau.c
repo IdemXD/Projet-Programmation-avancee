@@ -52,7 +52,7 @@ void affichage_plateau_caracteristique(salle_t** pl)
 
 
 int main(int argc, char *argv[]){
-    /* Fonction d'exposition detaillées des salles*/
+    /* Fonctions d'exposition detaillées des salles*/
     salle_t** pl = charger_plateau();
     affichage_plateau_lettre(pl);
     printf("\n");
@@ -64,4 +64,7 @@ int main(int argc, char *argv[]){
     printf("\n");
 
     free_plateau(pl);
+
+    /* Fonctions de vérification d'intégrité des fichiers */
+    // A venir
 }
