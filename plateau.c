@@ -32,13 +32,13 @@ salle_t** creer_plateau()
     return tab;
 }
 
-salle_t** charger_plateau()
+salle_t** charger_plateau(char* niveau)
 {
      // Creation et allocation d'un plateau à deux dimensions
      salle_t** pl = creer_plateau() ;
 
      // Ouverture du fichier contenant une representation du plateau
-     FILE* plateau = fopen("plateau1.txt","r") ;
+     FILE* plateau = fopen(niveau,"r") ;
 
      int char_curseur = 0 ; // Curseur de lecture du fichier
 
@@ -51,7 +51,7 @@ salle_t** charger_plateau()
      else {
          do
          {
-                // Vérification nb char fichier > 25 pas assuré, en cours de travail 
+                // Vérification nb char fichier > 25 pas assuré, en cours de travail
                 char_curseur = fgetc(plateau) ; // Utilisation de fgetc avance le curseur
 
                 if ((!is_in(char_curseur, LETTRES_SALLES, 12)) && (char_curseur != '\n'))
@@ -72,7 +72,13 @@ salle_t** charger_plateau()
 
          if ((flag_char) || (i != TAILLE_PL*TAILLE_PL)) return pl;
          else return pl;
+     }
+}
 
+void preparation_niveau(char niv[])
+{
+    printf( "Tapez le nom -exact- d'un fichier niveau parmi: \nplateau1.txt\nplateau2.txt\nplateau3.txt\n\nVotre choix: " );
+    scanf( "%s", niv );
 }
 
 void sauvegarder_plateau(salle_t** pl)

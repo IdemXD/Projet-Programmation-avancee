@@ -30,9 +30,15 @@ salle_t** creer_plateau();
 
 /**
   * \brief Creation et remplissage d'un plateau en tableau 2D
+  * \param niveau le nom du niveau à charger
   * \return Pointeur du tableau créé
 */
-salle_t** charger_plateau();
+salle_t** charger_plateau(char* niveau);
+
+/**
+    * \brief Demande au joueur le niveau voulu
+*/
+void preparation_niveau(char niv[]);
 
 /**
     * \brief Sauvegarde le plateau dans un fichier

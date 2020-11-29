@@ -52,8 +52,12 @@ void affichage_plateau_caracteristique(salle_t** pl)
 
 
 int main(int argc, char *argv[]){
+    /* Mise en place du plateau */
+    char niveau[12];
+	preparation_niveau(niveau); // Demande au joueur du niveau
+	salle_t** pl = charger_plateau(niveau); // Creation, initialisation plateau
+
     /* Fonctions d'exposition detaillées des salles*/
-    salle_t** pl = charger_plateau();
     affichage_plateau_lettre(pl);
     printf("\n");
 

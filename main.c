@@ -17,7 +17,11 @@ int main(int argc, char *argv[]){
 	action_t* actions;
 	ressources textures;
 
-	salle_t** salles = charger_plateau();
+	// Événements liés au chargement du plateau
+	// -- Changera dans le futur
+	char niveau[12];
+	preparation_niveau(niveau); // Demande au joueur du niveau
+	salle_t** salles = charger_plateau(niveau); // Creation, initialisation plateau
 
 	int terminer = 0;
 	int choix_action = 1; // Si le joueur choisit son action
