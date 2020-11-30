@@ -4,14 +4,22 @@
   * \brief Création d'un tableau pl à deux dimensions de structures
 */
 
+
+
 #ifndef PLATEAU_H
 #define PLATEAU_H
 
-#include "constantes.h"
-#include "actions.h"
-#include "plateau.h"
 #include "salle.h"
-#include "personnages.h"
+#include "constantes.h"
+
+/**
+  *\brief Initialise les caractéristique des salles
+    *\param pl plateau considéré
+  *\param n indice du parcours du fichier niveau
+    *\param curseur permet d'affecter la lettre correspondante à la salle
+*/
+void init_salles(salle_t** pl, int n, char curseur);
+
 
 /**
   * \brief Parcours d'un tableau d'elements

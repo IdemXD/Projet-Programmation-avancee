@@ -6,7 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 
 
-#include "constantes.h"
+
 #include "fonctions_SDL.h"
 
 
@@ -253,6 +253,7 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salles, salle_t s
 	int salleW;
 	int salleH;
 
+
 	//On demande la largeur et hauteur de l'image
 	SDL_QueryTexture(image_salles, NULL, NULL, &salleW, &salleH);
 
@@ -261,7 +262,6 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salles, salle_t s
 
 	int * coord = texture_salle(salle);
 	SDL_Rect SrcR = {coord[0]*salleW, coord[1]*salleH, salleW, salleH};
-
 	SDL_Rect DestR = {salle.x*salleW, salle.y*salleH, salleW, salleH};
 	free(coord);
 	SDL_RenderCopy(renderer, image_salles, &SrcR, &DestR);

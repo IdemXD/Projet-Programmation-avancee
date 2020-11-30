@@ -8,7 +8,7 @@
 #include <math.h>
 
 #include "actions.h"
-#include "constantes.h"
+
 
 action_t * creer_actions(){
 	//allocation mémoire
@@ -56,25 +56,24 @@ void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y){
 
 }
 
-void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action){
-	printf("FDV %d\n",joueur->actions[tour_action]);
-	if (joueur->actions[tour_action] == 1){ //Si le joueur a choisi l'action "se deplacer"
+void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso){
+	printf("FDV %d\n",joueur[tour_perso].actions[tour_action]);
+	if (joueur[tour_perso].actions[tour_action] == 1){ //Si le joueur a choisi l'action "se deplacer"
 
-		deplacer(plateau,joueur,active_direction);
+		deplacer(plateau,&joueur[tour_perso],active_direction);
 
 	}else { //Si le joueur a choisi l'action "controler"
 
 		int rangee;
 		if (*active_direction == 'h' || *active_direction == 'b'){ 
-			rangee = joueur->coord_x;
+			rangee = joueur[tour_perso].coord_x;
 
 		}
 		else{
-			rangee = joueur->coord_y;
+			rangee = joueur[tour_perso].coord_y;
 		}
-		printf("%d\n",rangee);
-		controler(plateau,active_direction,rangee,joueur);
 		
+		controler(plateau,active_direction,rangee,joueur);
 	}
 }
 
@@ -151,7 +150,6 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 		for (int i = 0 ;i<NB_PERSONNAGES;i++){
 			//Le joueur se trouve sur la rangée déplacée
 			if ((p[i].coord_x==nbRangee && (*direction=='h'||*direction == 'b'))||(p[i].coord_y==nbRangee)&&(*direction=='g'||*direction == 'd')){
-				
 				if (*direction == 'h'||*direction == 'b'){
 
 					if (p[i].coord_y==case_depl){
@@ -207,7 +205,13 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 			plateau[nbRangee][case_depl] = tmp;
 		}
 		
-		
+		for(int i = 0; i < TAILLE_PL; i++){
+        	for (int j = 0; j < TAILLE_PL; j++){
+
+            	plateau[i][j].x = j ; 
+    			plateau[i][j].y = i ;
+       		}
+    	}
 	}
 
 }

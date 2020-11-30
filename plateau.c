@@ -7,6 +7,25 @@
 
 #include "plateau.h"
 
+
+void init_salles(salle_t** pl, int n, char curseur){
+
+    int i = n/TAILLE_PL;
+    int j = n%TAILLE_PL;
+    pl[i][j].visible = 0;
+    pl[i][j].state = 0;
+    pl[i][j].type = curseur; // Le charactère de la salle correspondate est affecté dans la struct
+    pl[i][j].x = j ; // initialisation des coordonées des salles
+    pl[i][j].y = i ;
+    if(pl[i][j].type=='C' || pl[i][j].type=='P'){
+        pl[i][j].pres=0;
+    }
+    if (i = j = 2){
+        pl[2][2].visible = 1;
+        pl[2][2].state = 1;
+    }
+}
+
 int is_in(char element,const char *tab, int tab_length)
 {
     int trouve = 0;

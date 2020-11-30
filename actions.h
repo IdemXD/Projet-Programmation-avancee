@@ -7,7 +7,7 @@
 	*\version 1.1
 */
 
-
+#include "constantes.h"
 #include "personnages.h"
 #include "salle.h"
 
@@ -32,7 +32,7 @@ int est_choisie(action_t* action, int x_souris,int y_souris);
 
 void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y);
 
-void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action);
+void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso);
 
 /**
  * \brief Permet au personnage de se déplacer sur une des salles adjacentes

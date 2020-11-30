@@ -10,6 +10,8 @@
  * \brief Représentation d'un personnage
 */
 
+#include "constantes.h"
+
 struct persos_s {
 	int coord_x; /*!< Tableau contenant la coordonnée x du personnage */
 	int coord_y; /*!< Tableau contenant la coordonnée y du personnage */

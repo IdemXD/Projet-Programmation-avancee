@@ -6,8 +6,6 @@
 
 #include <stdlib.h>
 #include "personnages.h"
-#include "constantes.h"
-
 
  persos_t*  creer_persos()
  {

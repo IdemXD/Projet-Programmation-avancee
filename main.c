@@ -24,7 +24,6 @@ int main(int argc, char *argv[]){
 	salle_t** salles = charger_plateau(niveau); // Creation, initialisation plateau
 
 	int terminer = 0;
-	int choix_action = 1; // Si le joueur choisit son action
 	int etape = 1; //etape 1 : choix de l'action
 	char active_direction = 'n'; // définit quel direction choisit le joueur
 	int nb_action = 0, trouve = 0, tour_perso = 0,tour_action = 0;
@@ -47,7 +46,6 @@ int main(int argc, char *argv[]){
 		SDL_Quit();
 	return EXIT_FAILURE;
 	}
-
 
 	// Mettre en place un contexte de rendu de l’écran
 
@@ -158,12 +156,15 @@ int main(int argc, char *argv[]){
 		if (active_direction!='n'){
 			//On attend que le joueur choisisse une direction pour appliquer l'action 'contrôler' ou 'déplacer'
 			printf("BB%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
-			applique_action(salles, &joueur[tour_perso], &active_direction,tour_action);
+			applique_action(salles, joueur, &active_direction,tour_action,tour_perso);
+
 			change_action(actions,&tour_action,&tour_perso,&etape);
 			active_direction = 'n';//On remet à aucune action choisie
+			
 		}
 
 
+		
 
 		SDL_RenderPresent(ecran);
 
