@@ -61,8 +61,8 @@ void regarder(salle_t** plateau,int x,int y);
 */
 void controler(salle_t** plateau, char* direction, int nbRangee,persos_t* p);
 
-void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action);
+void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage);
 
-void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape);
+void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage);
 
 #endif

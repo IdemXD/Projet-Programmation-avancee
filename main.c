@@ -23,6 +23,7 @@ int main(int argc, char *argv[]){
 	preparation_niveau(niveau); // Demande au joueur du niveau
 	salle_t** salles = charger_plateau(niveau); // Creation, initialisation plateau
 
+	int pas_affichage; //variable temporaire
 	int terminer = 0;
 	int etape = 1; //etape 1 : choix de l'action
 	char active_direction = 'n'; // définit quel direction le joueur choisit 
@@ -139,7 +140,17 @@ int main(int argc, char *argv[]){
 						pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
 
 						regarder(salles,x,y);
-						change_action(actions,&tour_action,&tour_perso,&etape);
+						pas_affichage = 0;
+						change_action(actions,&tour_action,&tour_perso,&etape,&pas_affichage);
+
+						if (pas_affichage == 0)
+							if(joueur[tour_perso].actions[tour_action] == 0){
+
+								printf("Cliquez sur la case que vous voulez voir\n");
+							} else {
+								if (joueur[tour_perso].actions[tour_action] == 1 || joueur[tour_perso].actions[tour_action] == 2)
+									printf("Choisissez la direction avec les touches directionnelles du clavier\n");
+							}
 					}
 					break;
 
@@ -148,19 +159,35 @@ int main(int argc, char *argv[]){
 		if (trouve){
 
 			joueur[tour_perso].actions[tour_action] = nb_action;//On enregistre le numéro de l'action choisie
-			change_perso(actions,joueur,&tour_action,&tour_perso,&etape,&nb_action);
+			pas_affichage = 1;
+			change_perso(actions,joueur,&tour_action,&tour_perso,&etape,&nb_action,&pas_affichage);
 			trouve = 0;
+			if (pas_affichage == 0)
+				if(joueur[tour_perso].actions[tour_action] == 0){
 
+					printf("Cliquez sur la case que vous voulez voir\n");
+				} else {
+					if (joueur[tour_perso].actions[tour_action] == 1 || joueur[tour_perso].actions[tour_action] == 2)
+						printf("Choisissez la direction avec les touches directionnelles du clavier\n");
+				}
 
 		}
 
 		if (active_direction!='n'){
 			//On attend que le joueur choisisse une direction pour appliquer l'action 'contrôler' ou 'déplacer'
 			applique_action(salles, joueur, &active_direction,tour_action,tour_perso);
-
-			change_action(actions,&tour_action,&tour_perso,&etape);
+			pas_affichage = 0;
+			change_action(actions,&tour_action,&tour_perso,&etape,&pas_affichage);
 			active_direction = 'n';//On remet à aucune action choisie
 			
+			if (pas_affichage == 0)
+				if(joueur[tour_perso].actions[tour_action] == 0){
+
+					printf("Cliquez sur la case que vous voulez voir\n");
+				} else {
+					if (joueur[tour_perso].actions[tour_action] == 1 || joueur[tour_perso].actions[tour_action] == 2)
+						printf("Choisissez la direction avec les touches directionnelles du clavier\n");
+				}
 		}
 
 

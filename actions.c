@@ -103,8 +103,10 @@ void deplacer(salle_t** plateau,persos_t* perso,char* direction){
 }
 
 void pixToSalle(int x_pix,int y_pix,int* x, int* y){
-	*x = x_pix/TAILLE_S;
-	*y = y_pix/TAILLE_S;
+	if (x_pix < TAILLE_S*5 && y_pix <TAILLE_S*5){
+		*x = x_pix/TAILLE_S;
+		*y = y_pix/TAILLE_S;
+	}
 }
 
 void regarder(salle_t** plateau,int x,int y){
@@ -216,7 +218,7 @@ void controler(salle_t** plateau, char* direction, int nbRangee, persos_t* p){
 
 }
 
-void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action){
+void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage){
 	if (*tour_action == 0){//Lorsque le joueur a choisi la première action
 
 		*tour_action = *tour_action + 1;
@@ -234,6 +236,7 @@ void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_
 			actions[1].etat = 0;
 			actions[2].etat = 0;
 			*etape = *etape + 1; //Quand on a entré toutes les actions choisies, on passe à l'étape 2
+			*pas_affichage = 0;
 		}
 		else{ //Si un joueur a fini de choisir ses actions, on passe au joueur suivant
 			*tour_perso = *tour_perso + 1;
@@ -249,20 +252,24 @@ void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_
 
 }
 
-void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape){
+void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage){
 	if (*tour_perso == NB_PERSONNAGES-1){
-
+		
 		if (*tour_action == 1){//On a appliqué la dernière action du dernier joueur
 			*etape = *etape - 1;
 			actions[0].etat = 1;//On affiche plus les boutons d'actions à l'écran
 			actions[1].etat = 1;
 			actions[2].etat = 1;
 			*tour_action = 0;
+			*pas_affichage = 1;
+			
 		}
 		else{// On a appliqué la premère action de chaque personnage
 			*tour_action = *tour_action + 1;
+			
 		}
 		*tour_perso = 0;
+		
 	}
 	else{
 		*tour_perso = *tour_perso + 1;
