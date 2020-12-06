@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
 
 	int terminer = 0;
 	int etape = 1; //etape 1 : choix de l'action
-	char active_direction = 'n'; // définit quel direction choisit le joueur
+	char active_direction = 'n'; // définit quel direction le joueur choisit 
 	int nb_action = 0, trouve = 0, tour_perso = 0,tour_action = 0;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -59,6 +59,8 @@ int main(int argc, char *argv[]){
 
 	modif_taille(textures.sprites_elements,actions);
 
+	printf("Tour du personnage %d \n",tour_perso);
+	printf("Action numéro %d \n\n",tour_action);
 	// Boucle principale
 	while(!terminer)
 	{
@@ -138,7 +140,6 @@ int main(int argc, char *argv[]){
 
 						regarder(salles,x,y);
 						change_action(actions,&tour_action,&tour_perso,&etape);
-						printf("AA%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
 					}
 					break;
 
@@ -147,15 +148,14 @@ int main(int argc, char *argv[]){
 		if (trouve){
 
 			joueur[tour_perso].actions[tour_action] = nb_action;//On enregistre le numéro de l'action choisie
-			printf("Action et J :%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
 			change_perso(actions,joueur,&tour_action,&tour_perso,&etape,&nb_action);
 			trouve = 0;
+
 
 		}
 
 		if (active_direction!='n'){
 			//On attend que le joueur choisisse une direction pour appliquer l'action 'contrôler' ou 'déplacer'
-			printf("BB%d  %d  %d\n",tour_perso,tour_action,joueur[tour_perso].actions[tour_action]);
 			applique_action(salles, joueur, &active_direction,tour_action,tour_perso);
 
 			change_action(actions,&tour_action,&tour_perso,&etape);
@@ -176,6 +176,7 @@ int main(int argc, char *argv[]){
 	//free(actions);
 	liberer_textures(&textures);
 	liberer_persos(joueur);
+	joueur = NULL;
 	SDL_DestroyRenderer(ecran);
 	SDL_DestroyWindow(fenetre);
 	SDL_Quit();

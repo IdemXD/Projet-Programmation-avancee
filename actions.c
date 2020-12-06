@@ -12,7 +12,7 @@
 
 action_t * creer_actions(){
 	//allocation mémoire
-	action_t* actions = malloc(sizeof(action_t)*4);
+	action_t* actions = (action_t *) malloc(sizeof(action_t)*4);
 
 	//Initialisation des champs
 	for (int i = 0;i < 4;i++){
@@ -57,7 +57,7 @@ void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y){
 }
 
 void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso){
-	printf("FDV %d\n",joueur[tour_perso].actions[tour_action]);
+	//printf("FDV %d\n",joueur[tour_perso].actions[tour_action]);
 	if (joueur[tour_perso].actions[tour_action] == 1){ //Si le joueur a choisi l'action "se deplacer"
 
 		deplacer(plateau,&joueur[tour_perso],active_direction);
@@ -244,6 +244,8 @@ void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_
 	}
 
 	*nb_action = 0;
+	printf("Tour du personnage %d \n",*tour_perso);
+	printf("Action numéro %d \n\n",*tour_action);
 
 }
 
@@ -265,4 +267,6 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 	else{
 		*tour_perso = *tour_perso + 1;
 	}
+	printf("Tour du personnage %d \n",*tour_perso);
+	printf("Action numéro %d \n\n",*tour_action);
 }

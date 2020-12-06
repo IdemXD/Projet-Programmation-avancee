@@ -10,7 +10,7 @@
  persos_t*  creer_persos()
  {
 
- 	persos_t* persos = malloc (sizeof(persos_t)*NB_PERSONNAGES); //les personnages du joueur
+ 	persos_t* persos = (persos_t *) malloc (sizeof(persos_t)*NB_PERSONNAGES); //les personnages du joueur
  	for (int i=0; i<NB_PERSONNAGES;i++){
  		persos[i].coord_x = 2;//On place les personnages dans la salle de départ (au centre)
  		persos[i].coord_y = 2;
@@ -30,5 +30,7 @@
  	for (int i=0; i<NB_PERSONNAGES;i++){
  		free(persos[i].actions);
  	}
+
  	free(persos);
+ 	persos = NULL;
  }

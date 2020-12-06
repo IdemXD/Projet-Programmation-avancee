@@ -166,11 +166,11 @@ int * texture_salle (salle_t salle){
 
         // Selon le char definissant le type de la salle, on associe la texture correspondante
 
-    	while (salle.type != LETTRES_SALLES[num_s]){
+    	/*while (salle.type != LETTRES_SALLES[num_s]){
     		num_s++;
-    	}
+    	}*/
 
-    	/*
+    	
         switch (salle.type)
         {
 
@@ -233,7 +233,7 @@ int * texture_salle (salle_t salle){
                 num_s = 11;
                 break;
 
-        }*/
+        }
 
     }
     else
