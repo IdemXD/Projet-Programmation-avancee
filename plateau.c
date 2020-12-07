@@ -94,10 +94,19 @@ salle_t** charger_plateau(char* niveau)
      }
 }
 
-void preparation_niveau(char niv[])
+char* preparation_niveau()
 {
-    printf( "Tapez le nom -exact- d'un fichier niveau parmi: \nplateau1.txt\nplateau2.txt\nplateau3.txt\n\nVotre choix: " );
-    scanf( "%s", niv );
+    int niv;
+    printf( "Choisissez un plateau entre 1, 2 et 3: " );
+    scanf( "%d", &niv );
+
+    if (niv == 1) return "plateau1.txt" ;
+    else if (niv == 2) return "plateau2.txt";
+    else if (niv == 3) return "plateau3.txt";
+    else {
+        printf("Votre choix n'est pas parmi 1, 2, 3. Chargement plateau1 par défaut.");
+        return "plateau1.txt";
+    }
 }
 
 void sauvegarder_plateau(salle_t** pl)

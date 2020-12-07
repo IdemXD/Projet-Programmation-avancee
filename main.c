@@ -17,16 +17,13 @@ int main(int argc, char *argv[]){
 	action_t* actions;
 	ressources textures;
 
-	// Événements liés au chargement du plateau
-	// -- Changera dans le futur
-	char niveau[12];
-	preparation_niveau(niveau); // Demande au joueur du niveau
-	salle_t** salles = charger_plateau(niveau); // Creation, initialisation plateau
+	// Demande du niveau au joueur puis chargement du niveau correspondant
+	salle_t** salles = charger_plateau(preparation_niveau());
 
 	int pas_affichage; //variable temporaire
 	int terminer = 0;
 	int etape = 1; //etape 1 : choix de l'action
-	char active_direction = 'n'; // définit quel direction le joueur choisit 
+	char active_direction = 'n'; // définit quel direction le joueur choisit
 	int nb_action = 0, trouve = 0, tour_perso = 0,tour_action = 0;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -179,7 +176,7 @@ int main(int argc, char *argv[]){
 			pas_affichage = 0;
 			change_action(actions,&tour_action,&tour_perso,&etape,&pas_affichage);
 			active_direction = 'n';//On remet à aucune action choisie
-			
+
 			if (pas_affichage == 0)
 				if(joueur[tour_perso].actions[tour_action] == 0){
 
@@ -191,7 +188,7 @@ int main(int argc, char *argv[]){
 		}
 
 
-		
+
 
 		SDL_RenderPresent(ecran);
 

@@ -46,7 +46,7 @@ salle_t** charger_plateau(char* niveau);
 /**
     * \brief Demande au joueur le niveau voulu
 */
-void preparation_niveau(char niv[]);
+char* preparation_niveau();
 
 /**
     * \brief Sauvegarde le plateau dans un fichier
