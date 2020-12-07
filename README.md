@@ -61,7 +61,7 @@
 git clone
 cd 
 make .
-./freedom
+./main
 ```
 
 ## Suivi  
@@ -128,6 +128,14 @@ Medi: Modification des fonctions salles après implementations des tests
 Marie: Factorisation des fcts plateau.c, mise en place de 2 nouveaux plateaux avc demande de niveau, ajouts fcts testPlateau
 
 Chloé: Organisation du main, corrections de bugs liés à l'implementation des boutons cliquable 
+
+### Semaine 6 
+
+Medi: Modification des fonctions salles et mise à jour de leurs tests adéquats 
+
+Marie: Recherche optimisation vérification plateau 
+
+Chloé: Implémentation d'un affichage sur sortie standard pour voir les tours de jeux 
 
 
 
