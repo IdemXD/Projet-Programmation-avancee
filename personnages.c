@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "personnages.h"
 
- persos_t*  creer_persos()
+persos_t*  creer_persos()
  {
 
  	persos_t* persos = (persos_t *) malloc (sizeof(persos_t)*NB_PERSONNAGES); //les personnages du joueur
@@ -25,7 +25,7 @@
  }
 
 
- void liberer_persos(persos_t*  persos)
+void liberer_persos(persos_t*  persos)
  {
  	for (int i=0; i<NB_PERSONNAGES;i++){
  		free(persos[i].actions);
@@ -34,3 +34,18 @@
  	free(persos);
  	persos = NULL;
  }
+
+void affichage_joueur(persos_t* p){
+    for(int i = 0; i < TAILLE_PL; i++)
+    {
+        for (int j = 0; j < TAILLE_PL; j++){
+ 			if ((p[0].coord_x == j && p[0].coord_y == i)||(p[1].coord_x == j && p[1].coord_y == i)){
+ 				printf("J");
+ 			}
+ 			else{
+ 				printf("0");
+ 			}
+ 		}
+ 		printf("\n");
+ 	}
+}

@@ -35,4 +35,9 @@ persos_t*  creer_persos();
 */
 void liberer_persos( persos_t*  persos);
 
+/**
+ * \brief Affiche la position du joueur dans un tableau represenant plateau
+*/
+void affichage_joueur(persos_t* p);
+
 #endif

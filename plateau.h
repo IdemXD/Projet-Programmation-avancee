@@ -60,4 +60,20 @@ void sauvegarder_plateau(salle_t** pl);
 */
 void free_plateau(salle_t** pl);
 
+/**
+  * \brief Affichage des lettres du plateau telles qu'elle sont dans le niveau
+*/
+void affichage_plateau_lettre(salle_t** pl);
+
+/**
+  * \brief Affichage des coordonnées de chaque salles
+*/
+void affichage_plateau_coordonnees(salle_t** pl);
+
+/**
+  * \brief Affichage des caractérisique de visibilité,
+  * \ utilisabilité et presence de chaque salles
+*/
+void affichage_plateau_caracteristique(salle_t** pl); 
+
 #endif

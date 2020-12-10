@@ -11,7 +11,7 @@
 #include "plateau.h"
 #include "salle.h"
 
-void affichage_visible(salle_t** pl){
+/*void affichage_visible(salle_t** pl){
     for(int i = 0; i < TAILLE_PL; i++)
     {
         for (int j = 0; j < TAILLE_PL; j++){
@@ -29,22 +29,7 @@ void affichage_utilisable(salle_t** pl){
 		}
 		printf("\n");
 	}
-}
-
-void affichage_joueur(persos_t* p){
-    for(int i = 0; i < TAILLE_PL; i++)
-    {
-        for (int j = 0; j < TAILLE_PL; j++){
-			if ((p[0].coord_x == j && p[0].coord_y == i)||(p[1].coord_x == j && p[1].coord_y == i)){
-				printf("J");
-			}
-			else{
-				printf("0");
-			}
-		}
-		printf("\n");
-	}
-}
+}*/
 
 int main(int argc, char* argv[]) {
 
@@ -165,7 +150,7 @@ int main(int argc, char* argv[]) {
 	printf("Coordonnées du joueur avant : x = %d et y = %d\n",p[0].coord_y,p[0].coord_y);
 	affichage_joueur(p);
 	affichage_plateau_brut(pl);
-	controler(pl,&direction,p[0].coord_y,p); 
+	controler(pl,&direction,p[0].coord_y,p);
 	printf("\nAprès contrôler\n");
 	printf("Coordonnées du joueur après: x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
@@ -180,12 +165,12 @@ int main(int argc, char* argv[]) {
 	printf("Coordonnées du joueur avant : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
 	affichage_plateau_brut(pl);
-	controler(pl,&direction,p[0].coord_x,p); 
+	controler(pl,&direction,p[0].coord_x,p);
 	printf("\nAprès contrôler\n");
 	affichage_plateau_brut(pl);
 	printf("Coordonnées du joueur après: x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
-	
+
 
 	//Vérification qu'il n'y a pas de modification car on ne peut pas déplacer la colonne 2 et la ligne 2
 	p[0].coord_x = 2;
@@ -195,9 +180,9 @@ int main(int argc, char* argv[]) {
 	affichage_plateau_brut(pl);
 	printf("Coordonnées du joueur avant : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
-	controler(pl,&direction,p[0].coord_x,p); 
+	controler(pl,&direction,p[0].coord_x,p);
 	printf("\nAprès contrôler\n");
-	
+
 	affichage_plateau_brut(pl);
 	printf("Coordonnées du joueur après: x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
@@ -211,9 +196,9 @@ int main(int argc, char* argv[]) {
 	affichage_plateau_brut(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
-	controler(pl,&direction,p[0].coord_y,p); 
+	controler(pl,&direction,p[0].coord_y,p);
 	printf("\nAprès contrôler\n");
-	
+
 	affichage_plateau_brut(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
@@ -228,15 +213,15 @@ int main(int argc, char* argv[]) {
 	affichage_plateau_brut(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
-	controler(pl,&direction,p[0].coord_x,p); 
+	controler(pl,&direction,p[0].coord_x,p);
 	printf("\nAprès contrôler\n");
-	
+
 	affichage_plateau_brut(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
 
-	
-	
+
+
 
 	free_plateau(pl);
 	liberer_persos(p);
