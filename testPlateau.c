@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]){
     /* Mise en place du plateau */
     // Demande du niveau au joueur puis chargement du niveau correspondant
-	salle_t** salles = charger_plateau(preparation_niveau());
+	salle_t** pl = charger_plateau(preparation_niveau());
 
     /* Fonctions d'exposition detaillées des salles*/
     affichage_plateau_lettre(pl);

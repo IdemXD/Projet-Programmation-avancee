@@ -14,11 +14,12 @@
 
 /**
   *\brief Initialise les caractéristique des salles
-    *\param pl plateau considéré
+  *\param plateau fichier de lecture du plateau
+  *\param pl plateau considéré
   *\param n indice du parcours du fichier niveau
-    *\param curseur permet d'affecter la lettre correspondante à la salle
+  *\param curseur permet d'affecter la lettre correspondante à la salle
 */
-void init_salles(salle_t** pl, int n, char curseur);
+void init_salles(FILE* plateau, salle_t** pl, int n, char* curseur);
 
 
 /**
@@ -74,6 +75,6 @@ void affichage_plateau_coordonnees(salle_t** pl);
   * \brief Affichage des caractérisique de visibilité,
   * \ utilisabilité et presence de chaque salles
 */
-void affichage_plateau_caracteristique(salle_t** pl); 
+void affichage_plateau_caracteristique(salle_t** pl);
 
 #endif

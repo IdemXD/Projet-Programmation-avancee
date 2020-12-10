@@ -7,23 +7,23 @@
 
 #include "plateau.h"
 
-
-void init_salles(salle_t** pl, int n, char curseur){
+void init_salles(FILE* plateau, salle_t** pl, int n, char* p_curseur)
+{
 
     int i = n/TAILLE_PL;
     int j = n%TAILLE_PL;
-    pl[i][j].visible = 0;
-    pl[i][j].state = 0;
-    pl[i][j].type = curseur; // Le charactère de la salle correspondat est affecté dans la struct
     pl[i][j].x = j ; // initialisation des coordonées des salles
     pl[i][j].y = i ;
-    if(pl[i][j].type=='C' || pl[i][j].type=='P'){
-        pl[i][j].pres=0;
-    }
-    if (i = j = 2){
-        pl[2][2].visible = 1;
-        pl[2][2].state = 1;
-    }
+    pl[i][j].type = *p_curseur; // 1er charactère de la salle correspondant est affecté dans la struct
+
+    *p_curseur = fgetc(plateau); // 2e Caractère suivant définie la visibilité
+    pl[i][j].visible = atoi(p_curseur);
+
+    *p_curseur = fgetc(plateau); // 3e Caractère suivant définie l'etat
+    pl[i][j].state = atoi(p_curseur);
+
+    *p_curseur = fgetc(plateau); // 4e Caractère suivant définie la presence
+    pl[i][j].pres= atoi(p_curseur);
 }
 
 int is_in(char element,const char *tab, int tab_length)
@@ -39,6 +39,21 @@ int is_in(char element,const char *tab, int tab_length)
         i++;
     }
     return trouve;
+}
+
+char* preparation_niveau()
+{
+    int niv;
+    printf( "Choisissez un plateau entre 1, 2 et 3: " );
+    scanf( "%d", &niv );
+
+    if (niv == 1) return "plateau1.txt" ;
+    else if (niv == 2) return "plateau2.txt";
+    else if (niv == 3) return "plateau3.txt";
+    else {
+        printf("Votre choix n'est pas parmi 1, 2, 3. Chargement plateau1 par défaut.");
+        return "plateau1.txt";
+    }
 }
 
 salle_t** creer_plateau()
@@ -59,7 +74,7 @@ salle_t** charger_plateau(char* niveau)
      // Ouverture du fichier contenant une representation du plateau
      FILE* plateau = fopen(niveau,"r") ;
 
-     int char_curseur = 0 ; // Curseur de lecture du fichier
+     char char_curseur; // Curseur de lecture du fichier
 
      // Flag permettant de s'assurer qu'on ne prend en compts que des lettres reconnu par le jeu
      int flag_char = 0 ;
@@ -82,7 +97,7 @@ salle_t** charger_plateau(char* niveau)
                         char_curseur = fgetc(plateau) ; // saut de ligne, on prend le char suivant
                     }
 
-                    init_salles(pl, i, char_curseur);
+                    init_salles(plateau, pl, i, &char_curseur);
 
                     i++; }
 
@@ -92,21 +107,6 @@ salle_t** charger_plateau(char* niveau)
          if ((flag_char) || (i != TAILLE_PL*TAILLE_PL)) return pl;
          else return pl;
      }
-}
-
-char* preparation_niveau()
-{
-    int niv;
-    printf( "Choisissez un plateau entre 1, 2 et 3: " );
-    scanf( "%d", &niv );
-
-    if (niv == 1) return "plateau1.txt" ;
-    else if (niv == 2) return "plateau2.txt";
-    else if (niv == 3) return "plateau3.txt";
-    else {
-        printf("Votre choix n'est pas parmi 1, 2, 3. Chargement plateau1 par défaut.");
-        return "plateau1.txt";
-    }
 }
 
 void sauvegarder_plateau(salle_t** pl)

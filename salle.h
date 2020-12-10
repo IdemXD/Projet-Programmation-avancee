@@ -17,9 +17,9 @@ struct salle_s
     int y;       /*!< Tableau contenant la coordonnée y de la salle */
 	int new_x;
 	int new_y;
-	int pres;    /*!< Présence de la salle(1 si la salle est utilisable )*/
-    int state;   /*!< Etat de la salle(1 si la salle est utilisable )*/
     int visible; /*!< Etat de la salle (1 si la salle est visible)*/
+    int state;   /*!< Etat de la salle(1 si la salle est utilisable )*/
+    int pres;    /*!< Présence de la salle(1 si la salle est utilisable )*/
     char type;   /*!< Char représentant la salle*/
 };
 typedef struct salle_s salle_t;
