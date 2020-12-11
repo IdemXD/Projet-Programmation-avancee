@@ -7,25 +7,6 @@
 
 #include "plateau.h"
 
-void init_salles(FILE* plateau, salle_t** pl, int n, char* p_curseur)
-{
-
-    int i = n/TAILLE_PL;
-    int j = n%TAILLE_PL;
-    pl[i][j].x = j ; // initialisation des coordonées des salles
-    pl[i][j].y = i ;
-    pl[i][j].type = *p_curseur; // 1er charactère de la salle correspondant est affecté dans la struct
-
-    *p_curseur = fgetc(plateau); // 2e Caractère suivant définie la visibilité
-    pl[i][j].visible = atoi(p_curseur);
-
-    *p_curseur = fgetc(plateau); // 3e Caractère suivant définie l'etat
-    pl[i][j].state = atoi(p_curseur);
-
-    *p_curseur = fgetc(plateau); // 4e Caractère suivant définie la presence
-    pl[i][j].pres= atoi(p_curseur);
-}
-
 int is_in(char element,const char *tab, int tab_length)
 {
     int trouve = 0;
@@ -41,6 +22,19 @@ int is_in(char element,const char *tab, int tab_length)
     return trouve;
 }
 
+void init_salles(char salle[5], salle_t** pl, int n)
+{
+    int i = n/TAILLE_PL;
+    int j = n%TAILLE_PL;
+    pl[i][j].x = j ; // initialisation des coordonées des salles
+    pl[i][j].y = i ;
+
+    pl[i][j].type = salle[0]; // 1er charactère de la salle correspondant est affecté dans la struct
+    pl[i][j].visible = salle[1] - '0';  // 2e Caractère suivant définie la visibilité
+    pl[i][j].state = salle[2] - '0'; // 3e Caractère suivant définie l'etat
+    pl[i][j].pres= salle[3] - '0';
+}
+
 char* preparation_niveau()
 {
     int niv;
@@ -54,6 +48,16 @@ char* preparation_niveau()
         printf("Votre choix n'est pas parmi 1, 2, 3. Chargement plateau1 par défaut.");
         return "plateau1.txt";
     }
+}
+
+int chars_valide(char paquet[5])
+{
+    // Si un des elements le respecte pas cette suite, on renvoie 0
+    if ((!is_in(paquet[0], LETTRES_SALLES, 12)) && (paquet[0] != '\n')) return 0;
+    if (!(paquet[1] == '1' || paquet[1] == '0')) return 0;
+    if (!(paquet[2] == '1' || paquet[2] == '0')) return 0;
+    if (!(paquet[3] == '1' || paquet[3] == '0')) return 0;
+    return 1; // les elements s'enchainent correctement
 }
 
 salle_t** creer_plateau()
@@ -74,39 +78,44 @@ salle_t** charger_plateau(char* niveau)
      // Ouverture du fichier contenant une representation du plateau
      FILE* plateau = fopen(niveau,"r") ;
 
-     char char_curseur; // Curseur de lecture du fichier
-
-     // Flag permettant de s'assurer qu'on ne prend en compts que des lettres reconnu par le jeu
+     // Flag permettant de s'assurer qu'on ne prend en compte que des lettres reconnu par le jeu
      int flag_char = 0 ;
 
-     int i = 0 ;
+     char tampon[6] = ""; // "buffer" permettant de stocké les chars representant une salle et ses caracts
 
-     if (plateau == NULL) perror("Erreur lors de l'ouverture du plateau") ;
-     else {
-         do
-         {
-                // Vérification nb char fichier > 25 pas assuré, en cours de travail
-                char_curseur = fgetc(plateau) ; // Utilisation de fgetc avance le curseur
+     int salle_count = 0; // nb de chars parcouru dans le fichier
 
-                if ((!is_in(char_curseur, LETTRES_SALLES, 12)) && (char_curseur != '\n'))
-                {
-                    flag_char = 1; // char lu pas compatible, ni saut de ligne
-                } else {
-
-                    if (char_curseur == '\n') {
-                        char_curseur = fgetc(plateau) ; // saut de ligne, on prend le char suivant
-                    }
-
-                    init_salles(plateau, pl, i, &char_curseur);
-
-                    i++; }
-
-        } while ((char_curseur != EOF) && !(flag_char) && (i < 25)); // EOF est le character de fin de fichier
-         fclose(plateau);
-
-         if ((flag_char) || (i != TAILLE_PL*TAILLE_PL)) return pl;
-         else return pl;
+     if (plateau == NULL) {
+         perror("Erreur ouverture du niveau") ;
+         flag_char = 1;
      }
+     else {
+         while((fgets(tampon, 6, plateau) != NULL) && (!flag_char))
+         // Le fichier est lu jusqu'à ce qu'on arrive sur EOF, la fonction fgets reconnait \n et EOF
+         // ou jusqu'à ce que l'on rencontre une erreur dans la lecture
+         {
+             if(!chars_valide(tampon)) // Un des caractère lu ne respecte pas le format d'un plateau
+             {
+                 perror("Erreur de lecture d'un caractère du niveau");
+                 flag_char = 1;
+             } else {
+                 init_salles(tampon, pl, salle_count);
+                 salle_count += 1; // On prend en compte qu'on a avancé de char_count elements dans le fichier
+             }
+         }
+    }
+    fclose(plateau);
+
+    // On vérifie qu'on a parcouru -exactement- 25 elements valides
+    if (!(flag_char) && (salle_count  != 25 ))
+    {
+        perror("Erreur de nombre de caractères");
+        flag_char = 1;
+    }
+
+    // On exit et free la mémoire si on rencontre une erreur dans le niveau
+    if (flag_char) return pl; // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
+    else return pl; // tout c'est bien passé
 }
 
 void sauvegarder_plateau(salle_t** pl)
