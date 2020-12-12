@@ -54,9 +54,12 @@ int chars_valide(char paquet[5])
 {
     // Si un des elements le respecte pas cette suite, on renvoie 0
     if ((!is_in(paquet[0], LETTRES_SALLES, 12)) && (paquet[0] != '\n')) return 0;
-    if (!(paquet[1] == '1' || paquet[1] == '0')) return 0;
-    if (!(paquet[2] == '1' || paquet[2] == '0')) return 0;
-    if (!(paquet[3] == '1' || paquet[3] == '0')) return 0;
+
+    // Si un des trois, supposés boolean, ne sont pas sous le bon format, envoie 0
+    for(int i = 1; i < 4; i++) if (!(paquet[i] == '1' || paquet[i] == '0')) return 0;
+
+    // Les 2 derniers elements du buffer sont '\n' suivi de '\0'
+    if ((paquet[4] != '\n') || (paquet[5] != '\0')) return 0;
     return 1; // les elements s'enchainent correctement
 }
 
@@ -94,9 +97,9 @@ salle_t** charger_plateau(char* niveau)
          // Le fichier est lu jusqu'à ce qu'on arrive sur EOF, la fonction fgets reconnait \n et EOF
          // ou jusqu'à ce que l'on rencontre une erreur dans la lecture
          {
-             if(!chars_valide(tampon)) // Un des caractère lu ne respecte pas le format d'un plateau
+             if(!chars_valide(tampon) || (salle_count > 25)) // Un des caractère lu ne respecte pas le format d'un plateau
              {
-                 perror("Erreur de lecture d'un caractère du niveau");
+                 perror("Mauvais format de caractères et/ou de ligne");
                  flag_char = 1;
              } else {
                  init_salles(tampon, pl, salle_count);
@@ -105,13 +108,6 @@ salle_t** charger_plateau(char* niveau)
          }
     }
     fclose(plateau);
-
-    // On vérifie qu'on a parcouru -exactement- 25 elements valides
-    if (!(flag_char) && (salle_count  != 25 ))
-    {
-        perror("Erreur de nombre de caractères");
-        flag_char = 1;
-    }
 
     // On exit et free la mémoire si on rencontre une erreur dans le niveau
     if (flag_char) return pl; // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
