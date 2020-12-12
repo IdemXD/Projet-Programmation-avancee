@@ -4,6 +4,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "plateau.h"
 
@@ -37,17 +38,17 @@ void init_salles(char salle[5], salle_t** pl, int n)
 
 char* preparation_niveau()
 {
-    int niv;
-    printf( "Choisissez un plateau entre 1, 2 et 3: " );
-    scanf( "%d", &niv );
+    int no;
+    printf( "Choisissez un numero de plateau: " );
+    scanf( "%d", &no ); // on récupère le numero du niveau
 
-    if (niv == 1) return "plateau1.txt" ;
-    else if (niv == 2) return "plateau2.txt";
-    else if (niv == 3) return "plateau3.txt";
-    else {
-        printf("Votre choix n'est pas parmi 1, 2, 3. Chargement plateau1 par défaut.");
-        return "plateau1.txt";
-    }
+    char* niv; // Taille: nb de char + '\0' de fin de chaine de charactère
+    niv = malloc(sizeof(char)*23);
+
+    // fonction de concatenation du numero du niveau de du chemin
+    snprintf(niv, 23,"niveaux/plateau%i.txt", no);
+
+    return niv;
 }
 
 int chars_valide(char paquet[5])
@@ -66,6 +67,7 @@ int chars_valide(char paquet[5])
 salle_t** creer_plateau()
 {
     salle_t** tab = malloc(sizeof(salle_t*)*TAILLE_PL) ;
+    if (tab == NULL) exit(EXIT_FAILURE);
     for(int i = 0; i < 5; i++)
     {
         tab[i] = malloc(sizeof(salle_t)*TAILLE_PL);
@@ -79,7 +81,7 @@ salle_t** charger_plateau(char* niveau)
      salle_t** pl = creer_plateau() ;
 
      // Ouverture du fichier contenant une representation du plateau
-     FILE* plateau = fopen(niveau,"r") ;
+     FILE* plateau = fopen(niveau,"r");
 
      // Flag permettant de s'assurer qu'on ne prend en compte que des lettres reconnu par le jeu
      int flag_char = 0 ;
@@ -147,6 +149,7 @@ void free_plateau(salle_t** pl)
     free(pl[i]); // Libère l'espace des sous tableaux
   }
   free(pl);
+  pl = NULL;
 }
 
 void affichage_plateau_lettre(salle_t** pl)

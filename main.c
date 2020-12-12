@@ -18,6 +18,9 @@ int main(int argc, char *argv[]){
 	ressources textures;
 
 	// Demande du niveau au joueur puis chargement du niveau correspondant
+	/*char* nivo[23];
+	nivo = preparation_niveau();
+	printf("dans main: sortie preparation niveau = %s", nivo);*/
 	salle_t** salles = charger_plateau(preparation_niveau());
 
 	int pas_affichage; //variable temporaire
