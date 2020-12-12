@@ -97,7 +97,9 @@ salle_t** charger_plateau(char* niveau)
          // Le fichier est lu jusqu'à ce qu'on arrive sur EOF, la fonction fgets reconnait \n et EOF
          // ou jusqu'à ce que l'on rencontre une erreur dans la lecture
          {
-             if(!chars_valide(tampon) || (salle_count > 25)) // Un des caractère lu ne respecte pas le format d'un plateau
+             // Un des caractère lu ne respecte pas le format d'un plateau
+             // ou on a une ligne en trop dans le fichier
+             if(!chars_valide(tampon) || (salle_count >= 25))
              {
                  perror("Mauvais format de caractères et/ou de ligne");
                  flag_char = 1;
@@ -108,6 +110,12 @@ salle_t** charger_plateau(char* niveau)
          }
     }
     fclose(plateau);
+
+    if(salle_count != 25) // Pas assez de salle dans le plateau
+    {
+        perror("Pas assez de caractères dans le fichier");
+        flag_char = 1;
+    }
 
     // On exit et free la mémoire si on rencontre une erreur dans le niveau
     if (flag_char) return pl; // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)

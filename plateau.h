@@ -1,7 +1,7 @@
 /**
   * \file plateau.c
   * \author Trunkenwald Marie
-  * \brief Création d'un tableau pl à deux dimensions de structures
+  * \brief Création du plateau de jeu
 */
 
 #ifndef PLATEAU_H
@@ -40,13 +40,6 @@ char* preparation_niveau();
   * \return 1 si le paquet de char est valide, 0 sinon
 */
 int chars_valide(char paquet[5]);
-
-/**
-    * \brief Parcours le fichier pour s'assurer que le format est correct
-    * \param plateau fichier de lecture du plateau
-    * \return 1 si le fichier est valide, 0 sinon
-*/
-int verification_plateau(FILE* plateau);
 
 /**
   * \brief Creation et allocation d'un tableau de structures 2D
