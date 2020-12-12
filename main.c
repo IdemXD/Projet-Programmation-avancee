@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 	/*char* nivo[23];
 	nivo = preparation_niveau();
 	printf("dans main: sortie preparation niveau = %s", nivo);*/
-	salle_t** salles = charger_plateau(preparation_niveau());
+	salle_t** salles = charger_plateau(preparation_chemin());
 
 	int pas_affichage; //variable temporaire
 	int terminer = 0;

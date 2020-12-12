@@ -32,7 +32,7 @@ void init_salles(char salle[5], salle_t** pl, int n);
     * \brief Demande au joueur le niveau voulu
     * \return nom du niveau choisi par le joueur
 */
-char* preparation_niveau();
+char* preparation_chemin();
 
 /**
   * \brief Verifie qu'un paquet de caractère d'une salle est valide
@@ -55,10 +55,16 @@ salle_t** creer_plateau();
 salle_t** charger_plateau(char* niveau);
 
 /**
+    * \brief Demande au joueur s'il veut sauvegarder, si oui on le fait
+    * \param pl le plateau actuel que l'on veut sauvegarder
+*/
+void proposition_sauvegarde(salle_t** pl);
+
+/**
     * \brief Sauvegarde le plateau dans un fichier
     * \param pl Tableau 2D representant le plateau
 */
-void sauvegarder_plateau(salle_t** pl);
+void sauvegarder_plateau(salle_t** pl, char* niveau);
 
 /**
   * \brief Libère l'espace alloué au tableau

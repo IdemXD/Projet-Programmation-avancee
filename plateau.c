@@ -36,11 +36,11 @@ void init_salles(char salle[5], salle_t** pl, int n)
     pl[i][j].pres= salle[3] - '0';
 }
 
-char* preparation_niveau()
+char* preparation_chemin()
 {
     int no;
     printf( "Choisissez un numero de plateau: " );
-    scanf( "%d", &no ); // on récupère le numero du niveau
+    scanf( "%i", &no ); // on récupère le numero du niveau
 
     char* niv; // Taille: nb de char + '\0' de fin de chaine de charactère
     niv = malloc(sizeof(char)*23);
@@ -81,12 +81,14 @@ salle_t** charger_plateau(char* niveau)
      salle_t** pl = creer_plateau() ;
 
      // Ouverture du fichier contenant une representation du plateau
-     FILE* plateau = fopen(niveau,"r");
+     FILE* plateau = NULL;
+     plateau = fopen(niveau,"r");
 
      // Flag permettant de s'assurer qu'on ne prend en compte que des lettres reconnu par le jeu
      int flag_char = 0 ;
 
-     char tampon[6] = ""; // "buffer" permettant de stocké les chars representant une salle et ses caracts
+     // "buffer" permettant de stocké les chars representant une salle et ses caracts
+     char tampon[6] = "";
 
      int salle_count = 0; // nb de chars parcouru dans le fichier
 
@@ -124,22 +126,34 @@ salle_t** charger_plateau(char* niveau)
     else return pl; // tout c'est bien passé
 }
 
-void sauvegarder_plateau(salle_t** pl)
+void proposition_sauvegarde(salle_t** pl)
+{
+    int r;
+	printf( "Voulez vous sauvegarder le plateau actuel ? [1/0]" );
+    scanf( "%i", &r );
+
+	if(r) sauvegarder_plateau(pl, preparation_chemin());
+}
+
+void sauvegarder_plateau(salle_t** pl, char* niveau)
 {
     // Création du fichier qui va contenir la sauvegarde
-    FILE* save = fopen("save.txt","w") ;
+    FILE* save = NULL ;
+    save = fopen(niveau,"w") ;
 
-    // On parcourt le plateau case par case
-    for(int i = 0; i < TAILLE_PL; i++)
-    {
-        for (int j = 0; j < TAILLE_PL; j++)
-        {
-            fputc(pl[i][j].type, save) ; // lettre
-            fputc(pl[i][j].state, save) ; // utilisabilité
-            fputc(pl[i][j].visible, save) ; // visibilité
+    // "buffer" permettant de stocké les chars representant une salle et ses caracts
+    char tampon[6] = "" ;
+
+    if (save == NULL) perror ("Probleme creation de sauvegarde");
+    else {
+        for(int i = 0; i < TAILLE_PL; i++) {
+            for(int j = 0; j < TAILLE_PL; j++) {
+                snprintf(tampon, 6, "%c%i%i%i\n", pl[i][j].type, pl[i][j].visible, pl[i][j].state, pl[i][j].pres);
+                fputs(tampon, save);
+            }
         }
-        fputc('\n', save) ; // saut à la ligne
     }
+    fclose(save);
 }
 
 void free_plateau(salle_t** pl)
