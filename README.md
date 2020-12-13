@@ -76,7 +76,7 @@ Medi:
 Marie: 
 * Création et gestions du plateau
 * Gestions des fichiers (chargements/sauvegardes)
-* Implementation des sprites_world
+* Implementation d'un struct_world
 * Affichage SDL de description de salles en jeu 
        
 Chloé: 
@@ -136,6 +136,14 @@ Medi: Modification des fonctions salles et mise à jour de leurs tests adéquats
 Marie: Recherche optimisation vérification plateau 
 
 Chloé: Implémentation d'un affichage sur sortie standard pour voir les tours de jeux 
+
+### Semaine 7 
+
+Medi: Corrections du fonctionnement des salles et ajouts de tests en vu de leur implémentation 
+
+Marie: Changement systeme de chargement plateau, complétion vérifications de fichiers fonctionelles, ajout systeme de sauvegarde, début strct_world
+
+Chloé: Ajout de la possibilité de cliquer à nouveau quand clic non valide, affichage des messages à l'écran, complétion du strct_world
 
 
 
