@@ -247,8 +247,6 @@ void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_
 	}
 
 	*nb_action = 0;
-	printf("Tour du personnage %d \n",*tour_perso);
-	printf("Action numéro %d \n\n",*tour_action);
 
 }
 
@@ -274,6 +272,4 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 	else{
 		*tour_perso = *tour_perso + 1;
 	}
-	printf("Tour du personnage %d \n",*tour_perso);
-	printf("Action numéro %d \n\n",*tour_action);
 }

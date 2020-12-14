@@ -48,22 +48,22 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     affiche_action(ecran,textures.sprites_elements,data->actions[1], 1);
     affiche_action(ecran,textures.sprites_elements,data->actions[2], 2);
     affiche_action(ecran,textures.sprites_elements,data->actions[3], 3);
+
+    affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
 }
 
 
 void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, data_t* data)
 {
-    // Fermer la police et quitter SDL_ttf
-	TTF_Quit();
-
 	//Libération de l’écran (renderer)
 	free_plateau(data->salles);
-
-	//free(actions);
-	liberer_textures(textures);
+	
+	free(data->actions);
 	liberer_persos(data->joueur);
-	data->joueur = NULL; // !!! A deplacer dans la fonction liberer elle même
-
+	free(data);
+	liberer_textures(textures);
+	TTF_Quit();
+	
 	SDL_DestroyRenderer(ecran);
 	SDL_DestroyWindow(fenetre);
 	SDL_Quit();

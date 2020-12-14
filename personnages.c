@@ -31,7 +31,7 @@ void liberer_persos(persos_t*  persos)
  	for (int i=0; i<NB_PERSONNAGES;i++){
  		free(persos[i].actions);
  	}
-
+ 	
  	free(persos);
  	persos = NULL;
  }

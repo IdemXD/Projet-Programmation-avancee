@@ -9,6 +9,20 @@
 
 #include "fonctions_SDL.h"
 
+void init_sdl(){
+	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+	// Initialisation de la SDL
+	{
+		printf("Erreur d’initialisation de la SDL: %s",SDL_GetError());
+		SDL_Quit();
+		exit(0);
+	}
+
+	if(TTF_Init()==-1) {
+    	printf("TTF_Init: %s\n", TTF_GetError());
+	}
+}
+
 
 SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
 
@@ -29,6 +43,18 @@ SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
 		return NULL;
 	}
 	return texture;
+}
+
+TTF_Font* charger_police (const char* chemin_police){
+	TTF_Font* police = NULL;
+
+	police = TTF_OpenFont(chemin_police,20);
+
+	if(police == NULL){
+        printf("Erreur pendant le chargement de la police: %s\n", SDL_GetError());
+    }
+
+	return police;
 }
 
 SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* renderer,Uint8 r, Uint8 g, Uint8 b){
@@ -60,28 +86,28 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 
 }
 
-SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font *font, SDL_Color color)
-{
-	SDL_Surface * surface = NULL;
-	SDL_Texture * text = NULL;
+void affiche_message (SDL_Renderer* renderer,TTF_Font *police,const char *message){
+	appliquer_texte(renderer,600,100,300,30,message,police);
+}
 
-	surface = TTF_RenderText_Solid(font,message,color);
+void affiche_tours(SDL_Renderer* renderer,TTF_Font *police, int tour_perso, int tour_action){
+	char texte [21];
+	sprintf(texte,"Tour du personnage %d",tour_perso);
+	appliquer_texte(renderer,601,10,295,32,texte,police);
 
-	if (surface == NULL){
-		printf ("Erreur de chargement du texte : %s\n",SDL_GetError());
-		return NULL;
-	}
-	text = SDL_CreateTextureFromSurface(renderer,surface);
-	SDL_FreeSurface(surface);
+	sprintf(texte,"Action numero %d",tour_action);
+	appliquer_texte(renderer,640,50,230,30,texte,police);
+}
 
-	if (text == NULL){
-		printf ("Erreur d'affichage du texte : %s\n",SDL_GetError());
-		return NULL;
-	}
-	return text;
-
-
-
+void appliquer_texte(SDL_Renderer *renderer,int x, int y, int w, int h, const char * message, TTF_Font *police){
+    SDL_Color color = { 0, 0, 0 };
+    
+    SDL_Surface* surface = TTF_RenderText_Solid(police, message, color);
+     
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect dstrect2 = {x, y, w, h};
+    SDL_RenderCopy(renderer, texture, NULL, &dstrect2);
+    
 }
 
 void init_textures(ressources * textures,SDL_Renderer* renderer){
@@ -93,12 +119,14 @@ void init_textures(ressources * textures,SDL_Renderer* renderer){
 
  	textures->sprites_elements = charger_image_transparente("ressources/sprites_elements.bmp", renderer,255,0,255);
 
+ 	textures->police = charger_police("ressources/KeepCalm.ttf");
 }
 
 void liberer_textures(ressources * textures){
 	liberer_texture(textures->fond);
 	liberer_texture(textures->sprites_salles);
 	liberer_texture(textures->sprites_elements);
+	TTF_CloseFont(textures->police);
 }
 
 void liberer_texture(SDL_Texture * texture){
@@ -120,7 +148,7 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees
 
 	SDL_Rect SrcR = {i*persoW,0,persoW,persoH};
 
-	SDL_Rect DestR = {persoW*donnees_perso.coord_x + i*55,persoW*donnees_perso.coord_y,persoW,persoH};
+	SDL_Rect DestR = {persoW*donnees_perso.coord_x - persoW/4 + i*60, persoH*donnees_perso.coord_y - persoH/4,persoW,persoH};
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 

@@ -12,14 +12,15 @@
 
 struct textures_s{
 
-	SDL_Texture * fond;/*<!Texture du fond de l'écran */
-	SDL_Texture * sprites_salles;/*<!Textures des salles */
-	SDL_Texture * sprites_elements;/*<!Textures des salles */
-
+	SDL_Texture * fond;/*!<Texture du fond de l'écran */
+	SDL_Texture * sprites_salles;/*!<Textures des salles */
+	SDL_Texture * sprites_elements;/*!<Textures des éléments du jeu*/
+	TTF_Font* police; /*!<TPolice de texte*/
 };
 
 typedef struct textures_s ressources;
 
+void init_sdl();
 /**
 	* \brief Charge les textures
 	* \param textures l'ensemble des textures
@@ -42,6 +43,9 @@ void liberer_textures(ressources * textures);
 */
 
 void liberer_texture(SDL_Texture * texture);
+
+void affiche_tours(SDL_Renderer* renderer,TTF_Font *font, int tour_perso, int tour_action);
+
 
 /**
 	* \brief Crée une texture à partir d'une image
@@ -73,7 +77,9 @@ SDL_Texture * charger_image_transparente(const char* nomfichier,SDL_Renderer* re
 	* \return la texture
 */
 
-SDL_Texture* charger_texte(const char* message, SDL_Renderer* renderer,TTF_Font *font, SDL_Color color) ;
+void affiche_message (SDL_Renderer* renderer,TTF_Font *police,const char *message);
+
+void appliquer_texte(SDL_Renderer *renderer,int x, int y, int w, int h, const char *text, TTF_Font *font);
 
 
 void modif_taille(SDL_Texture * action,action_t* donnees_action);
