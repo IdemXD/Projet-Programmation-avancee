@@ -39,7 +39,7 @@ typedef struct data_s data_t;
     * \brief Initialisation des données du jeu
     * \param data les éléments du joueur
 */
-void init_data(data_t* data);
+data_t* init_data();
 
 /**
     * \brief Rafraichis l'affichage du jeu

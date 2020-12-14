@@ -18,19 +18,9 @@ int main(int argc, char *argv[]){
 	SDL_Renderer* ecran;
 
 	ressources textures;
+
 	data_t* data;
-	/*////////////////////////////////////////
-	persos_t* joueur;
-	action_t* actions;
-
-	// Demande du niveau au joueur puis chargement du niveau correspondant
-	salle_t** salles = charger_plateau(preparation_chemin());
-
-	int terminer = 0;
-	int etape = 1; //etape 1 : choix de l'action
-	char active_direction = 'n'; // définit quel direction le joueur choisit
-	int nb_action = 0, trouve = 0, tour_perso = 0,tour_action = 0;
-	///////////////////////////////////////*/
+	data = init_data();
 
 	int pas_affichage; //variable temporaire
 
@@ -58,13 +48,6 @@ int main(int argc, char *argv[]){
 	ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
 
 	init_textures(&textures,ecran);
-	/*//////////////////////////////////
-	joueur = creer_persos();
-	actions = creer_actions();
-	actions[3].etat = 0;
-	/////////////////////////////////*/
-	init_data(data);
-
 
 	modif_taille(textures.sprites_elements,data->actions);
 
@@ -73,21 +56,6 @@ int main(int argc, char *argv[]){
 	// Boucle principale
 	while(!data->terminer)
 	{
-		/*////////////////////////////////////////////////////////////////////
-		SDL_RenderClear(ecran);
-		SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
-
-
-		affichage_plateau(ecran,textures,salles);
-
-		affiche_joueur(ecran,textures.sprites_elements,joueur[0],0);
-		affiche_joueur(ecran,textures.sprites_elements,joueur[1],1);
-
-		affiche_action(ecran,textures.sprites_elements,actions[0], 0);
-		affiche_action(ecran,textures.sprites_elements,actions[1], 1);
-		affiche_action(ecran,textures.sprites_elements,actions[2], 2);
-		affiche_action(ecran,textures.sprites_elements,actions[3], 3);
-		////////////////////////////////////////////////////////////////////*/
 		refresh_game(ecran, textures, data);
 
 
@@ -207,19 +175,6 @@ int main(int argc, char *argv[]){
 		SDL_RenderPresent(ecran);
 
 	}
-	/*//////////////////////////////////////////
-	// Fermer la police et quitter SDL_ttf
-	TTF_Quit();
-	//Libération de l’écran (renderer)
-	free_plateau(salles);
-	//free(actions);
-	liberer_textures(&textures);
-	liberer_persos(joueur);
-	joueur = NULL;
-	SDL_DestroyRenderer(ecran);
-	SDL_DestroyWindow(fenetre);
-	SDL_Quit();
-	/////////////////////////////////////////*/
 	clean_game(fenetre, ecran, &textures, data);
 	return 0;
 }

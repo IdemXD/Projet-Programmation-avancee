@@ -10,8 +10,11 @@
 
 #include "data_monde.h"
 
-void init_data(data_t* data)
+data_t* init_data()
 {
+	// Allocation de la structure
+	data_t* data = (data_t *) malloc (sizeof(data_t));
+
     // Demande du niveau au joueur puis chargement du niveau correspondant
 	data->salles = charger_plateau(preparation_chemin());
 
@@ -25,6 +28,8 @@ void init_data(data_t* data)
     data->joueur = creer_persos();
 	data->actions = creer_actions();
 	data->actions[3].etat = 0;
+
+	 return data;
 
 }
 
