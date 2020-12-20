@@ -145,7 +145,13 @@ Marie: Changement systeme de chargement plateau, complétion vérifications de f
 
 Chloé: Ajout de la possibilité de cliquer à nouveau quand clic non valide, affichage des messages à l'écran, complétion du strct_world
 
+### Semaine 8 
 
+Medi: Début de la création du menu de jeu et changement d'implémentation des salles 
+
+Marie: Continuation du struct_world and début d'écriture des fonctions SDL de textes en jeu 
+
+Chloé: Prise en compte de la mort des joueurs, et modifications des tests quant au bon fonctionnement de ces derniers 
 
 
 
