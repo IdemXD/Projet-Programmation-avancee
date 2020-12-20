@@ -37,7 +37,7 @@ SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
 	// Conversion de la surface de l’image au format texture avant de l’appliquer
 	texture = SDL_CreateTextureFromSurface(renderer,surface) ;
 	SDL_FreeSurface(surface);
-
+	
 	if (texture == NULL){
 		printf ("Erreur lors de la creation de la texture à partir d'une surface : %s",SDL_GetError());
 		return NULL;
@@ -105,8 +105,10 @@ void appliquer_texte(SDL_Renderer *renderer,int x, int y, int w, int h, const ch
     SDL_Surface* surface = TTF_RenderText_Solid(police, message, color);
      
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
     SDL_Rect dstrect2 = {x, y, w, h};
     SDL_RenderCopy(renderer, texture, NULL, &dstrect2);
+    liberer_texture(texture);
     
 }
 

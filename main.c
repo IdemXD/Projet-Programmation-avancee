@@ -62,17 +62,17 @@ int main(int argc, char *argv[]){
 
 						case SDLK_DOWN:
 
-							if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action] == 1 || data->joueur[data->tour_perso].actions[data->tour_action] == 2)){ //Seulement si le joueur est en train de faire un choix de direction
-								data->active_direction = 'b';
-							}
+								if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action] == 1 || data->joueur[data->tour_perso].actions[data->tour_action] == 2)){ //Seulement si le joueur est en train de faire un choix de direction
+									data->active_direction = 'b';
 
-							break;
+								}
+						break;
 
 						case SDLK_UP:
 							if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action] == 1 || data->joueur[data->tour_perso].actions[data->tour_action] == 2)){
 								data->active_direction = 'h';
-							}
 
+							}
 							break;
 
 						case SDLK_LEFT:

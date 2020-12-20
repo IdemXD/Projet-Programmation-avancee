@@ -40,9 +40,10 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
 
 
     affichage_plateau(ecran,textures,data->salles);
-
-    affiche_joueur(ecran,textures.sprites_elements,data->joueur[0],0);
-    affiche_joueur(ecran,textures.sprites_elements,data->joueur[1],1);
+    for (int i = 0; i<2; i++){
+    	if (data->joueur[i].state)
+    		affiche_joueur(ecran,textures.sprites_elements,data->joueur[i],i);
+    }
 
     affiche_action(ecran,textures.sprites_elements,data->actions[0], 0);
     affiche_action(ecran,textures.sprites_elements,data->actions[1], 1);

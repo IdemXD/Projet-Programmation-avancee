@@ -11,33 +11,12 @@
 #include "plateau.h"
 #include "salle.h"
 
-/*void affichage_visible(salle_t** pl){
-    for(int i = 0; i < TAILLE_PL; i++)
-    {
-        for (int j = 0; j < TAILLE_PL; j++){
-			printf("| %d |",pl[i][j].visible);
-		}
-		printf("\n");
-	}
-}
-
-void affichage_utilisable(salle_t** pl){
-    for(int i = 0; i < TAILLE_PL; i++)
-    {
-        for (int j = 0; j < TAILLE_PL; j++){
-			printf("| %d |",pl[i][j].state);
-		}
-		printf("\n");
-	}
-}*/
-
 int main(int argc, char* argv[]) {
 
 	salle_t ** pl;
 	persos_t* p;
 
-	pl = creer_plateau();
-	init_salles(pl);
+	pl = charger_plateau("plateauTest.txt");
 	p = creer_persos();
 
 	affichage_plateau_brut(pl);

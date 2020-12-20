@@ -31,8 +31,8 @@ void init_salles(char salle[5], salle_t** pl, int n)
     pl[i][j].y = i ;
 
     pl[i][j].type = salle[0]; // 1er charactère de la salle correspondant est affecté dans la struct
-    pl[i][j].visible = salle[1] - '0';  // 2e Caractère suivant définie la visibilité
-    pl[i][j].state = salle[2] - '0'; // 3e Caractère suivant définie l'etat
+    pl[i][j].visible = salle[1] - '0';  // 2e Caractère suivant définit la visibilité
+    pl[i][j].state = salle[2] - '0'; // 3e Caractère suivant définit l'etat
     pl[i][j].pres= salle[3] - '0';
 }
 
