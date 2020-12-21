@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 
 #include "actions.h"
 #include "fonctions_SDL.h"
-#include "personnages.h"
-#include "plateau.h"
 #include "data_monde.h"
 
 
@@ -21,7 +18,7 @@ int main(int argc, char *argv[]){
 
 	data_t* data;
 	data = init_data();
-	int pas_affichage; //variable temporaire
+
 	
 	init_sdl();
 	// Créer la fenêtre
@@ -100,23 +97,27 @@ int main(int argc, char *argv[]){
 					}
 
 					if (data->etape == 2 && data->joueur[data->tour_perso].actions[data->tour_action] == 0){//Le joueur a choisi "regarder"
+						if (!plateau_est_visible(data->salles)) {//Si le plateau n'est pas entièrement affiché, le joueur fait l'action
+							int x = -1,y = -1;
+						
+							pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
 
-
-						int x = -1,y = -1;
-					
-						pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
-
-						if (x != -1 && y != -1){
-							if (data->salles[y][x].visible == 1){
-								x = -1;
-								y = -1;
-							} else {
-								regarder(data->salles,x,y);
-								pas_affichage = 0;
-								change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&pas_affichage);
-								affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
-
+							if (x != -1 && y != -1){
+								if (data->salles[y][x].visible == 1){
+									x = -1;
+									y = -1;
+								} else {
+									regarder(data->salles,x,y);
+	                                data->affiche_message = 0;
+									change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
+									
+								}
 							}
+						} else {//Si le plateau est totalement affiché, on affiche un message et le joueur peut choisir 	
+							affiche_message (ecran,textures.police,"Action regarder impossible");
+							SDL_Delay(100);
+							data->affiche_message = 0;
+							change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);		
 						}
 					}
 					break;
@@ -126,30 +127,24 @@ int main(int argc, char *argv[]){
 		if (data->trouve){
 
 			data->joueur[data->tour_perso].actions[data->tour_action] = data->nb_action;//On enregistre le numéro de l'action choisie
-			pas_affichage = 1;
-			change_perso(data->actions,data->joueur,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->nb_action),&pas_affichage);
-			affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
+            data->affiche_message = 1;
+            
+			change_perso(data->actions,&(data->joueur[data->tour_perso]),&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->nb_action),&(data->affiche_message),data->nb_personnages);
+			
 			data->trouve = 0;
 
 		}
 
 		if (data->active_direction!='n'){
 			//On attend que le joueur choisisse une direction pour appliquer l'action 'contrôler' ou 'déplacer'
-			applique_action(data->salles, data->joueur, &(data->active_direction),data->tour_action,data->tour_perso);
-			pas_affichage = 0;
-			change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&pas_affichage);
-			affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
+			applique_action(data->salles, data->joueur, &(data->active_direction),data->tour_action,data->tour_perso,data->nb_personnages);
+            data->affiche_message = 0;
+			change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
 			data->active_direction = 'n';//On remet à aucune action choisie
 		}
-
-		if (pas_affichage == 0)
-			if(data->joueur[data->tour_perso].actions[data->tour_action] == 0){
-				affiche_message (ecran,textures.police,"Cliquez sur la case que vous voulez voir");
-			} else {
-				if (data->joueur[data->tour_perso].actions[data->tour_action] == 1 || data->joueur[data->tour_perso].actions[data->tour_action] == 2)
-					affiche_message (ecran,textures.police,"Choisissez une direction avec les fleches du clavier");
-			}
-
+		affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
+		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police);
+		
 		SDL_RenderPresent(ecran);
 
 	}

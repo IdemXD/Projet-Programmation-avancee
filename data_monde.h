@@ -16,6 +16,8 @@
 #include "plateau.h"
 
 struct data_s {
+
+    int nb_personnages; /*!< Nombre de personnages (2 pour 1 joueur sinon le nombre de joueurs est égal au nombre de personnages) */
     int terminer;           /*!< Indique que la partie est terminée */
     int etape;              /*!< Indique à quel étape du jeu on se trouve */
     int trouve;             /*!< Indique qu'on a trouvé la salle 25 */
@@ -23,6 +25,7 @@ struct data_s {
     int tour_action;        /*!< Indique ordre d'execution des actions  */
     int nb_action;          /*!< Donne le nb d'action accordé au joueur */
     char active_direction;  /*!< Définit quel direction le joueur choisit */
+    int affiche_message; /*!< Indique si on doit afficher un message à l'écran */
 
     salle_t** salles;       /*!< Represente le plateau de jeu */
     persos_t* joueur;        /*!< Represente les joueurs */

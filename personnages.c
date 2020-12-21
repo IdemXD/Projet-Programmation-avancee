@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include "personnages.h"
 
-persos_t*  creer_persos()
+persos_t*  creer_persos(int nbPersos)
  {
 
- 	persos_t* persos = (persos_t *) malloc (sizeof(persos_t)*NB_PERSONNAGES); //les personnages du joueur
- 	for (int i=0; i<NB_PERSONNAGES;i++){
+ 	persos_t* persos = (persos_t *) malloc (sizeof(persos_t)*nbPersos); //les personnages du joueur
+ 	for (int i=0; i<nbPersos;i++){
  		persos[i].coord_x = 2;//On place les personnages dans la salle de départ (au centre)
  		persos[i].coord_y = 2;
  		persos[i].state = 1 ; //les personnages sont vivants
@@ -24,11 +24,18 @@ persos_t*  creer_persos()
  	return persos ;
 
  }
+int joueurToPersos (int nbJoueurs){
+    if (nbJoueurs == 1){//Si il n'y a qu'un joueur, il a le droit a deux personnages
+        return 2;
+    }
+    //Sinon un personnage par joueur
+    return nbJoueurs;
+}
 
 
-void liberer_persos(persos_t*  persos)
+void liberer_persos(persos_t*  persos,int nbPersos)
  {
- 	for (int i=0; i<NB_PERSONNAGES;i++){
+ 	for (int i=0; i<nbPersos;i++){
  		free(persos[i].actions);
  	}
  	

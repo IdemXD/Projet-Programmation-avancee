@@ -207,3 +207,19 @@ void affichage_plateau_caracteristique(salle_t** pl)
         printf("\n"); // saut à la ligne
     }
 }
+
+int plateau_est_visible(salle_t** pl){
+    int est_visible = 1;//On considère que le plateau est plein
+    int x = 0, y = 0;
+    while (est_visible && x != 5){
+        while (est_visible && y != 5){
+            if (pl[x][y].visible == 0){
+                est_visible = 0;
+            }
+            y++;
+        }
+        y = 0;
+        x++;
+    }
+    return est_visible;
+}

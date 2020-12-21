@@ -121,4 +121,6 @@ int * texture_salle (salle_t salle);
     * \param pl Tableau 2D representant le plateau
 */
 void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl);
+
+void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police);
 #endif

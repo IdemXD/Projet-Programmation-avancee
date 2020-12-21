@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 	persos_t* p;
 
 	pl = charger_plateau("plateauTest.txt");
-	p = creer_persos();
+	p = creer_persos(2);
 
 	affichage_plateau_brut(pl);
 

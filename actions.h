@@ -32,7 +32,7 @@ int est_choisie(action_t* action, int x_souris,int y_souris);
 
 void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y);
 
-void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso);
+void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso, int nb_personnage);
 
 /**
  * \brief Permet au personnage de se déplacer sur une des salles adjacentes
@@ -41,7 +41,7 @@ void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction
  * \param direction direction vers laquelle déplacer le personnage
  * \param choix_dir 1 si le joueur peut choisir une direction, 0 sinon
 */
-void deplacer(salle_t** plateau,persos_t* perso,char* direction);
+void deplacer(salle_t** plateau,persos_t* perso,const char* direction);
 
 void pixToSalle(int x_pix,int y_pix,int* x, int* y);
 /**
@@ -59,10 +59,11 @@ void regarder(salle_t** plateau,int x,int y);
  * \param nbRangee numéro dde la rangée à déplacer
  * \param p les personnages
 */
-void controler(salle_t** plateau, char* direction, int nbRangee,persos_t* p);
+void controler(salle_t** plateau, const char* direction, int nbRangee,persos_t* p,int nb_personnage);
 
-void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage);
+void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage, int nb_personnages);
 
-void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage);
+void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur);
+	
 
 #endif

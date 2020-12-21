@@ -17,6 +17,8 @@ data_t* init_data()
 
     // Demande du niveau au joueur puis chargement du niveau correspondant
 	data->salles = charger_plateau(preparation_chemin());
+    data->nb_personnages = 2;
+    //Les deux variables précédentes seront à changer à partir du menu
 
     // Preparation des variables d'interactions personnages / actions
 	data->etape = 1; //etape 1 : choix de l'action
@@ -25,7 +27,7 @@ data_t* init_data()
 	data->tour_perso = data->tour_action = 0;
 
     // Initialisation des structures d'interactions personnages / actions
-    data->joueur = creer_persos();
+    data->joueur = creer_persos(data->nb_personnages);
 	data->actions = creer_actions();
 	data->actions[3].etat = 0;
 
@@ -44,12 +46,11 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     	if (data->joueur[i].state)
     		affiche_joueur(ecran,textures.sprites_elements,data->joueur[i],i);
     }
-
-    affiche_action(ecran,textures.sprites_elements,data->actions[0], 0);
-    affiche_action(ecran,textures.sprites_elements,data->actions[1], 1);
-    affiche_action(ecran,textures.sprites_elements,data->actions[2], 2);
-    affiche_action(ecran,textures.sprites_elements,data->actions[3], 3);
-
+    for (int i = 0; i<NB_ACTIONS_TOTAl; i++){
+        if (data->actions[i].etat) { //On affiche seulement si la salle est visible
+            affiche_action(ecran, textures.sprites_elements, data->actions[i], i);
+        }
+    }
     affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
 }
 
@@ -60,7 +61,7 @@ void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, 
 	free_plateau(data->salles);
 	
 	free(data->actions);
-	liberer_persos(data->joueur);
+	liberer_persos(data->joueur,data->nb_personnages);
 	free(data);
 	liberer_textures(textures);
 	TTF_Quit();

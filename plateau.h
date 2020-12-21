@@ -90,4 +90,10 @@ void affichage_plateau_coordonnees(salle_t** pl);
 */
 void affichage_plateau_caracteristique(salle_t** pl);
 
+/**
+  * \brief Renvoie un int égal à 1 si le plateau est entièrement visible, 0 sinon
+  * \param pl Tableau 2D representant le plateau
+  * \return 1 si le plateau est entièrement visible, 0 sinon
+*/
+int plateau_est_visible(salle_t** pl);
 #endif

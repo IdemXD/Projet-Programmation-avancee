@@ -8,9 +8,9 @@
 */
 
 /**
- * \brief Nombre de personnages joués
+ * \brief Nombre d'actions possibles
  */
-#define NB_PERSONNAGES 2
+#define NB_ACTIONS_TOTAl 4
 
 /**
  * \brief Le coté du plateau
@@ -20,8 +20,6 @@
 /**
  * \brief Tableau des char de toutes les salles du jeu
 */
-// extern const char LETTRES_SALLES[12] ;
-
 static const char LETTRES_SALLES[12] = {'R','V','C','O','S','E','F','M','D','N','T','X'} ;
 
 /**

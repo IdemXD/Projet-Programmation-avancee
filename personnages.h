@@ -28,15 +28,17 @@ typedef struct persos_s persos_t;
 	*\return tableau des struct de joueurs
 */
 
-persos_t*  creer_persos();
+persos_t*  creer_persos(int nbJoueurs);
+
+int joueurToPersos (int nbJoueurs);
 
 /**
  * \brief Libère l'espace en mémoire utilisé pour les personnages
 */
-void liberer_persos( persos_t*  persos);
+void liberer_persos( persos_t*  persos,int nbPersos);
 
 /**
- * \brief Affiche la position du joueur dans un tableau represenant plateau
+ * \brief Affiche la position du joueur dans un tableau reprenant le plateau
 */
 void affichage_joueur(persos_t* p);
 

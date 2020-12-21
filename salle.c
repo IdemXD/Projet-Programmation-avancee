@@ -110,7 +110,7 @@ void Salle_vision(salle_t** pl, int x, int y){
 
 
 void Salle_controle(salle_t** pl, char* direction, int nbRangee,persos_t* p){
-    controler(pl,direction,nbRangee, p);
+    //controler(pl,direction,nbRangee, p);
 }
 
 
