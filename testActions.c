@@ -16,45 +16,34 @@ int main(int argc, char* argv[]) {
 	salle_t ** pl;
 	persos_t* p;
 
-	pl = charger_plateau("plateauTest.txt");
+	pl = charger_plateau("niveaux/plateauTest.txt");
 	p = creer_persos(2);
 
-	affichage_plateau_brut(pl);
-
+	affichage_plateau_lettre(pl);
+	affichage_plateau_coordonnees(pl);
 	printf("\n\n##########TEST REGARDER##########\n");
 
 	printf("\nAvant regarder : ");
-	printf("\n  Visibilité : \n");
-	affichage_visible(pl);
-	printf("\n  Utilisabilité : \n");
-
-	affichage_utilisable(pl);
+	printf("\n  Visibilité/Utilisabilité/Présence : \n");
+	affichage_plateau_caracteristique(pl);
+	printf("\n");
 	//Test avec une salle normale
 
 	printf("\nAprès regarder en (0,0): ");
 	regarder(pl,0,0);
-	printf("\n  Visibilité : \n");
-	affichage_visible(pl);
-	printf("\n  Utilisabilité : \n");
-	affichage_utilisable(pl);
+	affichage_plateau_caracteristique(pl);
 
 	//Test avec une salle tunnel
 	printf("\nAvec un tunnel (en (3,1)): ");
 	regarder(pl,3,1);
-	printf("\n  Visibilité : \n");
-	affichage_visible(pl);
-	printf("\n  Utilisabilité : \n");
-	affichage_utilisable(pl);
+	affichage_plateau_caracteristique(pl);
 	//Avec une seule salle visible
 	printf("\nAvec les deux tunnels (en (1,4)): ");
 	regarder(pl,1,4);
-	printf("\n  Visibilité : \n");
-	affichage_visible(pl);
-	printf("\n  Utilisabilité : \n");
-	affichage_utilisable(pl);
+	affichage_plateau_caracteristique(pl);
 
 
-
+	
 	char direction;
 	printf("\n\n##########TEST DEPLACER##########\n");
 
@@ -70,10 +59,7 @@ int main(int argc, char* argv[]) {
 
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 
-	printf("\n  Visibilité : \n");
-	affichage_visible(pl);
-	printf("\n  Utilisabilité : \n");
-	affichage_utilisable(pl);
+	affichage_plateau_caracteristique(pl);
 
 
 
@@ -88,10 +74,7 @@ int main(int argc, char* argv[]) {
 
 	printf("Coordonnées du joueur : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 
-	printf("\n  Visibilité : \n");
-	affichage_visible(pl);
-	printf("\n  Utilisabilité : \n");
-	affichage_utilisable(pl);
+	affichage_plateau_caracteristique(pl);
 	affichage_joueur(p);
 
 	printf("\nLe joueur choisit le bas\n");
@@ -128,14 +111,14 @@ int main(int argc, char* argv[]) {
 	printf("\nDéplacement droite (sur ligne 1)\n");
 	printf("Coordonnées du joueur avant : x = %d et y = %d\n",p[0].coord_y,p[0].coord_y);
 	affichage_joueur(p);
-	affichage_plateau_brut(pl);
-	controler(pl,&direction,p[0].coord_y,p);
+	affichage_plateau_lettre(pl);
+	controler(pl,&direction,p[0].coord_y,p,2);
 	printf("\nAprès contrôler\n");
 	printf("Coordonnées du joueur après: x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 
-
+	
 	//Vérification avec déplacement vertical
 	p[0].coord_x = 0;
 	p[0].coord_y = 0;
@@ -143,10 +126,10 @@ int main(int argc, char* argv[]) {
 	printf("\n\nDéplacement bas (sur colonne 0)\n");
 	printf("Coordonnées du joueur avant : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
-	affichage_plateau_brut(pl);
-	controler(pl,&direction,p[0].coord_x,p);
+	affichage_plateau_lettre(pl);
+	controler(pl,&direction,p[0].coord_x,p,2);
 	printf("\nAprès contrôler\n");
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Coordonnées du joueur après: x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
 
@@ -156,13 +139,13 @@ int main(int argc, char* argv[]) {
 	p[0].coord_y = 1;
 	direction = 'h';
 	printf("Déplacement vers le haut (sur ligne 2)\n");
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Coordonnées du joueur avant : x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
-	controler(pl,&direction,p[0].coord_x,p);
+	controler(pl,&direction,p[0].coord_x,p,2);
 	printf("\nAprès contrôler\n");
 
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Coordonnées du joueur après: x = %d et y = %d\n",p[0].coord_x,p[0].coord_y);
 	affichage_joueur(p);
 
@@ -172,13 +155,13 @@ int main(int argc, char* argv[]) {
 	p[1].coord_y = 1;
 	direction = 'd';
 	printf("Déplacement vers la droite (sur ligne 0)\n");
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
-	controler(pl,&direction,p[0].coord_y,p);
+	controler(pl,&direction,p[0].coord_y,p,2);
 	printf("\nAprès contrôler\n");
 
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
 
@@ -189,21 +172,53 @@ int main(int argc, char* argv[]) {
 	p[1].coord_y = 2;
 	direction = 'h';
 	printf("Déplacement vers le haut (sur colonne 3)\n");
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
-	controler(pl,&direction,p[0].coord_x,p);
+	controler(pl,&direction,p[0].coord_x,p,2);
 	printf("\nAprès contrôler\n");
 
-	affichage_plateau_brut(pl);
+	affichage_plateau_lettre(pl);
 	printf("Affichage des joueurs\n");
 	affichage_joueur(p);
 
+	printf("\n\n##########TEST POUSSER##########\n");
 
-
-
+	p[0].coord_x = 2;
+	p[0].coord_y = 2;
+	p[1].coord_x = 2;
+	p[1].coord_y = 2;
+	direction = 'h';
+	printf("Pousser vers le haut (sur ligne 2)\n");
+	affichage_joueur(p);
+	pousser(p,0,2,&direction,pl);
+	printf("\nAprès pousser\n");
+	affichage_joueur(p);
+	printf("\n");
+	//Si un joueur pousse alors qu'il est seul sur la salle
+	p[0].coord_x = 4;
+	p[0].coord_y = 1;
+	direction = 'g';
+	printf("Pousser vers la gauche (sur colonne 4)\n");
+	affichage_joueur(p);
+	pousser(p,0,2,&direction,pl);
+	printf("\nAprès pousser\n");
+	affichage_joueur(p);
+	printf("\n");
+	//Si le joueur pousse sur un mur 
+	p[1].coord_x = 4;
+	p[1].coord_y = 1;
+	direction = 'd';
+	printf("Pousser vers la droite (sur colonne 4)\n");
+	affichage_joueur(p);
+	pousser(p,0,2,&direction,pl);
+	printf("\nAprès pousser\n");
+	affichage_joueur(p);
+	printf("\n");
+	printf("Coordonnées du joueur poussé après: x = %d et y = %d\n",p[1].coord_x,p[1].coord_y);
+	
 	free_plateau(pl);
-	liberer_persos(p);
+	liberer_persos(p,2);
 
 	return 0;
 }

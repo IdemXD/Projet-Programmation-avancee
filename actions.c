@@ -82,23 +82,23 @@ void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction
 
 void deplacer(salle_t** plateau,persos_t* perso,const char* direction){
 		//Cas où le joueur choisit droite
-		if(perso->coord_x+1 < 5 && *direction == 'd'){
-			perso->coord_x = perso->coord_x + 1 ;
-		}
-		//Cas où le joueur choisit gauche
-		else if(perso->coord_x-1 >= 0 && *direction == 'g'){
-			perso->coord_x = perso->coord_x - 1 ;
-		}
-		//Cas où le joueur choisit bas
-		else if (perso->coord_y+1 < 5 && *direction == 'b'){
-			perso->coord_y = perso->coord_y + 1 ;
-		}
-		//Cas où le joueur choisit haut
-		else if (perso->coord_y-1 >= 0 && *direction == 'h'){
-			perso->coord_y = perso->coord_y - 1 ;	
-		}
-		
-		modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
+	if(perso->coord_x+1 < TAILLE_PL && *direction == 'd'){
+		perso->coord_x = perso->coord_x + 1 ;
+	}
+	//Cas où le joueur choisit gauche
+	else if(perso->coord_x-1 >= 0 && *direction == 'g'){
+		perso->coord_x = perso->coord_x - 1 ;
+	}
+	//Cas où le joueur choisit bas
+	else if (perso->coord_y+1 < TAILLE_PL && *direction == 'b'){
+		perso->coord_y = perso->coord_y + 1 ;
+	}
+	//Cas où le joueur choisit haut
+	else if (perso->coord_y-1 >= 0 && *direction == 'h'){
+		perso->coord_y = perso->coord_y - 1 ;	
+	}
+	
+	modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
 
 }
 
@@ -289,5 +289,14 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 				change_action(actions,tour_action,tour_perso,etape,pas_affichage,nb_personnage,joueur);
 			}
 		}
+	}
+}
+
+void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau){
+	int x = joueurs[num_joueur].coord_x, y = joueurs[num_joueur].coord_y;
+	for (int i = 0; i < nb_personnages; i++){
+		if (joueurs[i].coord_x == x && joueurs[i].coord_y == y && i != num_joueur){//On cherche les personnages qui sont sur la même case
+			deplacer(plateau,&joueurs[i],direction);
+		} 
 	}
 }

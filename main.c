@@ -97,28 +97,22 @@ int main(int argc, char *argv[]){
 					}
 
 					if (data->etape == 2 && data->joueur[data->tour_perso].actions[data->tour_action] == 0){//Le joueur a choisi "regarder"
-						if (!plateau_est_visible(data->salles)) {//Si le plateau n'est pas entièrement affiché, le joueur fait l'action
-							int x = -1,y = -1;
-						
-							pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
+						int x = -1,y = -1;
+					
+						pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
 
-							if (x != -1 && y != -1){
-								if (data->salles[y][x].visible == 1){
-									x = -1;
-									y = -1;
-								} else {
-									regarder(data->salles,x,y);
-	                                data->affiche_message = 0;
-									change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
-									
-								}
+						if (x != -1 && y != -1){
+							if (data->salles[y][x].visible == 1){
+								x = -1;
+								y = -1;
+							} else {
+								regarder(data->salles,x,y);
+                                data->affiche_message = 0;
+								change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
+								
 							}
-						} else {//Si le plateau est totalement affiché, on affiche un message et le joueur peut choisir 	
-							affiche_message (ecran,textures.police,"Action regarder impossible");
-							SDL_Delay(100);
-							data->affiche_message = 0;
-							change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);		
 						}
+						
 					}
 					break;
 
@@ -142,9 +136,10 @@ int main(int argc, char *argv[]){
 			change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
 			data->active_direction = 'n';//On remet à aucune action choisie
 		}
-		affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
-		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police);
 		
+		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police,data->salles);
+    
+
 		SDL_RenderPresent(ecran);
 
 	}

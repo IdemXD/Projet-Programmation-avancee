@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "actions.h"
+#include "plateau.h"
 
 struct textures_s{
 
@@ -122,5 +123,5 @@ int * texture_salle (salle_t salle);
 */
 void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_t** pl);
 
-void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police);
+void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police, salle_t** salles);
 #endif
