@@ -37,7 +37,7 @@ SDL_Texture* charger_image (const char* nomfichier, SDL_Renderer*renderer){
 	// Conversion de la surface de l’image au format texture avant de l’appliquer
 	texture = SDL_CreateTextureFromSurface(renderer,surface) ;
 	SDL_FreeSurface(surface);
-	
+
 	if (texture == NULL){
 		printf ("Erreur lors de la creation de la texture à partir d'une surface : %s",SDL_GetError());
 		return NULL;
@@ -101,15 +101,15 @@ void affiche_tours(SDL_Renderer* renderer,TTF_Font *police, int tour_perso, int 
 
 void appliquer_texte(SDL_Renderer *renderer,int x, int y, int w, int h, const char * message, TTF_Font *police){
     SDL_Color color = { 0, 0, 0 };
-    
+
     SDL_Surface* surface = TTF_RenderText_Solid(police, message, color);
-     
+
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     SDL_Rect dstrect2 = {x, y, w, h};
     SDL_RenderCopy(renderer, texture, NULL, &dstrect2);
     liberer_texture(texture);
-    
+
 }
 
 void init_textures(ressources * textures,SDL_Renderer* renderer){
@@ -136,7 +136,6 @@ void liberer_texture(SDL_Texture * texture){
 		SDL_DestroyTexture(texture);
 	}
 }
-
 
 void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees_perso, int i){
 
@@ -198,7 +197,7 @@ int * texture_salle (salle_t salle){
     		num_s++;
     	}*/
 
-    	
+
         switch (salle.type)
         {
 
@@ -315,4 +314,67 @@ void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecra
                 affiche_message(ecran, police, "Choisissez une direction avec les fleches du clavier");
         }
     }
+}
+
+void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
+	char texte[70];
+	char texte2[50];
+	char texte3[30];
+	switch (salle.type){
+        case 'S':
+            sprintf(texte,"Salle centrale");
+            break;
+        case 'R':
+            sprintf(texte,"Regagnez votre liberté ");
+			sprintf(texte2,"en m'atteignant !");
+            break;
+        case 'E':
+            sprintf(texte,"...");
+            break;
+        case 'V':
+            sprintf(texte,"Une action Regarder gratuite");
+            break;
+        case 'D':
+            sprintf(texte,"Ca va faire... boom !");
+            break;
+        case 'X':
+            sprintf(texte,"Retour a la case départ");
+            break;
+		case 'T':
+	        sprintf(texte,"Vous envoie à sa ");
+			sprintf(texte2,"salle jumelle");
+	        break;
+        case 'C':
+            sprintf(texte,"Trainer sur cette salle ");
+			sprintf(texte2,"peut s'averer... mortel");
+            break;
+        case 'F':
+            sprintf(texte,"On progresse moins vite ");
+			sprintf(texte2,"quand il fait -35°C");
+            break;
+        case 'M':
+            sprintf(texte,"Vous envoie sur une ");
+			sprintf(texte2,"salle non visible");
+            break;
+		case 'O':
+			sprintf(texte,"Une action Contrôler gratuite");
+			break;
+		case 'N':
+	        sprintf(texte,"Et si on eteignait ");
+			sprintf(texte2,"les lumières ?");
+	        break;
+		case 'P':
+		    sprintf(texte,"Cette salle vous ");
+			sprintf(texte2,"retiendera un bon moment.");
+			sprintf(texte3,"Criminel.");
+		    break;
+		case 'Z':
+			sprintf(texte,"Comme aux partiels, on ne ");
+			sprintf(texte2,"sait jamais à quoi s'attendre");
+			break;
+    }
+
+	appliquer_texte(renderer,601,160,295,182,texte,police);
+	appliquer_texte(renderer,601,200,295,222,texte2,police);
+	appliquer_texte(renderer,601,240,295,262,texte3,police);
 }

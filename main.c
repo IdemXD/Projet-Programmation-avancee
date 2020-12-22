@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
 	data_t* data;
 	data = init_data();
 
-	
+
 	init_sdl();
 	// Créer la fenêtre
 	fenetre = SDL_CreateWindow("Freedom", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 900, 600, SDL_WINDOW_RESIZABLE);
@@ -89,6 +89,19 @@ int main(int argc, char *argv[]){
 
 					}
 					break;
+				case SDL_MOUSEMOTION:
+					if (1){
+
+						int x, y;
+
+						pixToSalle(evenements.motion.x,evenements.motion.y,&x,&y);
+
+						if(data->salles[y][x].visible){
+							affiche_texte_salle(ecran,textures.police,data->salles[y][x]);
+						}
+					}
+
+					break;
 				case SDL_MOUSEBUTTONDOWN:
 
 					if (data->etape == 1){
@@ -99,7 +112,7 @@ int main(int argc, char *argv[]){
 					if (data->etape == 2 && data->joueur[data->tour_perso].actions[data->tour_action] == 0){//Le joueur a choisi "regarder"
 						if (!plateau_est_visible(data->salles)) {//Si le plateau n'est pas entièrement affiché, le joueur fait l'action
 							int x = -1,y = -1;
-						
+
 							pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
 
 							if (x != -1 && y != -1){
@@ -110,14 +123,14 @@ int main(int argc, char *argv[]){
 									regarder(data->salles,x,y);
 	                                data->affiche_message = 0;
 									change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
-									
+
 								}
 							}
-						} else {//Si le plateau est totalement affiché, on affiche un message et le joueur peut choisir 	
+						} else {//Si le plateau est totalement affiché, on affiche un message et le joueur peut choisir
 							affiche_message (ecran,textures.police,"Action regarder impossible");
 							SDL_Delay(100);
 							data->affiche_message = 0;
-							change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);		
+							change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
 						}
 					}
 					break;
@@ -128,9 +141,9 @@ int main(int argc, char *argv[]){
 
 			data->joueur[data->tour_perso].actions[data->tour_action] = data->nb_action;//On enregistre le numéro de l'action choisie
             data->affiche_message = 1;
-            
+
 			change_perso(data->actions,&(data->joueur[data->tour_perso]),&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->nb_action),&(data->affiche_message),data->nb_personnages);
-			
+
 			data->trouve = 0;
 
 		}
@@ -144,7 +157,7 @@ int main(int argc, char *argv[]){
 		}
 		affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
 		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police);
-		
+
 		SDL_RenderPresent(ecran);
 
 	}

@@ -51,16 +51,21 @@ char* preparation_chemin()
     return niv;
 }
 
-int chars_valide(char paquet[5])
+int chars_valide(char paquet[6])
 {
     // Si un des elements le respecte pas cette suite, on renvoie 0
-    if ((!is_in(paquet[0], LETTRES_SALLES, 12)) && (paquet[0] != '\n')) return 0;
+    if ((!is_in(paquet[0], LETTRES_SALLES, 12)) && (paquet[0] != '\n'))
+        return 0;
 
     // Si un des trois, supposés boolean, ne sont pas sous le bon format, envoie 0
-    for(int i = 1; i < 4; i++) if (!(paquet[i] == '1' || paquet[i] == '0')) return 0;
+    for(int i = 1; i < 4; i++)
+        if (!(paquet[i] == '1' || paquet[i] == '0'))
+            return 0;
 
     // Les 2 derniers elements du buffer sont '\n' suivi de '\0'
-    if ((paquet[4] != '\n') || (paquet[5] != '\0')) return 0;
+    if ((paquet[4] != '\n') || (paquet[5] != '\0'))
+        return 0;
+
     return 1; // les elements s'enchainent correctement
 }
 
@@ -122,17 +127,20 @@ salle_t** charger_plateau(char* niveau)
     }
 
     // On exit et free la mémoire si on rencontre une erreur dans le niveau
-    if (flag_char) return pl; // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
-    else return pl; // tout c'est bien passé
+    if (flag_char)
+        return pl; // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
+    else
+        return pl; // tout c'est bien passé
 }
 
 void proposition_sauvegarde(salle_t** pl)
 {
-    int r;
+    int choix;
 	printf( "Voulez vous sauvegarder le plateau actuel ? [1/0]" );
-    scanf( "%i", &r );
+    scanf( "%i", &choix );
 
-	if(r) sauvegarder_plateau(pl, preparation_chemin());
+	if(choix)
+        sauvegarder_plateau(pl, preparation_chemin());
 }
 
 void sauvegarder_plateau(salle_t** pl, char* niveau)
@@ -144,7 +152,8 @@ void sauvegarder_plateau(salle_t** pl, char* niveau)
     // "buffer" permettant de stocké les chars representant une salle et ses caracts
     char tampon[6] = "" ;
 
-    if (save == NULL) perror ("Probleme creation de sauvegarde");
+    if (save == NULL)
+        perror ("Probleme creation de sauvegarde");
     else {
         for(int i = 0; i < TAILLE_PL; i++) {
             for(int j = 0; j < TAILLE_PL; j++) {
