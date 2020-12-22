@@ -157,7 +157,7 @@ int main(int argc, char *argv[]){
 			data->active_direction = 'n';//On remet à aucune action choisie
 		}
 		affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
-		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police);
+		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police, data->salles);
 
 		SDL_RenderPresent(ecran);
 

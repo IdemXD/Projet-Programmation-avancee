@@ -149,8 +149,9 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
     * \param num_action Numero de l'action à executer
     * \param ecran Surface de l'écran de joueur
 	* \param font Police d'écriture
+	* \param salles Plateau de jeu
 */
-void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police);
+void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police, salle_t** salles);
 
 /**
 	* \brief Affiche le texte correcpondant à la salle

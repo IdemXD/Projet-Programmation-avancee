@@ -196,11 +196,7 @@ int * texture_salle (salle_t salle){
     		num_s++;
     	}
 
-<<<<<<< HEAD
-
-=======
     	/*
->>>>>>> 335f11422f0dc10334722df5b898db935bb32646
         switch (salle.type)
         {
 
