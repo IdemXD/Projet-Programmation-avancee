@@ -128,7 +128,7 @@ salle_t** charger_plateau(char* niveau)
 
     // On exit et free la mémoire si on rencontre une erreur dans le niveau
     if (flag_char)
-        return pl; // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
+        exit(0); // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
     else
         return pl; // tout c'est bien passé
 }

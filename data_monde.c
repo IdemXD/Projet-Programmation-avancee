@@ -41,14 +41,14 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
 
     affichage_plateau(ecran,textures,data->salles);
-    
-    
+
+
     if (data->etape == 2 && data->joueur[data->tour_perso].actions[data->tour_action] == 0 && plateau_est_visible(data->salles)){
     //On affiche un message lorsque le joueur a choisi regarder mais le plateau est visible en entier
-        
+
         SDL_Delay(1000);
         data->affiche_message = 0;
-        change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);        
+        change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
     }
 
     affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
@@ -58,7 +58,7 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     		affiche_joueur(ecran,textures.sprites_elements,data->joueur[i],i);
     }
 
-    
+
 
     for (int i = 0; i<NB_ACTIONS_TOTAl; i++){
         if (data->actions[i].etat) { //On affiche seulement si la salle est visible
@@ -67,22 +67,34 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     }
 
     affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
-    
+
 }
 
 
 void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, data_t* data)
 {
-	//Libération de l’écran (renderer)
 	free_plateau(data->salles);
-	
+
 	free(data->actions);
 	liberer_persos(data->joueur,data->nb_personnages);
 	free(data);
 	liberer_textures(textures);
 	TTF_Quit();
-	
+
 	SDL_DestroyRenderer(ecran);
 	SDL_DestroyWindow(fenetre);
 	SDL_Quit();
 }
+
+/*void exit_erreur_pl(SDL_Window *fenetre, SDL_Renderer *ecran, data_t* data)
+{
+	free_plateau(data->salles);
+	free(data);
+
+	TTF_Quit();
+
+	SDL_DestroyRenderer(ecran);
+	SDL_DestroyWindow(fenetre);
+	SDL_Quit();
+	exit(0);
+}*/

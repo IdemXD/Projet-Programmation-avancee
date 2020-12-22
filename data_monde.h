@@ -61,4 +61,13 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data);
 */
 void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, data_t* data);
 
+/**
+    * \brief Nettoie le jeu car erreur dans la création du plateau
+    * \param fenetre la fenêtre du jeu
+    * \param ecran l'ecran
+    * \param textures les textures
+    * \param data les elements
+*/
+//void exit_erreur_pl(SDL_Window *fenetre, SDL_Renderer *ecran, data_t* data);
+
 #endif
