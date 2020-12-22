@@ -186,18 +186,21 @@ void affiche_action(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees
 }
 
 int * texture_salle (salle_t salle){
-	//Possibles modifications  entre affiche_salle et texture_salle
 
 
 	int num_s = 0; //numéro du sprite de la salle sur le fichier des sprites
 	if (salle.visible == 1) {
         // Selon le char definissant le type de la salle, on associe la texture correspondante
 
-    	/*while (salle.type != LETTRES_SALLES[num_s]){
+    	while (salle.type != LETTRES_SALLES[num_s]){
     		num_s++;
-    	}*/
+    	}
 
+<<<<<<< HEAD
 
+=======
+    	/*
+>>>>>>> 335f11422f0dc10334722df5b898db935bb32646
         switch (salle.type)
         {
 
@@ -260,7 +263,7 @@ int * texture_salle (salle_t salle){
                 num_s = 11;
                 break;
 
-        }
+        }*/
 
     } else {
         // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
@@ -305,10 +308,15 @@ void affichage_plateau(SDL_Renderer* renderer, ressources texture_salles, salle_
     }
 }
 
-void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police){
+void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecran,TTF_Font* police, salle_t** salles){
 	if (peut_afficher == 0) {
         if (num_action == 0) {
-            affiche_message(ecran, police, "Cliquez sur la case que vous voulez voir");
+        	if (plateau_est_visible(salles)){
+    			appliquer_texte(ecran,600,200,300,30,"Action regarder impossible",police);
+        	} else {
+        		affiche_message(ecran, police, "Cliquez sur la case que vous voulez voir");
+        	}
+
         } else {
             if (num_action == 1 || num_action == 2)
                 affiche_message(ecran, police, "Choisissez une direction avec les fleches du clavier");

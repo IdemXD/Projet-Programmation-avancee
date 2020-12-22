@@ -85,7 +85,7 @@ void affichage_plateau_lettre(salle_t** pl);
 void affichage_plateau_coordonnees(salle_t** pl);
 
 /**
-  * \brief Affichage des caractérisique de chaque salle (vib, etat, pres)
+  * \brief Affichage des caractérisique de chaque salle (vis, etat, pres)
   * \param pl Tableau 2D representant le plateau
 */
 void affichage_plateau_caracteristique(salle_t** pl);

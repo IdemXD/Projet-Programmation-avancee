@@ -132,6 +132,7 @@ int main(int argc, char *argv[]){
 							data->affiche_message = 0;
 							change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);
 						}
+
 					}
 					break;
 

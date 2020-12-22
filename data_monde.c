@@ -40,18 +40,34 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     SDL_RenderClear(ecran);
     SDL_RenderCopy(ecran, textures.fond, NULL, NULL);
 
-
     affichage_plateau(ecran,textures,data->salles);
+    
+    
+    if (data->etape == 2 && data->joueur[data->tour_perso].actions[data->tour_action] == 0 && plateau_est_visible(data->salles)){
+    //On affiche un message lorsque le joueur a choisi regarder mais le plateau est visible en entier
+        
+        SDL_Delay(1000);
+        data->affiche_message = 0;
+        change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur);        
+    }
+
+    affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
+
     for (int i = 0; i<2; i++){
     	if (data->joueur[i].state)
     		affiche_joueur(ecran,textures.sprites_elements,data->joueur[i],i);
     }
+
+    
+
     for (int i = 0; i<NB_ACTIONS_TOTAl; i++){
         if (data->actions[i].etat) { //On affiche seulement si la salle est visible
             affiche_action(ecran, textures.sprites_elements, data->actions[i], i);
         }
     }
+
     affiche_tours(ecran,textures.police,data->tour_perso,data->tour_action);
+    
 }
 
 
