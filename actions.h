@@ -25,7 +25,7 @@ typedef struct action_s action_t;
  * \brief Créer les informations des actions
  * \return Données sur les actions
 */
-action_t * creer_actions();
+action_t * creer_actions(char type_de_jeu);
 /**
  * \brief Initialise les informations d'une action
  * \param action Action que l'on veut initialiser
@@ -57,13 +57,13 @@ void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y);
 /**
  * \brief Applique l'action choisie, parmi les actions ayant besoin d'une direction
  * \param plateau Plateau de jeu
- * \param joueur Les personnages en jeu
+ * \param joueurs Les personnages en jeu
  * \param active_direction Direction qu'a choisi le joueur
  * \param tour_action Numéro du tour de l'action 
  * \param tour_perso Numéro du personnage dont c'est le tour
  * \param nb_personnage Nombre de personnages choisi
 */
-void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso, int nb_personnage);
+void applique_action(salle_t** plateau, persos_t* joueurs, char* active_direction,int tour_action,int tour_perso, int nb_personnage);
 
 /**
  * \brief Permet au personnage de se déplacer sur une des salles adjacentes
@@ -73,6 +73,8 @@ void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction
  * \param choix_dir 1 si le joueur peut choisir une direction, 0 sinon
 */
 void deplacer(salle_t** plateau,persos_t* perso,const char* direction);
+
+char lettre_action(int numero,int etape);
 /**
  * \brief Renvoie les coordonnées d'une salle à partir des coordonnées de la souris
  * \param x_pix coordonnée de la souris en abscisse
@@ -99,9 +101,11 @@ void regarder(salle_t** plateau,int x,int y);
 */
 void controler(salle_t** plateau, const char* direction, int nbRangee,persos_t* p,int nb_personnage);
 
-void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage, int nb_personnages);
+void prochain_vivant(int* tour_perso,int nb_personnage,persos_t* joueur);
 
-void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur);
+void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage, int nb_personnages,char type_de_jeu);
+
+void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur,char type_de_jeu);
 	
 void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau);
 #endif

@@ -10,7 +10,7 @@
 /**
  * \brief Nombre d'actions possibles
  */
-#define NB_ACTIONS_TOTAl 4
+#define NB_ACTIONS_TOTAl 5
 
 /**
  * \brief Le coté du plateau

@@ -21,6 +21,8 @@ persos_t*  creer_persos(int nbPersos)
  		persos[i].actions[0] = -1;
  		persos[i].actions[1] = -1;
  	}
+    persos[1].state = 0 ;
+    persos[2].state = 0 ;
  	return persos ;
 
  }

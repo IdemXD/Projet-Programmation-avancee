@@ -10,23 +10,26 @@
 #include "actions.h"
 
 
-action_t * creer_actions(){
+action_t * creer_actions(char type_de_jeu){
 	//allocation mémoire
-	action_t* actions = (action_t *) malloc(sizeof(action_t)*4);
+	action_t* actions = (action_t *) malloc(sizeof(action_t)*NB_ACTIONS_TOTAl);
 
 	//Initialisation des champs
 	for (int i = 0;i < NB_ACTIONS_TOTAl;i++){
 		init_action(&actions[i],i);
 	}
+	if (type_de_jeu == 's')//En mode solo, on utilise pas pousser 
+		actions[3].etat = 0;
+	actions[4].etat = 0;//Pour la première action, on ne peut pas passer 
 	return actions;
 }
 
 void init_action(action_t* action,int numA){
+	//Dans l'ordre de numA, on a REGARDER, DEPLACER, CONTROLER, POUSSER et AUCUNE ACTION
+	int abs = numA%3, ord = numA/3;
 
-	int abs = numA%2, ord = numA/2;
-
-	action->x_pix = 610 + abs*130;
-	action->y_pix = 350 + ord*130;
+	action->x_pix = 610 + abs*100;
+	action->y_pix = 350 + ord*100;
 	action->etat = 1;
 	action->hauteur_pix = 0;
 	action->largeur_pix = 0;
@@ -46,37 +49,43 @@ int est_choisie(action_t* action, int x_souris,int y_souris){
 
 void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y){
 
-	while (*nb_action<NB_ACTIONS_TOTAl && actions[*nb_action].etat && !(*trouve)){//On détermine si le joueur clique sur un bouton d'actions
-		*trouve = est_choisie(&actions[*nb_action],x,y);
+	while (*nb_action<NB_ACTIONS_TOTAl && !(*trouve)){//On détermine si le joueur clique sur un bouton d'actions actif
+		if (actions[*nb_action].etat){
+			*trouve = est_choisie(&actions[*nb_action],x,y);
+		}
 		*nb_action = *nb_action + 1;
 	}
 	*nb_action = *nb_action - 1;//On a incrémenté une fois de trop dans la boucle
-
+	
 	if (!(*trouve)){
 		*nb_action = 0;
-	}
+	} 
 
 }
 
-void applique_action(salle_t** plateau, persos_t* joueur, char* active_direction,int tour_action,int tour_perso,int nb_personnage){
+void applique_action(salle_t** plateau, persos_t* joueurs, char* active_direction,int tour_action,int tour_perso,int nb_personnage){
 	
-	if (joueur[tour_perso].actions[tour_action] == 1){ //Si le joueur a choisi l'action "se deplacer"
+	if (joueurs[tour_perso].actions[tour_action] == 1){ //Si le joueur a choisi l'action "se deplacer"
 
-		deplacer(plateau,&joueur[tour_perso],active_direction);
+		deplacer(plateau,&joueurs[tour_perso],active_direction);
 
-	}else { //Si le joueur a choisi l'action "controler"
+	}
+	if (joueurs[tour_perso].actions[tour_action] == 2) { //Si le joueur a choisi l'action "controler"
 
 		int rangee;
 		if (*active_direction == 'h' || *active_direction == 'b'){ 
-			rangee = joueur[tour_perso].coord_x;
+			rangee = joueurs[tour_perso].coord_x;
 
 		}
 		else{
-			rangee = joueur[tour_perso].coord_y;
+			rangee = joueurs[tour_perso].coord_y;
 		}
 		
-		controler(plateau,active_direction,rangee,joueur,nb_personnage);
+		controler(plateau,active_direction,rangee,joueurs,nb_personnage);
 	}
+	if (joueurs[tour_perso].actions[tour_action] == 3) {//Si le joueur choisit "pousser"
+		pousser(joueurs,tour_perso,nb_personnage,active_direction,plateau);
+	} 
 }
 
 
@@ -102,8 +111,37 @@ void deplacer(salle_t** plateau,persos_t* perso,const char* direction){
 
 }
 
+char lettre_action(int numero,int etape){
+	char lettre;
+	if (etape == 2){
+		switch (numero){
+			case 0:
+				lettre = 'R';//Regarder
+				break;
+			case 1:
+				lettre = 'D';//Se déplacer
+				break;
+			case 2:
+				lettre = 'C';//Contrôler
+				break;
+			case 3:
+				lettre = 'P';//Pousser
+				break;
+			case 4:
+				lettre = 'N';//None, aucune action
+				break;
+			default :
+				lettre = ' ';
+				break;
+		}
+	} else {
+		lettre = ' ';
+	}
+	return lettre;
+}
+
 void pixToSalle(int x_pix,int y_pix,int* x, int* y){
-	if (x_pix < TAILLE_S*5 && y_pix <TAILLE_S*5){
+	if (x_pix < TAILLE_S*TAILLE_PL && y_pix <TAILLE_S*TAILLE_PL){
 		*x = x_pix/TAILLE_S;
 		*y = y_pix/TAILLE_S;
 	}
@@ -218,40 +256,66 @@ void controler(salle_t** plateau, const char* direction, int nbRangee, persos_t*
 
 }
 
-void change_perso(action_t* actions,persos_t* joueur,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* affiche_message,int nb_personnages){
+void prochain_vivant(int* tour_perso,int nb_personnage,persos_t* joueur){
+
+	do {
+		
+		*tour_perso = *tour_perso + 1;
+		
+	} while (*tour_perso != nb_personnage-1 && !joueur[*tour_perso].state);//On cherche le prochain joueur en vie
+	if (*tour_perso > nb_personnage-1)
+		*tour_perso = nb_personnage-1;
+}
+
+void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* affiche_message,int nb_personnages,char type_de_jeu){
 	
-	if (*tour_action == joueur->nb_actions - 1) {//Lorsque le joueur a choisi sa dernière action
+	if (*tour_action == joueurs[*tour_perso].nb_actions - 1) {//Lorsque le joueur a choisi sa dernière action
+		
+		if (*nb_action == 4){
+			joueurs[*tour_perso].nb_actions = 1;
+		}
+		
 
-		if (*nb_action == 3)
-			joueur->nb_actions = 1; //Modifier le cas où le joueur a une seule action : il peut choisir le tour où il l'utilise
-
-
-		if (*tour_perso == nb_personnages-1){ //Si le joueur est le dernier à choisir (c'est le joueur à l'indice 1 du tableau de joueurs donc J2)
+		if (*tour_perso == nb_personnages-1){ //Si le joueur est le dernier à choisir
+			
 			*tour_perso = 0;
 			actions[0].etat = 0;//On affiche plus les boutons d'actions à l'écran
 			actions[1].etat = 0;
 			actions[2].etat = 0;
+			if (type_de_jeu == 'm')
+				actions[3].etat = 0;
 			*etape = *etape + 1; //Quand on a entré toutes les actions choisies, on passe à l'étape 2
 			*affiche_message = 0;
 		}
 		else{ //Si un joueur a fini de choisir ses actions, on passe au joueur suivant
-			*tour_perso = *tour_perso + 1;
+			prochain_vivant(tour_perso,nb_personnages,joueurs);
+			if (*tour_perso == nb_personnages -1 && !joueurs[*tour_perso].state){//Si aucun joueur n'est vivant à la fin
+				*tour_perso = 0;
+				actions[0].etat = 0;//On affiche plus les boutons d'actions à l'écran
+				actions[1].etat = 0;
+				actions[2].etat = 0;
+				if (type_de_jeu == 'm')
+					actions[3].etat = 0;
+				*etape = *etape + 1; //Quand on a entré toutes les actions choisies, on passe à l'étape 2
+				*affiche_message = 0;
+			
+			} 
 		}
 
 		*tour_action = 0;
-		actions[3].etat = 0;
+		actions[4].etat = 0;
+		
 	}
 	else {
-
 		*tour_action = *tour_action + 1;
-		actions[3].etat = 1;//Mettre "aucune action" en visible pour la seconde action
+		actions[4].etat = 1;//Mettre "aucune action" en visible pour la seconde action
 	}
 
 	*nb_action = 0;
 
 }
 
-void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur){
+void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur,char type_de_jeu){
 	
 	if (*tour_perso == nb_personnage-1){
 		
@@ -260,6 +324,8 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 			actions[0].etat = 1;//On affiche plus les boutons d'actions à l'écran
 			actions[1].etat = 1;
 			actions[2].etat = 1;
+			if (type_de_jeu == 'm')
+				actions[3].etat = 1;
 			*tour_action = 0;
 			*pas_affichage = 1;
 			*tour_perso = 0;
@@ -271,23 +337,52 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 			*tour_action = *tour_action + 1;
 			*tour_perso = 0;
 			if (joueur[*tour_perso].nb_actions == 1){//Si aucun des joueurs qui reste n'ont de deuxième action, on repasse à l'étape 1
-				change_action(actions,tour_action,tour_perso,etape,pas_affichage,nb_personnage,joueur);
+				change_action(actions,tour_action,tour_perso,etape,pas_affichage,nb_personnage,joueur,type_de_jeu);
 			}
 		}
 		
 	}
 	else{
 		if (*tour_action == 0){//Premier tour d'action
-			*tour_perso = *tour_perso + 1;
+			prochain_vivant(tour_perso,nb_personnage,joueur);
+			if (*tour_perso == nb_personnage-1 && !joueur[*tour_perso].state){//Si aucun joueur n'est vivant à la fin
+				*tour_action = *tour_action + 1;//On passe à l'action suivante
+				*tour_perso = 0;
+				if (!joueur[*tour_perso].state)
+					prochain_vivant(tour_perso,nb_personnage,joueur);//On cherche le premier joueur vivant
+			}
+
 		} else {//Deuxième tour d'action
 			//On cherche le prochain joueur qui a une deuxième action
 			do {
+		
 				*tour_perso = *tour_perso + 1;
-			} while (*tour_perso != nb_personnage-1 && joueur[*tour_perso].nb_actions == 1);
-
-			if (*tour_perso == nb_personnage-1 && joueur[*tour_perso].nb_actions == 1){//Si aucun des joueurs qui reste n'ont de deuxième action, on repasse à l'étape 1
-				change_action(actions,tour_action,tour_perso,etape,pas_affichage,nb_personnage,joueur);
+				
+			} while (*tour_perso != nb_personnage-1 && (!joueur[*tour_perso].state || joueur[*tour_perso].nb_actions == 1));//On cherche le prochain joueur en vie
+			if (*tour_perso > nb_personnage-1)
+				*tour_perso = nb_personnage-1;
+			
+			if (*tour_perso == nb_personnage-1 && !joueur[*tour_perso].state){
+				*etape = *etape - 1;
+				actions[0].etat = 1;//On affiche plus les boutons d'actions à l'écran
+				actions[1].etat = 1;
+				actions[2].etat = 1;
+				if (type_de_jeu == 'm')
+					actions[3].etat = 1;
+				*tour_action = 0;
+				*pas_affichage = 1;
+				*tour_perso = 0;
+				for (int i = 0; i<nb_personnage;i++){//on remet tous les nombres d'actions à 2 (sera peut-être modifié)
+					joueur[i].nb_actions = 2;
+				}
+				if (!joueur[*tour_perso].state)
+					prochain_vivant(tour_perso,nb_personnage,joueur);//On cherche le premier joueur vivant
+			} else {
+				if (*tour_perso == nb_personnage-1 && joueur[*tour_perso].nb_actions == 1){//Si aucun des joueurs qui reste n'ont de deuxième action, on repasse à l'étape 1
+					change_action(actions,tour_action,tour_perso,etape,pas_affichage,nb_personnage,joueur,type_de_jeu);
+				}
 			}
+
 		}
 	}
 }

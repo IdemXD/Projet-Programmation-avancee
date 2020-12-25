@@ -90,12 +90,12 @@ void affiche_message (SDL_Renderer* renderer,TTF_Font *police,const char *messag
 	appliquer_texte(renderer,600,100,300,30,message,police);
 }
 
-void affiche_tours(SDL_Renderer* renderer,TTF_Font *police, int tour_perso, int tour_action){
+void affiche_tours(SDL_Renderer* renderer,TTF_Font *police, int tour_perso, int tour_action, char action){
 	char texte [21];
 	sprintf(texte,"Tour du personnage %d",tour_perso);
 	appliquer_texte(renderer,601,10,295,32,texte,police);
 
-	sprintf(texte,"Action numero %d",tour_action);
+	sprintf(texte,"Action numero %d %c",tour_action,action);
 	appliquer_texte(renderer,640,50,230,30,texte,police);
 }
 
@@ -145,11 +145,12 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees
 	//On demande la largeur et hauteur de l'image
 	SDL_QueryTexture(perso, NULL, NULL, &persoW,&persoH);
 
-	persoW = persoW/6;
+	persoW = persoW/5;
+	persoH = persoH/2;
 
 	SDL_Rect SrcR = {i*persoW,0,persoW,persoH};
-
-	SDL_Rect DestR = {persoW*donnees_perso.coord_x - persoW/4 + i*60, persoH*donnees_perso.coord_y - persoH/4,persoW,persoH};
+	int lig = i/2, col = i%2;
+	SDL_Rect DestR = {persoW*donnees_perso.coord_x - persoW/4 + col*60, persoH*donnees_perso.coord_y - persoH/4 + lig*60,persoW,persoH};
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 
@@ -159,9 +160,9 @@ void modif_taille(SDL_Texture * action, action_t* donnees_actions){
 	int actionH = 0;
 
 	SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
-	for (int i = 0;i<4;i++){
-		donnees_actions[i].hauteur_pix = actionH;
-		donnees_actions[i].largeur_pix = actionW/6;
+	for (int i = 0;i<NB_ACTIONS_TOTAl;i++){
+		donnees_actions[i].hauteur_pix = 2*actionH/6;
+		donnees_actions[i].largeur_pix = 2*actionW/15;
 	}
 
 }
@@ -173,9 +174,10 @@ void affiche_action(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees
 
 		SDL_QueryTexture(action, NULL, NULL, &actionW,&actionH);
 
-		actionW = actionW/6;
+		actionW = actionW/5;
+		actionH = actionH/2;
 
-		SDL_Rect SrcR = {(numA+2)*120,0,actionW,actionH};//Les deux premiers sprites sont ceux des personnages
+		SDL_Rect SrcR = {numA*120,120,actionW,actionH};//Les deux premiers sprites sont ceux des personnages
 
 
 		SDL_Rect DestR = {donnees_action.x_pix,donnees_action.y_pix,donnees_action.largeur_pix,donnees_action.hauteur_pix};
@@ -195,71 +197,6 @@ int * texture_salle (salle_t salle){
     	while (salle.type != LETTRES_SALLES[num_s]){
     		num_s++;
     	}
-
-    	/*
-        switch (salle.type)
-        {
-
-            case 'R':
-            // Salle 25
-                num_s = 0;
-                break;
-
-            case 'V':
-            // Salle vision
-                num_s = 1;
-                break;
-
-			case 'C':
-            // Salle chute
-                num_s = 2;
-                break;
-
-            case 'O':
-            // Salle controle
-                num_s = 3;
-                break;
-
-            case 'S':
-            // Salle de départ
-                num_s = 4;
-                break;
-
-            case 'E':
-            // Salle vide
-                num_s = 5;
-                break;
-
-            case 'F':
-            // Salle froide
-                num_s = 6;
-                break;
-
-            case 'M':
-            // Salle mobile
-                num_s = 7;
-                break;
-
-            case 'D':
-            // Salle mortelle
-                num_s = 8;
-                break;
-            case 'N':
-            // Salle noire
-                num_s = 9;
-                break;
-
-            case 'T':
-            // Salle tunnel
-                num_s = 10;
-                break;
-
-            case 'X':
-            // Salle vortex
-                num_s = 11;
-                break;
-
-        }*/
 
     } else {
         // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
@@ -314,16 +251,18 @@ void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecra
         	}
 
         } else {
-            if (num_action == 1 || num_action == 2)
+            if (num_action > 0 && num_action < 4)
                 affiche_message(ecran, police, "Choisissez une direction avec les fleches du clavier");
         }
     }
 }
 
 void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
-	char texte[70];
-	char texte2[50];
-	char texte3[30];
+
+	char texte[70] = "";
+	char texte2[50] = "";
+	char texte3[30] = "";
+	
 	switch (salle.type){
         case 'S':
             sprintf(texte,"Salle centrale");
@@ -378,7 +317,7 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
 			break;
     }
 
-	appliquer_texte(renderer,601,160,295,182,texte,police);
-	appliquer_texte(renderer,601,200,295,222,texte2,police);
-	appliquer_texte(renderer,601,240,295,262,texte3,police);
+	appliquer_texte(renderer,601,160,295,40,texte,police);
+	appliquer_texte(renderer,601,200,295,40,texte2,police);
+	appliquer_texte(renderer,601,240,295,40,texte3,police);
 }

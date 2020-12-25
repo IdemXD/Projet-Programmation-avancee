@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include "constantes.h"
 #include "actions.h"
 #include "plateau.h"
 
@@ -53,7 +54,7 @@ void liberer_texture(SDL_Texture * texture);
 	* \param tour_perso Indique le personnage qui doit joueur
 	* \param tour_action Indique le numero de l'action du joueur
 */
-void affiche_tours(SDL_Renderer* renderer,TTF_Font *font, int tour_perso, int tour_action);
+void affiche_tours(SDL_Renderer* renderer,TTF_Font *font, int tour_perso, int tour_action, char action);
 
 /**
 	* \brief Crée une texture à partir d'une image

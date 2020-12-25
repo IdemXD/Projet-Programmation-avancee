@@ -26,7 +26,7 @@ struct data_s {
     int nb_action;          /*!< Donne le nb d'action accordé au joueur */
     char active_direction;  /*!< Définit quel direction le joueur choisit */
     int affiche_message; /*!< Indique si on doit afficher un message à l'écran */
-
+    char type_de_jeu;  /*!< Indique le type de jeu que le joueur choisit (s pour solo et m pour multijoueur)*/
     salle_t** salles;       /*!< Represente le plateau de jeu */
     persos_t* joueur;        /*!< Represente les joueurs */
     action_t* actions;      /*!< Organise les actions des joueurs */
@@ -70,4 +70,5 @@ void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, 
 */
 //void exit_erreur_pl(SDL_Window *fenetre, SDL_Renderer *ecran, data_t* data);
 
+void verifie_fin_du_jeu(int* terminer,persos_t* joueurs,salle_t** plateau,char type_de_jeu,int nb_personnage);
 #endif
