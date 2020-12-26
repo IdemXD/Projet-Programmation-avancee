@@ -22,7 +22,7 @@ struct salle_s{
 typedef struct salle_s salle_t;
 
 
-void action_salle(salle_t**  pl,persos_t* joueur,char* dir,int x_pix,int y_pix,int* a, int* b);
+void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* direction);
 
 
 /**
@@ -55,7 +55,7 @@ void Salle_vision(salle_t ** pl, int x, int y);
 /**
 	*\brief Fonction qui appel la fonction déplacer pour mouvoir les lignes ou colonnes
 */
-void Salle_controle(salle_t** pl, char* direction, int nbRangee,persos_t* p);
+void Salle_controle(salle_t**  pl,persos_t* perso,int tour_perso,char* direction,int nb_personnage);
 
 /**
 	*\brief Fonction qui place le personnage sur la case de départ
@@ -77,16 +77,19 @@ void Salle_25();
 /**
 	*\brief Fonction qui oblige le joueur à programmer une seule action
 */
-void Salle_froide(persos_t* perso,salle_t* salle);
+void Salle_froide(persos_t* perso,int tour_perso);
 
 /**
 	*\brief Fonction qui permet d'échanger la position du joueur étant sur la salle mobile avec la position d'une autre salle caché
 */
-void Salle_mobile(salle_t** pl,salle_t* salle, persos_t* perso ,int x_pix,int y_pix,int* x, int* y);
+void Salle_mobile(salle_t** pl, persos_t* perso,int tour_perso ,int* x,  int* y);
 
 
 void Salle_noire(salle_t** pl, persos_t* perso);
 
 
 void Salle_prison(persos_t* perso);
+
+
+void Cherche_salle(salle_t** pl ,persos_t*  persos, char salle, int* a , int* b);
 #endif

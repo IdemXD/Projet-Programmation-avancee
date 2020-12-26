@@ -11,30 +11,30 @@
 #include "actions.h"
 
 
-void action_salle(salle_t**  pl,persos_t* joueur,char* dir ,int x_pix,int y_pix,int* a, int* b){
+void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
     int x=joueur->coord_x;
     int y=joueur->coord_y;
     switch (pl[y][x].type){
         case 'V':
-            Salle_vision(pl,x,y);
+            *dir=2;
             break;
         case 'M':
-            Salle_mobile(pl,&pl[x][y],joueur,x_pix,y_pix,a,b);
+            *dir=3;
             break;
         case 'D':
-            Salle_mortelle(joueur,&pl[x][y]);
+            Salle_mortelle(joueur,&pl[y][x]);
             break;
         case 'C':
-            Salle_chute(joueur,&pl[x][y]);
+            Salle_chute(joueur,&pl[y][x]);
             break;
         case 'F':
-            Salle_froide(joueur,&pl[x][y]);
+            Salle_froide(joueur,tour_perso);
             break;
         case 'N':
             Salle_noire(pl,joueur);
             break;
         case 'O':
-            Salle_controle(pl,dir,x,joueur);
+            *dir=1;
             break;
         case 'X':
             Salle_vortex(joueur);
@@ -85,8 +85,8 @@ void modif_visible_et_etat(salle_t** plateau,int x, int y){
 }
 
 
-void Salle_mortelle(persos_t* player,salle_t* salle){                       //fonctionne
-    player->state=0;//Le joueur meurt s'il rentre dans la salle
+void Salle_mortelle(persos_t* perso,salle_t* salle){                       //fonctionne
+    perso->state=0;//Le joueur meurt s'il rentre dans la salle
     salle->state=0;
 }
 
@@ -102,15 +102,22 @@ void Salle_chute(persos_t* perso,salle_t* salle){                               
 }
 
 
-
 void Salle_vision(salle_t** pl, int x, int y){
     regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
 }
 
 
 
-void Salle_controle(salle_t** pl, char* direction, int nbRangee,persos_t* p){
-    //controler(pl,direction,nbRangee, p);
+void Salle_controle(salle_t**  pl,persos_t* perso,int tour_perso,char* direction,int nb_personnage){
+    int rangee;
+    if (*direction== 'h' || *direction == 'b'){
+        rangee = perso[tour_perso].coord_x;
+
+    }
+    else{
+        rangee = perso[tour_perso].coord_y;
+    }
+    controler(pl,direction,rangee,perso,nb_personnage);
 }
 
 
@@ -135,27 +142,45 @@ void Salle_tunnel(salle_t** pl, persos_t* perso ){                  //Fonctionne
 }
 
 
+void Salle_froide(persos_t* perso,int tour_perso) {
+        perso[tour_perso].nb_actions--;
+}
+void Cherche_salle(salle_t** pl ,persos_t*  persos, char salle, int* a , int* b){
+    for (int i = 0 ; i<5 ; i++) {
+        for (int j = 0; j < 5; j++) {
 
-void Salle_froide(persos_t* perso,salle_t* salle) {
-    if(perso->nb_actions=2){
-        perso->nb_actions=1;            //Effet reste sur le personnage
-    }else{
-        perso->nb_actions=0;
+            if (pl[i][j].type == salle && persos->coord_x == pl[i][j].x && persos->coord_y == pl[i][j].y) {
+                *a = i;
+                *b = j;
+            }
+        }
+
     }
+
 }
 
-
-void Salle_mobile(salle_t** pl,salle_t* salle, persos_t* perso ,int x_pix,int y_pix,int* x, int*y){
-    int new_x ,new_y;
-    pixToSalle(x_pix,y_pix,x,y);
-    new_x= salle->x;
-    new_y= salle->y;
-    salle->x=*x;
-    salle->y=*y;
-    perso->coord_x=*x;
-    perso->coord_y=*y;
-    *x=salle->x;
-    *y=salle->y;
+void Salle_mobile(salle_t** pl,persos_t* perso ,int tour_perso, int* x, int*y){
+    int new_x=*y;
+    int new_y=*x;
+    char type_salle;
+    int a=0; int b=0;
+    if(pl[*x][*y].visible==0)
+    Cherche_salle(pl,perso,'M',&a,&b);
+    pl[a][b].x=a;
+    pl[a][b].y=b;
+    type_salle=pl[a][b].type;
+    pl[new_y][new_x].x=*y;
+    pl[new_y][new_x].y=*x;
+    pl[new_x][new_y].type=pl[*y][*x].type;
+    pl[new_x][new_y].visible=0;
+    perso[tour_perso].coord_x=*x;
+    perso[tour_perso].coord_y=*y;
+    pl[*y][*x].x=a;
+    pl[*y][*x].y=b;
+    pl[a][b].type= pl[*y][*x].type;
+    pl[a][b].visible=0;
+    pl[*y][*x].type=type_salle;
+    pl[*y][*x].visible=1;
 
 }
 
@@ -166,6 +191,8 @@ void Salle_noire(salle_t** pl, persos_t* perso){
         for (int j =0 ; j<5 ; j++){                                                     // fonctionne
             pl[i][j].visible=0;
             pl[2][2].visible=1;
+            pl[i][j].state=0;
+            pl[i][j].visible=0;
             if(j== perso[0].coord_x && i== perso[0].coord_y || j== perso[1].coord_x && i== perso[1].coord_y) {
                 pl[i][j].visible = 1;
             }

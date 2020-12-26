@@ -24,6 +24,7 @@ data_t* init_data()
     // Preparation des variables d'interactions personnages / actions
 	data->etape = 1; //etape 1 : choix de l'action
 	data->active_direction = 'n'; // définit quel direction le joueur choisit
+    data->active_direction_salle = 0;
     data->trouve = 0;
     data->terminer =0;
     data->nb_action = 0;

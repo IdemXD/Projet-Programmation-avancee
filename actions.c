@@ -63,11 +63,11 @@ void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y){
 
 }
 
-void applique_action(salle_t** plateau, persos_t* joueurs, char* active_direction,int tour_action,int tour_perso,int nb_personnage){
+void applique_action(salle_t** plateau, persos_t* joueurs, char* active_direction,int tour_action,int tour_perso,int nb_personnage,int* direction_salle){
 	
 	if (joueurs[tour_perso].actions[tour_action] == 1){ //Si le joueur a choisi l'action "se deplacer"
 
-		deplacer(plateau,&joueurs[tour_perso],active_direction);
+		deplacer(plateau,&joueurs[tour_perso],active_direction,tour_perso,direction_salle);
 
 	}
 	if (joueurs[tour_perso].actions[tour_action] == 2) { //Si le joueur a choisi l'action "controler"
@@ -84,12 +84,12 @@ void applique_action(salle_t** plateau, persos_t* joueurs, char* active_directio
 		controler(plateau,active_direction,rangee,joueurs,nb_personnage);
 	}
 	if (joueurs[tour_perso].actions[tour_action] == 3) {//Si le joueur choisit "pousser"
-		pousser(joueurs,tour_perso,nb_personnage,active_direction,plateau);
+		pousser(joueurs,tour_perso,nb_personnage,active_direction,plateau,tour_perso,direction_salle);
 	} 
 }
 
 
-void deplacer(salle_t** plateau,persos_t* perso,const char* direction){
+void deplacer(salle_t** plateau,persos_t* perso,const char* direction,int tour_perso,int* direction_salle){
 		//Cas où le joueur choisit droite
 	if(perso->coord_x+1 < TAILLE_PL && *direction == 'd'){
 		perso->coord_x = perso->coord_x + 1 ;
@@ -108,6 +108,7 @@ void deplacer(salle_t** plateau,persos_t* perso,const char* direction){
 	}
 	
 	modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
+    action_salle(plateau,perso,tour_perso,direction_salle);
 
 }
 
@@ -387,11 +388,11 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 	}
 }
 
-void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau){
+void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau,int tour_perso,int* direction_salle){
 	int x = joueurs[num_joueur].coord_x, y = joueurs[num_joueur].coord_y;
 	for (int i = 0; i < nb_personnages; i++){
 		if (joueurs[i].coord_x == x && joueurs[i].coord_y == y && i != num_joueur){//On cherche les personnages qui sont sur la même case
-			deplacer(plateau,&joueurs[i],direction);
+			deplacer(plateau,&joueurs[i],direction,tour_perso,direction_salle);
 		} 
 	}
 }

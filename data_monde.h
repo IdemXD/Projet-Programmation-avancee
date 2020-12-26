@@ -25,6 +25,7 @@ struct data_s {
     int tour_action;        /*!< Indique ordre d'execution des actions  */
     int nb_action;          /*!< Donne le nb d'action accordé au joueur */
     char active_direction;  /*!< Définit quel direction le joueur choisit */
+    int active_direction_salle ;
     int affiche_message; /*!< Indique si on doit afficher un message à l'écran */
     char type_de_jeu;  /*!< Indique le type de jeu que le joueur choisit (s pour solo et m pour multijoueur)*/
     salle_t** salles;       /*!< Represente le plateau de jeu */
