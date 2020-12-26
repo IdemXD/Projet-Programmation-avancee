@@ -16,9 +16,11 @@ data_t* init_data()
 	data_t* data = (data_t *) malloc (sizeof(data_t));
 
     // Demande du niveau au joueur puis chargement du niveau correspondant
-	data->salles = charger_plateau(preparation_chemin());
-    data->type_de_jeu = 'm';//Mode solo
-    data->nb_personnages = 4;
+    char * nom_du_fichier = preparation_chemin();
+	data->salles = charger_plateau(nom_du_fichier);
+    free(nom_du_fichier);
+    data->type_de_jeu = 's';//Mode solo
+    data->nb_personnages = 2;//A partir du mode de jeu
     //Les trois variables précédentes seront à changer à partir du menu
 
     // Preparation des variables d'interactions personnages / actions

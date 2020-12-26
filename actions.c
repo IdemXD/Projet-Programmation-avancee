@@ -272,14 +272,15 @@ void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour
 	
 	if (*tour_action == joueurs[*tour_perso].nb_actions - 1) {//Lorsque le joueur a choisi sa dernière action
 		
-		if (*nb_action == 4){
+		if (*nb_action == 4){//Si on choisit une seule action
 			joueurs[*tour_perso].nb_actions = 1;
 		}
-		
 
 		if (*tour_perso == nb_personnages-1){ //Si le joueur est le dernier à choisir
 			
 			*tour_perso = 0;
+			if (!joueurs[*tour_perso].state)
+				prochain_vivant(tour_perso,nb_personnages,joueurs);//On cherche le premier joueur vivant
 			actions[0].etat = 0;//On affiche plus les boutons d'actions à l'écran
 			actions[1].etat = 0;
 			actions[2].etat = 0;
@@ -292,6 +293,8 @@ void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour
 			prochain_vivant(tour_perso,nb_personnages,joueurs);
 			if (*tour_perso == nb_personnages -1 && !joueurs[*tour_perso].state){//Si aucun joueur n'est vivant à la fin
 				*tour_perso = 0;
+				if (!joueurs[*tour_perso].state)
+					prochain_vivant(tour_perso,nb_personnages,joueurs);//On cherche le premier joueur vivant
 				actions[0].etat = 0;//On affiche plus les boutons d'actions à l'écran
 				actions[1].etat = 0;
 				actions[2].etat = 0;
@@ -318,7 +321,7 @@ void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour
 
 void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur,char type_de_jeu){
 	
-	if (*tour_perso == nb_personnage-1){
+	if (*tour_perso == nb_personnage-1){//On arrive au dernier personnage
 		
 		if (*tour_action == 1){//On a appliqué la dernière action du dernier joueur
 			*etape = *etape - 1;
@@ -330,6 +333,8 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 			*tour_action = 0;
 			*pas_affichage = 1;
 			*tour_perso = 0;
+			if (!joueur[*tour_perso].state)
+					prochain_vivant(tour_perso,nb_personnage,joueur);//On cherche le premier joueur vivant
 			for (int i = 0; i<nb_personnage;i++){//on remet tous les nombres d'actions à 2 (sera peut-être modifié)
 				joueur[i].nb_actions = 2;
 			}
@@ -337,6 +342,8 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 		else{// On a appliqué la premère action de chaque personnage
 			*tour_action = *tour_action + 1;
 			*tour_perso = 0;
+			if (!joueur[*tour_perso].state)
+					prochain_vivant(tour_perso,nb_personnage,joueur);//On cherche le premier joueur vivant
 			if (joueur[*tour_perso].nb_actions == 1){//Si aucun des joueurs qui reste n'ont de deuxième action, on repasse à l'étape 1
 				change_action(actions,tour_action,tour_perso,etape,pas_affichage,nb_personnage,joueur,type_de_jeu);
 			}
