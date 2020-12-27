@@ -104,7 +104,7 @@ void deplacer(salle_t** plateau,persos_t* perso,const char* direction,int tour_p
 	}
 	//Cas où le joueur choisit haut
 	else if (perso->coord_y-1 >= 0 && *direction == 'h'){
-		perso->coord_y = perso->coord_y - 1 ;	
+		perso->coord_y = perso->coord_y - 1 ;
 	}
 	
 	modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);

@@ -93,17 +93,21 @@ void Salle_mortelle(persos_t* perso,salle_t* salle){                       //fon
 
 
 void Salle_chute(persos_t* perso,salle_t* salle){                               //fonctionne
-    if (salle->pres==0){
-        salle->pres=1;  //L'etat de présence passe à 1 et permet d'enclencher le piège au prochain marqueur de présence
-    }else{
-        perso->state=0;  //Le joueur meurt
-        salle->pres=0;    // La salle reprend son état original
+    if (salle->pres==1){
+        salle->pres=2;  //L'etat de présence passe à 1 et permet d'enclencher le piège au prochain marqueur de présence
+    }else {
+        if (salle->pres == 2) {
+            perso->state = 0;  //Le joueur meurt
+            salle->pres = 0;    // La salle reprend son état original
+        }
     }
 }
 
 
 void Salle_vision(salle_t** pl, int x, int y){
-    regarder(pl,x,y); // appel de la fonction regarder pour simuler l'effet de la salle vision
+    if(x != -1 && y != -1 && pl[y][x].visible==0) {
+        regarder(pl, x, y); // appel de la fonction regarder pour simuler l'effet de la salle vision
+    }
 }
 
 
@@ -143,13 +147,17 @@ void Salle_tunnel(salle_t** pl, persos_t* perso ){                  //Fonctionne
 
 
 void Salle_froide(persos_t* perso,int tour_perso) {
-        perso[tour_perso].nb_actions--;
+    perso->nb_actions--;
+
 }
-void Cherche_salle(salle_t** pl ,persos_t*  persos, char salle, int* a , int* b){
+
+
+
+void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, int* a , int* b){
     for (int i = 0 ; i<5 ; i++) {
         for (int j = 0; j < 5; j++) {
 
-            if (pl[i][j].type == salle && persos->coord_x == pl[i][j].x && persos->coord_y == pl[i][j].y) {
+            if (pl[i][j].type == salle && persos[tour_perso].coord_x == pl[i][j].x && persos[tour_perso].coord_y == pl[i][j].y) {
                 *a = i;
                 *b = j;
             }
@@ -163,25 +171,25 @@ void Salle_mobile(salle_t** pl,persos_t* perso ,int tour_perso, int* x, int*y){
     int new_x=*y;
     int new_y=*x;
     char type_salle;
-    int a=0; int b=0;
-    if(pl[*x][*y].visible==0)
-    Cherche_salle(pl,perso,'M',&a,&b);
-    pl[a][b].x=a;
-    pl[a][b].y=b;
-    type_salle=pl[a][b].type;
-    pl[new_y][new_x].x=*y;
-    pl[new_y][new_x].y=*x;
-    pl[new_x][new_y].type=pl[*y][*x].type;
-    pl[new_x][new_y].visible=0;
-    perso[tour_perso].coord_x=*x;
-    perso[tour_perso].coord_y=*y;
-    pl[*y][*x].x=a;
-    pl[*y][*x].y=b;
-    pl[a][b].type= pl[*y][*x].type;
-    pl[a][b].visible=0;
-    pl[*y][*x].type=type_salle;
-    pl[*y][*x].visible=1;
-
+    int a; int b;
+    if(*x != -1 && *y != -1 && pl[*y][*x].visible==0) {
+        Cherche_salle(pl, perso, tour_perso, 'M', &a, &b);
+        pl[a][b].x = a;
+        pl[a][b].y = b;
+        type_salle = pl[a][b].type;
+        pl[new_y][new_x].x = *y;
+        pl[new_y][new_x].y = *x;
+        pl[new_x][new_y].type = pl[*y][*x].type;
+        pl[new_x][new_y].visible = 0;
+        perso[tour_perso].coord_x = *x;
+        perso[tour_perso].coord_y = *y;
+        pl[*y][*x].x = a;
+        pl[*y][*x].y = b;
+        pl[a][b].type = pl[*y][*x].type;
+        pl[a][b].visible = 0;
+        pl[*y][*x].type = type_salle;
+        pl[*y][*x].visible = 1;
+    }
 }
 
 

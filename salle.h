@@ -91,5 +91,5 @@ void Salle_noire(salle_t** pl, persos_t* perso);
 void Salle_prison(persos_t* perso);
 
 
-void Cherche_salle(salle_t** pl ,persos_t*  persos, char salle, int* a , int* b);
+void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso, char salle, int* a , int* b);
 #endif
