@@ -9,39 +9,50 @@
 #include <stdio.h>
 #include "salle.h"
 #include "actions.h"
+#include "constantes.h"
+#include "pile.h"
 
 
 void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
     int x=joueur->coord_x;
     int y=joueur->coord_y;
-    switch (pl[y][x].type){
-        case 'V':
-            *dir=2;
-            break;
-        case 'M':
-            *dir=3;
-            break;
-        case 'D':
-            Salle_mortelle(joueur,&pl[y][x]);
-            break;
-        case 'C':
-            Salle_chute(joueur,&pl[y][x]);
-            break;
-        case 'F':
-            Salle_froide(joueur,tour_perso);
-            break;
-        case 'N':
-            Salle_noire(pl,joueur);
-            break;
-        case 'O':
-            *dir=1;
-            break;
-        case 'X':
-            Salle_vortex(joueur);
-            break;
-        case 'T':
-            Salle_tunnel(pl,joueur);
-            break;
+        switch (pl[y][x].type) {
+            case 'V':
+                *dir = 2;
+                break;
+            case 'M':
+                *dir = 3;
+                break;
+            case 'D':
+                Salle_mortelle(joueur, &pl[y][x]);
+                break;
+            case 'C':
+                Salle_chute(joueur, &pl[y][x]);
+                break;
+            case 'F':
+                Salle_froide(joueur, tour_perso);
+                break;
+            case 'N':
+                Salle_noire(pl, joueur);
+                break;
+            case 'O':
+                *dir = 1;
+                break;
+            case 'X':
+                Salle_vortex(joueur);
+                break;
+            case 'T':
+                Salle_tunnel(pl,joueur);
+                break;
+            case 'P':
+                Salle_prison(joueur);
+                break;
+            case 'S':
+                //Salle_surprise(pl,&pl[y][x]);
+                break;
+            case 'W':
+                *dir=4;
+                break;
     }
 }
 
@@ -153,42 +164,39 @@ void Salle_froide(persos_t* perso,int tour_perso) {
 
 
 
-void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, int* a , int* b){
-    for (int i = 0 ; i<5 ; i++) {
+void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, int* a , int* b) {
+    for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
 
-            if (pl[i][j].type == salle && persos[tour_perso].coord_x == pl[i][j].x && persos[tour_perso].coord_y == pl[i][j].y) {
+            if (pl[i][j].type == salle && persos[tour_perso].coord_x == pl[i][j].x &&
+                persos[tour_perso].coord_y == pl[i][j].y) {
                 *a = i;
                 *b = j;
             }
         }
-
     }
-
 }
 
 void Salle_mobile(salle_t** pl,persos_t* perso ,int tour_perso, int* x, int*y){
-    int new_x=*y;
-    int new_y=*x;
+    int new_x=*x;
+    int new_y=*y;
     char type_salle;
     int a; int b;
     if(*x != -1 && *y != -1 && pl[*y][*x].visible==0) {
-        Cherche_salle(pl, perso, tour_perso, 'M', &a, &b);
-        pl[a][b].x = a;
-        pl[a][b].y = b;
-        type_salle = pl[a][b].type;
-        pl[new_y][new_x].x = *y;
-        pl[new_y][new_x].y = *x;
-        pl[new_x][new_y].type = pl[*y][*x].type;
-        pl[new_x][new_y].visible = 0;
-        perso[tour_perso].coord_x = *x;
-        perso[tour_perso].coord_y = *y;
-        pl[*y][*x].x = a;
-        pl[*y][*x].y = b;
-        pl[a][b].type = pl[*y][*x].type;
-        pl[a][b].visible = 0;
-        pl[*y][*x].type = type_salle;
-        pl[*y][*x].visible = 1;
+        Cherche_salle(pl,perso,tour_perso,'M',&a,&b);
+        type_salle=pl[a][b].type;
+        pl[new_y][new_x].x=*y;
+        pl[new_y][new_x].y=*x;
+        pl[new_x][new_y].type=pl[*y][*x].type;
+        pl[new_x][new_y].visible=0;
+        perso[tour_perso].coord_x=*x;
+        perso[tour_perso].coord_y=*y;
+        pl[*y][*x].x=a;
+        pl[*y][*x].y=b;
+        pl[a][b].type= pl[*y][*x].type;
+        pl[a][b].visible=0;
+        pl[*y][*x].type=type_salle;
+        pl[*y][*x].visible=1;
     }
 }
 
@@ -200,7 +208,6 @@ void Salle_noire(salle_t** pl, persos_t* perso){
             pl[i][j].visible=0;
             pl[2][2].visible=1;
             pl[i][j].state=0;
-            pl[i][j].visible=0;
             if(j== perso[0].coord_x && i== perso[0].coord_y || j== perso[1].coord_x && i== perso[1].coord_y) {
                 pl[i][j].visible = 1;
             }
@@ -214,5 +221,7 @@ void Salle_prison(persos_t* perso){
     perso->nb_actions=0;
 }
 
-
+void Salle_copie(salle_t** pl,persos_t* persos,int x,int y){
+    pl[persos->coord_y][persos->coord_x].type=pl[y][x].type;
+}
 
