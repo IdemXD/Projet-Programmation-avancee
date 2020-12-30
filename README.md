@@ -47,6 +47,16 @@
 
 * **Salle Vide**: Salle n'ayant aucun effet
 
+* **Salle Prison**: Retiens le joueur prisonier pendant 1 tour
+
+* **Salle surprise**: Prend l'effet d'une autre salle aléatoirement
+
+* **Salle copie**: Permet de copier l'effet d'une salle visible au choix
+
+* **Salle virus**: Condamne le joueur à vivre un certain nombre de tour
+
+* **Salle soin**:  Annule l'effet de la salle virus 
+
 *(D'autres salles pourront être ajoutées)*
 
 
