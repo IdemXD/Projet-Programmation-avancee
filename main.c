@@ -37,12 +37,16 @@ int main(int argc, char *argv[]){
 	init_textures(&textures,ecran);
 	modif_taille(textures.sprites_elements,data->actions);
 
+	int x_curseur;
+	int y_curseur;
+
 	// Boucle principale
 	while(!data->terminer)
 	{
 		refresh_game(ecran, textures, data);
 
 		while( SDL_PollEvent( &evenements ) )
+
 			switch(evenements.type)
 			{
 				case SDL_QUIT:
@@ -91,15 +95,17 @@ int main(int argc, char *argv[]){
 				case SDL_MOUSEMOTION:
 					if (1){
 
-						int x = -1,y = -1;
+						/*int x = -1,y = -1;
 
 						pixToSalle(evenements.motion.x,evenements.motion.y,&x,&y);
 
 						if(x != -1 && y != -1 && data->salles[y][x].visible){
 							affiche_texte_salle(ecran,textures.police,data->salles[y][x]);
-						}
-					}
+						}*/
 
+						pixToSalle(evenements.motion.x,evenements.motion.y,&x_curseur,&y_curseur);
+
+					}
 					break;
 				case SDL_MOUSEBUTTONDOWN:
                     if(data->active_direction_salle==2 ){
@@ -137,7 +143,7 @@ int main(int argc, char *argv[]){
 
 					if (data->etape == 2 && data->joueur[data->tour_perso].actions[data->tour_action] == 0){//Le joueur a choisi "regarder"
 						int x = -1,y = -1;
-					
+
 						pixToSalle(evenements.button.x,evenements.button.y,&x,&y);
 
 						if (x != -1 && y != -1){
@@ -148,10 +154,10 @@ int main(int argc, char *argv[]){
 								regarder(data->salles,x,y);
                                 data->affiche_message = 0;
 								change_action(data->actions,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->affiche_message),data->nb_personnages,data->joueur,data->type_de_jeu);
-								
+
 							}
 						}
-						
+
 					}
 					break;
 
@@ -165,6 +171,7 @@ int main(int argc, char *argv[]){
 			change_perso(data->actions,data->joueur,&(data->tour_action),&(data->tour_perso),&(data->etape),&(data->nb_action),&(data->affiche_message),data->nb_personnages,data->type_de_jeu);
 			data->trouve = 0;
 		}
+
         if(data->active_direction!='n' && data->active_direction_salle==1){
             Salle_controle(data->salles,data->joueur,data->tour_perso,&(data->active_direction),data->nb_personnages);
             data->active_direction ='n';
@@ -173,6 +180,7 @@ int main(int argc, char *argv[]){
             change_action(data->actions, &(data->tour_action), &(data->tour_perso), &(data->etape), &(data->affiche_message),data->nb_personnages,data->joueur,data->type_de_jeu);
 
         }
+
 		if (data->active_direction!='n'){
 			//On attend que le joueur choisisse une direction pour appliquer l'action 'contrôler' ou 'déplacer'
                 applique_action(data->salles, data->joueur, &(data->active_direction), data->tour_action,data->tour_perso, data->nb_personnages,&(data->active_direction_salle));
@@ -184,6 +192,11 @@ int main(int argc, char *argv[]){
             }
             data->active_direction = 'n';//On remet à aucune action choisie
 		}
+
+		if(data->salles[y_curseur][x_curseur].visible){
+			affiche_texte_salle(ecran,textures.police,data->salles[y_curseur][x_curseur]);
+		}
+
 		verifie_fin_du_jeu(&data->terminer,data->joueur,data->salles,data->type_de_jeu,data->nb_personnages);
 		affiche_message_actions(data->affiche_message,data->joueur[data->tour_perso].actions[data->tour_action],ecran,textures.police, data->salles);
 

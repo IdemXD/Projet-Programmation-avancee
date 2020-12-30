@@ -262,13 +262,13 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
 	char texte[70] = "";
 	char texte2[50] = "";
 	char texte3[30] = "";
-	
+
 	switch (salle.type){
         case 'S':
             sprintf(texte,"Salle centrale");
             break;
         case 'R':
-            sprintf(texte,"Regagnez votre liberté ");
+            sprintf(texte,"Regagnez votre liberte");
 			sprintf(texte2,"en m'atteignant !");
             break;
         case 'E':
@@ -281,10 +281,10 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
             sprintf(texte,"Ca va faire... boom !");
             break;
         case 'X':
-            sprintf(texte,"Retour a la case départ");
+            sprintf(texte,"Retour a la case depart");
             break;
 		case 'T':
-	        sprintf(texte,"Vous envoie à sa ");
+	        sprintf(texte,"Vous envoie a sa ");
 			sprintf(texte2,"salle jumelle");
 	        break;
         case 'C':
@@ -293,18 +293,18 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
             break;
         case 'F':
             sprintf(texte,"On progresse moins vite ");
-			sprintf(texte2,"quand il fait -35°C");
+			sprintf(texte2,"quand il fait -35C");
             break;
         case 'M':
             sprintf(texte,"Vous envoie sur une ");
 			sprintf(texte2,"salle non visible");
             break;
 		case 'O':
-			sprintf(texte,"Une action Contrôler gratuite");
+			sprintf(texte,"Une action Controler gratuite");
 			break;
 		case 'N':
 	        sprintf(texte,"Et si on eteignait ");
-			sprintf(texte2,"les lumières ?");
+			sprintf(texte2,"les lumieres ?");
 	        break;
 		case 'P':
 		    sprintf(texte,"Cette salle vous ");
