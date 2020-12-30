@@ -153,6 +153,13 @@ Marie: Continuation du struct_world and début d'écriture des fonctions SDL de 
 
 Chloé: Prise en compte de la mort des joueurs, et modifications des tests quant au bon fonctionnement de ces derniers 
 
+### Semaine 9 
+
+Medi: Implémentation de nouvelles salles avec structure de données, avancement et finalisation du menu de jeu 
+
+Marie: Creation du design final du jeu, implémentation de l'affichage de description de salle lors de survol du curseur
+
+Chloé: Création de design final du jeu, implémentation de l'action pousser, prise en compte de 2 modes Solo/multijoueur
 
 
 
