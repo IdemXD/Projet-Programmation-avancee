@@ -136,6 +136,7 @@ int main(int argc, char *argv[]){
                         data->active_direction_salle = 0;
                     }
 
+
 					if (data->etape == 1){
 						clic_action(data->actions,&(data->nb_action),&(data->trouve),evenements.button.x,evenements.button.y);
 

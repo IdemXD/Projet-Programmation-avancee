@@ -17,6 +17,7 @@ struct persos_s {
 	int coord_y; /*!< Tableau contenant la coordonnée y du personnage */
 	int state; /*!< Etat du personnage(1 quand le joueur est vivant)*/
 	int nb_actions;/*!< Nombre d'actions que le personnage peut faire*/
+	int vie;
 	int* actions; /*!< Actions du personnage*/
 };
 

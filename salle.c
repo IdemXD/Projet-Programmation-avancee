@@ -19,6 +19,7 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
     int a,b;
     Pile* pile =initialiser();
     creer_pile(pile);
+    //Perte_vie(pl,&pl[y][x],joueur,tour_perso,a,b);
     char type;
         switch (pl[y][x].type) {
             case 'V':
@@ -51,13 +52,20 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
             case 'P':
                 Salle_prison(joueur);
                 break;
-            case 'S':
+            case 'Z':
                 type=depiler(pile);
                 Salle_surprise(pl,joueur,type,tour_perso,a,b,dir);
                 break;
-            case 'W':
+            case 'Y':
                 *dir=4;
                 break;
+            case 'U':
+               // Salle_virus(joueur);
+                break;
+            case 'H':
+             //   Salle_soin(joueur);
+                break;
+
     }
 }
 
@@ -234,3 +242,20 @@ void Salle_surprise(salle_t **pl,persos_t* persos,char salle_Depile,int tour_per
     Cherche_salle(pl,persos,tour_perso,'X',&a,&b);
     pl[a][b].type=salle_Depile;
 }
+
+
+//void Salle_virus(persos_t* persos){
+    //persos->vie--;
+//}
+
+//void Perte_vie(salle_t** pl,salle_t* salle , persos_t* persos,int tour_perso,int a,int b){
+   // Cherche_salle(pl,persos,tour_perso,'U',&a,&b);
+  //  if(pl[a][b].state==1 && pl[salle->y][salle->x].type!='H' &&pl[salle->y][salle->x].state==0){
+   //     Salle_virus(persos);
+        
+   //     }
+//}
+
+//void Salle_soin(persos_t* persos){
+    //persos->vie=10;
+//}
