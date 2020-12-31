@@ -181,8 +181,8 @@ void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, i
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
 
-            if (pl[i][j].type == salle && persos->coord_x == pl[i][j].x &&
-                persos->coord_y == pl[i][j].y) {
+            if (pl[i][j].type == salle && persos[tour_perso].coord_x == pl[i][j].x &&
+                persos[tour_perso].coord_y == pl[i][j].y) {
                 *a = i;
                 *b = j;
             }
@@ -191,28 +191,23 @@ void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, i
 }
 
 void Salle_mobile(salle_t** pl,persos_t* perso ,int tour_perso, int* x, int*y){
-    int new_x=*x;
-    int new_y=*y;
-    char type_salle;
-    int a; int b;
     if(*x != -1 && *y != -1 && pl[*y][*x].visible==0) {
-        Cherche_salle(pl,perso,tour_perso,'M',&a,&b);
-        type_salle=pl[a][b].type;
-        pl[new_y][new_x].x=*y;
-        pl[new_y][new_x].y=*x;
-        pl[new_x][new_y].type=pl[*y][*x].type;
-        pl[new_x][new_y].visible=0;
-        perso[tour_perso].coord_x=*x;
-        perso[tour_perso].coord_y=*y;
-        pl[*y][*x].x=a;
-        pl[*y][*x].y=b;
-        pl[a][b].type= pl[*y][*x].type;
-        pl[a][b].visible=0;
-        pl[*y][*x].type=type_salle;
-        pl[*y][*x].visible=1;
+       change_type(pl, perso, tour_perso, x, y);
+       perso[tour_perso].coord_y=*y;
+       perso[tour_perso].coord_x=*x;
     }
 }
 
+void change_type(salle_t** pl,persos_t* perso ,int tour_perso, int *x, int *y){
+    int a,b;
+    Cherche_salle(pl,perso,tour_perso,'M',&a,&b);
+    char type_salle=pl[a][b].type;
+    char type=pl[*y][*x].type;
+    pl[a][b].type=type;
+    pl[a][b].visible=0;
+    pl[*y][*x].type=type_salle;
+    pl[*y][*x].visible=1;
+}
 
 
 void Salle_noire(salle_t** pl, persos_t* perso){

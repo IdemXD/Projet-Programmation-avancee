@@ -87,6 +87,8 @@ void Salle_mobile(salle_t** pl, persos_t* perso,int tour_perso ,int* x,  int* y)
 
 void Salle_noire(salle_t** pl, persos_t* perso);
 
+void change_type(salle_t** pl,persos_t* perso ,int tour_perso, int *x, int* y);
+
 
 void Salle_prison(persos_t* perso);
 
