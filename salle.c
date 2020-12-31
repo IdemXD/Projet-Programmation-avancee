@@ -16,6 +16,10 @@
 void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
     int x=joueur->coord_x;
     int y=joueur->coord_y;
+    int a,b;
+    Pile* pile =initialiser();
+    creer_pile(pile);
+    char type;
         switch (pl[y][x].type) {
             case 'V':
                 *dir = 2;
@@ -48,7 +52,8 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
                 Salle_prison(joueur);
                 break;
             case 'S':
-                //Salle_surprise(pl,&pl[y][x]);
+                type=depiler(pile);
+                Salle_surprise(pl,joueur,type,tour_perso,a,b,dir);
                 break;
             case 'W':
                 *dir=4;
@@ -168,8 +173,8 @@ void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, i
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
 
-            if (pl[i][j].type == salle && persos[tour_perso].coord_x == pl[i][j].x &&
-                persos[tour_perso].coord_y == pl[i][j].y) {
+            if (pl[i][j].type == salle && persos->coord_x == pl[i][j].x &&
+                persos->coord_y == pl[i][j].y) {
                 *a = i;
                 *b = j;
             }
@@ -225,3 +230,7 @@ void Salle_copie(salle_t** pl,persos_t* persos,int x,int y){
     pl[persos->coord_y][persos->coord_x].type=pl[y][x].type;
 }
 
+void Salle_surprise(salle_t **pl,persos_t* persos,char salle_Depile,int tour_perso,int a,int b,int* dir){
+    Cherche_salle(pl,persos,tour_perso,'X',&a,&b);
+    pl[a][b].type=salle_Depile;
+}

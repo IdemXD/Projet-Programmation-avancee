@@ -94,8 +94,10 @@ void Salle_prison(persos_t* perso);
 void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso, char salle, int* a , int* b);
 
 
-void Salle_surprise(salle_t** pl,salle_t* salle);
+void Salle_surprise(salle_t **pl,persos_t* persos,char salle_Depile,int tour_perso,int a,int b,int* dir);
 
 void Salle_copie(salle_t** pl,persos_t* persos,int x,int y);
+
+
 
 #endif

@@ -3,40 +3,59 @@
 #include "salle.h"
 #include "pile.h"
 
+
 Pile *initialiser(){
     Pile *pile = malloc(sizeof(*pile));
     pile->premier = NULL;
 }
 
 
-void empiler_pile(Pile pile, const char LETTRES_SALLES[14]){
-    Element *nouveau_element = malloc(sizeof(*nouveau_element));
+void empiler_pile(Pile* pile, char nvsalle ){
+    Element * element = malloc(sizeof(*element));
 
-    if(nouveau_element == NULL || pile=NULL){
+    if(element == NULL || pile==NULL){
         fprintf(stderr, "Probleme d'allocation\n");
         exit(EXIT_FAILURE);
     }
-
-    nouveau_element->salle.type=nvsalle;
-    nouveau_element->suivant = pile->premier;
-    pile->premier = nouveau_element;
+    element->salle = nvsalle;
+    element->suivant = pile->premier;
+    pile->premier = element;
 
 }
 
-int depiler(Pile *pile){
-    if (pile == NULL){
+int depiler(Pile *pile)
+{
+    if (pile == NULL)
+    {
         exit(EXIT_FAILURE);
     }
 
-    char *salleDepile = 0;
+    int salleDepile = 0;
     Element *elementDepile = pile->premier;
 
-    if (pile != NULL && pile->premier != NULL){
-        salleDepile = elementDepile->salle.type;
+    if (pile != NULL && pile->premier != NULL)
+    {
+        salleDepile = elementDepile->salle;
         pile->premier = elementDepile->suivant;
         free(elementDepile);
     }
-    return;
+
+    return salleDepile;
+}
+
+void creer_pile(Pile* pile) {
+    char SALLES[13] = {'V', 'C', 'O', 'S', 'E', 'F', 'M', 'D', 'N', 'T', 'X', 'P', 'Z'};
+    empiler_pile(pile, SALLES[0]);
+    empiler_pile(pile, SALLES[1]);
+    empiler_pile(pile, SALLES[2]);
+    empiler_pile(pile, SALLES[3]);
+    empiler_pile(pile, SALLES[4]);
+    empiler_pile(pile, SALLES[5]);
+    empiler_pile(pile, SALLES[6]);
+    empiler_pile(pile, SALLES[7]);
+    empiler_pile(pile, SALLES[8]);
+
+
 }
 
 
@@ -47,17 +66,9 @@ void affichage_pile(Pile* pile){
     Element *element = pile->premier;
 
     while (element != NULL){
-        printf("%d\n", element->salle.type);
+        printf("%c\n", element->salle);
         element = element->suivant;
     }
     printf("\n");
 
-}
-
-
-Pile free_pile(Pile pile){
-    while(pile!=NULL) {
-        pile = depiler(pile);
-    }
-    return pile;
 }

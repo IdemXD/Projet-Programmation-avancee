@@ -5,25 +5,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "salle.h"
-#include "constantes.h"
 
 
 
-struct Element
-{
-    char LETTRES_SALLES[14];
-    struct Element *suivant;
-};
+
 typedef struct Element Element;
 
-struct Pile
+struct Element
+
 {
-    Element *premier;
+
+    int salle;
+
+    Element *suivant;
+
 };
+
 typedef struct Pile Pile;
 
+struct Pile
 
-/* Prototypes des fonctions */
+{
+
+    Element *premier;
+
+};
+
 
 
 Pile *initialiser();
@@ -32,12 +39,12 @@ Pile *initialiser();
 void affichage_pile(Pile* pile);
 
 
-void empiler_pile(Pile* pile, const char LETTRES_SALLES[14] );
+void empiler_pile(Pile* pile, char salle);
 
 
 int depiler(Pile* pile);
 
-Pile free_pile(Pile* pile);
+void creer_pile(Pile* pile);
 
 #endif
 

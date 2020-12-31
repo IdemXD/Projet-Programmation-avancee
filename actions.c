@@ -106,7 +106,7 @@ void deplacer(salle_t** plateau,persos_t* perso,const char* direction,int tour_p
 	else if (perso->coord_y-1 >= 0 && *direction == 'h'){
 		perso->coord_y = perso->coord_y - 1 ;
 	}
-	
+
 	modif_visible_et_etat(plateau,perso->coord_x,perso->coord_y);
     action_salle(plateau,perso,tour_perso,direction_salle);
 
