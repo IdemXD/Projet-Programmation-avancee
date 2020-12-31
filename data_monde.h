@@ -71,5 +71,15 @@ void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, 
 */
 //void exit_erreur_pl(SDL_Window *fenetre, SDL_Renderer *ecran, data_t* data);
 
+
+/**
+    * \brief Vérifie si la partie est terminée
+    * \param terminer Indique la fin du jeu
+    * \param joueurs Ensemble des joueurs
+    * \param plateau Ensemble des salles
+    * \param type_de_jeu Type de jeu (solo ou multi)
+    * \param nb_personnage Nombre de personnages total
+*/
+
 void verifie_fin_du_jeu(int* terminer,persos_t* joueurs,salle_t** plateau,char type_de_jeu,int nb_personnage);
 #endif

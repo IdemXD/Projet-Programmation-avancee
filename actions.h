@@ -74,6 +74,13 @@ void applique_action(salle_t** plateau, persos_t* joueurs, char* active_directio
 */
 void deplacer(salle_t** plateau,persos_t* perso,const char* direction,int tour_perso,int* direction_salle);
 
+/**
+ * \brief Renvoie la lettre représentant l'action
+ * \param numero Numéro de l'action
+ * \param etape Etape de jeu
+ * \return Lettre représentant l'action
+*/
+
 char lettre_action(int numero,int etape);
 /**
  * \brief Renvoie les coordonnées d'une salle à partir des coordonnées de la souris
@@ -101,11 +108,53 @@ void regarder(salle_t** plateau,int x,int y);
 */
 void controler(salle_t** plateau, const char* direction, int nbRangee,persos_t* p,int nb_personnage);
 
+/**
+ * \brief Recherche le prochain personnage vivant, si n'en trouve pas, renvoie le dernier personnage
+ * \param tour_perso Indique le tour du personnage 
+ * \param nb_personnage Nombre de personnages total
+ * \param joueur Informations sur un joueur
+*/
+
 void prochain_vivant(int* tour_perso,int nb_personnage,persos_t* joueur);
 
-void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* pas_affichage, int nb_personnages,char type_de_jeu);
+/**
+ * \brief Changement de personnage pour l'étape 1
+ * \param actions Actions possibles
+ * \param joueurs Ensemble des joueurs
+ * \param tour_action Numéro du tour de l'action 
+ * \param tour_perso Numéro du personnage dont c'est le tour
+ * \param etape Etape de jeu
+ * \param affiche_message Indique si on affiche le message pour l'action à l'étape 2
+ * \param nb_personnage Nombre de personnages 
+ * \param type_de_jeu Type de jeu (solo ou multi)
+*/
+
+void change_perso(action_t* actions,persos_t* joueurs,int* tour_action,int* tour_perso,int* etape,int* nb_action, int* affiche_message, int nb_personnages,char type_de_jeu);
+
+/**
+ * \brief Changement d'action pour l'étape 2
+ * \param actions Actions possibles
+ * \param tour_action Numéro du tour de l'action 
+ * \param tour_perso Numéro du personnage dont c'est le tour
+ * \param etape Etape de jeu
+ * \param pas_affichage Indique si on affiche le message pour l'action à l'étape 2
+ * \param nb_personnage Nombre de personnages 
+ * \param joueur Ensemble des joueurs
+ * \param type_de_jeu Type de jeu (solo ou multi)
+*/
 
 void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape,int* pas_affichage,int nb_personnage,persos_t* joueur,char type_de_jeu);
-	
+
+/**
+ * \brief Action pour pousser d'autres joueurs, disponible seulement en multi
+ * \param joueurs Ensemble des joueurs
+ * \param num_joueur Numéro du joueur faisant l'action
+ * \param nb_personnage Nombre de personnages 
+ * \param direction direction de déplacement des salles
+ * \param plateau Plateau de jeu
+ * \param tour_perso Numéro du personnage dont c'est le tour
+ * \param direction_salle direction vers laquelle les personnages seront poussés
+*/
+
 void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau,int tour_perso,int* direction_salle);
 #endif

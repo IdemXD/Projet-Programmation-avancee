@@ -17,7 +17,7 @@ struct persos_s {
 	int coord_y; /*!< Tableau contenant la coordonnée y du personnage */
 	int state; /*!< Etat du personnage(1 quand le joueur est vivant)*/
 	int nb_actions;/*!< Nombre d'actions que le personnage peut faire*/
-	int vie;
+	int vie; /*!< Nombre de points de vie*/
 	int* actions; /*!< Actions du personnage*/
 };
 
@@ -31,10 +31,18 @@ typedef struct persos_s persos_t;
 
 persos_t*  creer_persos(int nbJoueurs);
 
+/**
+ * \brief Détermine le nombre de personnages à partir du nombre de joueurs
+ * \param nbJoueurs Nombre de joueurs choisi
+ * \return Nombre de personnages
+*/
+
 int joueurToPersos (int nbJoueurs);
 
 /**
  * \brief Libère l'espace en mémoire utilisé pour les personnages
+ * \param persos Ensemble des personnages
+ * \param nbPersos Nombre de personnages
 */
 void liberer_persos( persos_t*  persos,int nbPersos);
 

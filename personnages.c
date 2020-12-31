@@ -20,6 +20,7 @@ persos_t*  creer_persos(int nbPersos)
  		persos[i].actions = (int *) malloc(sizeof(int)*2);
  		persos[i].actions[0] = -1;
  		persos[i].actions[1] = -1;
+        persos[i].vie = 10;
  	}
  	return persos ;
 

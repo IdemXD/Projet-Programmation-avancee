@@ -99,22 +99,25 @@ void affiche_message (SDL_Renderer* renderer,TTF_Font *police,const char *messag
 void appliquer_texte(SDL_Renderer *renderer,int x, int y, int w, int h, const char *text, TTF_Font *font);
 
 /**
-	* \brief Crée une texture à partir d'un fichier de police
-	* \param action
-	* \param donnees_action
+	* \brief Initialise la hauteur et largeur d'une action à partir de son sprite
+	* \param action Sprite d'une action
+	* \param donnees_action Les informations sur une action
 */
 void modif_taille(SDL_Texture * action,action_t* donnees_action);
 
 /**
-
+	* \brief Permet d'afficher une action à partir de ses coordonées
+	* \param renderer Surface de l'écran de jeu
+	* \param action Sprite d'une action
+	* \param donnees_action Informations sur une action
+	* \param numA numéro de l'action
 */
-void affiche_action(SDL_Renderer* renderer,SDL_Texture * actions,action_t donnees_action ,int numA);
+void affiche_action(SDL_Renderer* renderer,SDL_Texture * action,action_t donnees_action ,int numA);
 
 /**
 	* \brief Affiche le sprite d'un personnage
 	* \param renderer Surface de l'écran de jeu
 	* \param perso Sprite du personnage
-	* \param donnees_perso Informations sur le personnage
 	* \param donnees_perso Informations sur le personnage
 	* \param i numéro du personnage
 */

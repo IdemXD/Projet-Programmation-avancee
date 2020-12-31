@@ -328,7 +328,7 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
 			actions[0].etat = 1;//On affiche plus les boutons d'actions à l'écran
 			actions[1].etat = 1;
 			actions[2].etat = 1;
-			if (type_de_jeu == 'm')
+			if (type_de_jeu == 'm')//Si on joue en multi, on affiche "pousser"
 				actions[3].etat = 1;
 			*tour_action = 0;
 			*pas_affichage = 1;
