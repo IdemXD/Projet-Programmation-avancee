@@ -150,7 +150,7 @@ void affiche_joueur(SDL_Renderer* renderer,SDL_Texture * perso, persos_t donnees
 
 	SDL_Rect SrcR = {i*persoW,0,persoW,persoH};
 	int lig = i/2, col = i%2;
-	SDL_Rect DestR = {persoW*donnees_perso.coord_x - persoW/4 + col*60, persoH*donnees_perso.coord_y - persoH/4 + lig*60,persoW,persoH};
+	SDL_Rect DestR = {persoW*donnees_perso.coord_x - persoW/4 + col*60 + 30, persoH*donnees_perso.coord_y - persoH/4 + lig*60 +30,persoW/2,persoH/2};
 	SDL_RenderCopy(renderer,perso, &SrcR, &DestR);
 }
 
@@ -200,7 +200,7 @@ int * texture_salle (salle_t salle){
 
     } else {
         // La salle est cachée, on ne sait pas ce qu'il se trouve à cet endroit.
-        num_s = 12;
+        num_s = 17;
    	}
    	int* coord = malloc(2* sizeof(int));
    	coord[0] = num_s%5;
@@ -219,7 +219,7 @@ void affiche_salle(SDL_Renderer* renderer, SDL_Texture * image_salles, salle_t s
 	SDL_QueryTexture(image_salles, NULL, NULL, &salleW, &salleH);
 
 	salleW = salleW/5;
-	salleH = salleH/3;
+	salleH = salleH/4;
 
 	int * coord = texture_salle(salle);
 	SDL_Rect SrcR = {coord[0]*salleW, coord[1]*salleH, salleW, salleH};
