@@ -54,7 +54,7 @@ char* preparation_chemin()
 int chars_valide(char paquet[6])
 {
     // Si un des elements le respecte pas cette suite, on renvoie 0
-    if ((!is_in(paquet[0], LETTRES_SALLES, 12)) && (paquet[0] != '\n'))
+    if ((!is_in(paquet[0], LETTRES_SALLES, 17)) && (paquet[0] != '\n'))
         return 0;
 
     // Si un des trois, supposés boolean, ne sont pas sous le bon format, envoie 0
@@ -67,6 +67,47 @@ int chars_valide(char paquet[6])
         return 0;
 
     return 1; // les elements s'enchainent correctement
+}
+
+int verif_emplacements(salle_t** pl)
+{
+    int count_S_R = 0;
+
+    for(int j = 0; j < 5; j++){
+        for (int i = 0; i < 5; i++){
+
+            if(pl[j][i].type == 'R'){
+                // La salle 25 existe
+                count_S_R += 1;
+
+                if((i == 2) || (j == 2) || (i+j == 2)|| (i+j == 6) || (i+j == 4)){
+                    if (!((i == 4) || (j == 4))){
+                        perror("Salle 25 n'a pas le bon emplacement");
+                        return 1;
+                    }
+                }
+            }
+
+            if(pl[j][i].type == 'S'){
+                // La salle Centrale existe
+                count_S_R += 1;
+
+                // On souhaite que la salle centrale soit disposée
+                // au mileu du plateau soit visible et utilisable
+                if(!((i == 2) && (j == 2) && (pl[j][i].visible == 1) && (pl[j][i].state == 1))){
+                    perror("Salle Centrale n'a pas le bon format/emplacement");
+                    return 1;
+                }
+            }
+        }
+    }
+
+    if (count_S_R != 2) {
+        perror("Salle 25 ou/et Salle Centrale manquantes");
+        return 1;
+    }
+
+    return 0;
 }
 
 salle_t** creer_plateau()
@@ -126,11 +167,14 @@ salle_t** charger_plateau(char* niveau)
         flag_char = 1;
     }
 
+    // On vérifie l'existance et l'emplacement de la salle 25 et Centrale
+    if(verif_emplacements(pl)) flag_char = 1;
+
     // On exit et free la mémoire si on rencontre une erreur dans le niveau
-    if (flag_char)
-        exit(0); // on free tout avec struct_world et on exit standard (return pl en attendant implem des procédures adéquates)
-    else
-        return pl; // tout c'est bien passé
+    // sinon on renvoie le plateau
+    //(flag_char) ? exit(0) : return pl;
+    if (flag_char) exit (0);
+    else return pl;
 }
 
 void proposition_sauvegarde(salle_t** pl)

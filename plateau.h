@@ -42,6 +42,13 @@ char* preparation_chemin();
 int chars_valide(char paquet[5]);
 
 /**
+  * \brief Verifie que le plateau respecte les configurations de départ
+  * \param pl Plateau chargés
+  * \return 1 si le plateau ne respecte pas le format de départ
+*/
+int verif_emplacements(salle_t** pl);
+
+/**
   * \brief Creation et allocation d'un tableau de structures 2D
   * \return Pointeur du tableau créé
 */

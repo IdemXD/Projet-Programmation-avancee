@@ -35,8 +35,8 @@ data_t* init_data()
     // Initialisation des structures d'interactions personnages / actions
     data->joueur = creer_persos(data->nb_personnages);
 	data->actions = creer_actions(data->type_de_jeu);
-	
-   
+
+
 	return data;
 
 }
@@ -68,7 +68,7 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
             affiche_action(ecran, textures.sprites_elements, data->actions[i], i);
         }
     }
- 
+
 }
 
 
@@ -86,19 +86,6 @@ void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, 
 	SDL_DestroyWindow(fenetre);
 	SDL_Quit();
 }
-
-/*void exit_erreur_pl(SDL_Window *fenetre, SDL_Renderer *ecran, data_t* data)
-{
-	free_plateau(data->salles);
-	free(data);
-
-	TTF_Quit();
-
-	SDL_DestroyRenderer(ecran);
-	SDL_DestroyWindow(fenetre);
-	SDL_Quit();
-	exit(0);
-}*/
 
 void verifie_fin_du_jeu(int* terminer,persos_t* joueurs,salle_t** plateau,char type_de_jeu,int nb_personnage){
     if (type_de_jeu == 's' &&(!joueurs[0].state || !joueurs[1].state)){//Si le joueur joue en mode solo et qu'un des deux persos est mort

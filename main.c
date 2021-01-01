@@ -95,14 +95,6 @@ int main(int argc, char *argv[]){
 				case SDL_MOUSEMOTION:
 					if (1){
 
-						/*int x = -1,y = -1;
-
-						pixToSalle(evenements.motion.x,evenements.motion.y,&x,&y);
-
-						if(x != -1 && y != -1 && data->salles[y][x].visible){
-							affiche_texte_salle(ecran,textures.police,data->salles[y][x]);
-						}*/
-
 						pixToSalle(evenements.motion.x,evenements.motion.y,&x_curseur,&y_curseur);
 
 					}
