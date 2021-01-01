@@ -102,7 +102,7 @@ void Salle_copie(salle_t** pl,persos_t* persos,int x,int y);
 
 void Perte_vie(salle_t** pl,salle_t* salle , persos_t* persos,int tour_perso,int a,int b);
 
-void Salle_virus(persos_t* persos);
+void Salle_virus(persos_t* persos,int tour_perso);
 
-void Salle_soin(persos_t* persos);
+void Salle_soin(persos_t* persos,int tour_pero);
 #endif
