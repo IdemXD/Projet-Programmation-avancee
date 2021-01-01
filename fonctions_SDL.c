@@ -315,6 +315,18 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
 			sprintf(texte,"Comme aux partiels, on ne ");
 			sprintf(texte2,"sait jamais à quoi s'attendre");
 			break;
+		case 'Y':
+			sprintf(texte,"Ce mirroir permet de copier");
+			sprintf(texte2,"l'effet de votre salle préférée");
+			break;
+		case 'U':
+			sprintf(texte,"Cette salle n'a pas bien été");
+			sprintf(texte2,"désinfectée... qui quelle ");
+			sprintf(texte3,"maladie il s'y trouve.");
+			break;
+		case 'H':
+			sprintf(texte,"Oh une infirmerie !");
+			break;
     }
 
 	appliquer_texte(renderer,601,160,295,40,texte,police);
