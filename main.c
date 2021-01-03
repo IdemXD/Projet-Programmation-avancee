@@ -60,6 +60,10 @@ int main(int argc, char *argv[]){
 							data->terminer = 1;
 							break;
 
+						case SDLK_s:
+							proposition_sauvegarde(data->salles);
+							break;
+
 						case SDLK_DOWN:
 
 								if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4)){ //Seulement si le joueur est en train de faire un choix de direction

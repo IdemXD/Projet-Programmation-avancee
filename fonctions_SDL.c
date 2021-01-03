@@ -92,10 +92,10 @@ void affiche_message (SDL_Renderer* renderer,TTF_Font *police,const char *messag
 
 void affiche_tours(SDL_Renderer* renderer,TTF_Font *police, int tour_perso, int tour_action, char action){
 	char texte [21];
-	sprintf(texte,"Tour du personnage %d",tour_perso);
+	sprintf(texte,"Tour du personnage %d",tour_perso+1);
 	appliquer_texte(renderer,601,10,295,32,texte,police);
 
-	sprintf(texte,"Action numero %d %c",tour_action,action);
+	sprintf(texte,"Action numero %d %c",tour_action+1,action);
 	appliquer_texte(renderer,640,50,230,30,texte,police);
 }
 
@@ -313,15 +313,15 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
 		    break;
 		case 'Z':
 			sprintf(texte,"Comme aux partiels, on ne ");
-			sprintf(texte2,"sait jamais à quoi s'attendre");
+			sprintf(texte2,"sait jamais a quoi s'attendre");
 			break;
 		case 'Y':
 			sprintf(texte,"Ce mirroir permet de copier");
-			sprintf(texte2,"l'effet de votre salle préférée");
+			sprintf(texte2,"l'effet de votre salle preferee");
 			break;
 		case 'U':
 			sprintf(texte,"Cette salle n'a pas bien été");
-			sprintf(texte2,"désinfectée... qui quelle ");
+			sprintf(texte2,"desinfectee... qui quelle ");
 			sprintf(texte3,"maladie il s'y trouve.");
 			break;
 		case 'H':
