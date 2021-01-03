@@ -98,16 +98,13 @@ int main(int argc, char *argv[]){
 					pixToSalle(evenements.motion.x,evenements.motion.y,&x_curseur,&y_curseur);
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-                    if(data->active_direction_salle==2 ){
+                    if(data->active_direction_salle==2 ) {
                         int x = -1, y = -1;
                         pixToSalle(evenements.button.x, evenements.button.y, &x, &y);
-                            Salle_vision(data->salles, x, y);
-                            data->affiche_message = 0;
-                            change_action(data->actions, &(data->tour_action), &(data->tour_perso), &(data->etape),
-                                          &(data->affiche_message), data->nb_personnages, data->joueur,
-                                          data->type_de_jeu);
-                            data->active_direction_salle = 0;
-
+                        Salle_vision(data->salles, x, y);
+                        data->affiche_message = 0;
+                        change_action(data->actions, &(data->tour_action), &(data->tour_perso), &(data->etape),&(data->affiche_message), data->nb_personnages, data->joueur,data->type_de_jeu);
+                        data->active_direction_salle = 0;
                     }
                     if(data->active_direction_salle==3 ) {
                         int x = -1, y = -1;
@@ -171,7 +168,6 @@ int main(int argc, char *argv[]){
             change_action(data->actions, &(data->tour_action), &(data->tour_perso), &(data->etape), &(data->affiche_message),data->nb_personnages,data->joueur,data->type_de_jeu);
 
         }
-
 		if (data->active_direction!='n'){
 			//On attend que le joueur choisisse une direction pour appliquer l'action 'contrôler' ou 'déplacer'
                 applique_action(data->salles, data->joueur, &(data->active_direction), data->tour_action,data->tour_perso, data->nb_personnages,&(data->active_direction_salle));
@@ -194,6 +190,10 @@ int main(int argc, char *argv[]){
 		SDL_RenderPresent(ecran);
 
 	}
+    if (data->terminer == 2){
+        appliquer_texte(ecran,325, 145, 295, 50, "Bravo!", textures.police);
+        SDL_Delay(1000);
+    }
 	clean_game(fenetre, ecran, &textures, data);
 	return 0;
 }

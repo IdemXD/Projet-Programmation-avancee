@@ -19,8 +19,6 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
     int a,b;
     Pile* pile =initialiser();
     creer_pile(pile);
-    printf("Etat de vie du perso");
-    printf("%d\n",joueur->vie);
     Perte_vie(pl,&pl[y][x],joueur,tour_perso,a,b);
     char type;
         switch (pl[y][x].type) {
@@ -40,7 +38,7 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
                 Salle_froide(joueur, tour_perso);
                 break;
             case 'N':
-                Salle_noire(pl, joueur);
+                Salle_noire(pl, joueur,tour_perso);
                 break;
             case 'O':
                 *dir = 1;
@@ -212,14 +210,16 @@ void change_type(salle_t** pl,persos_t* perso ,int tour_perso, int *x, int *y){
 }
 
 
-void Salle_noire(salle_t** pl, persos_t* perso){
+void Salle_noire(salle_t** pl, persos_t* perso,int tour_perso){
     for (int i = 0 ; i<5 ; i++){
         for (int j =0 ; j<5 ; j++){                                                     // fonctionne
             pl[i][j].visible=0;
             pl[2][2].visible=1;
             pl[i][j].state=0;
-            if(j== perso[0].coord_x && i== perso[0].coord_y || j== perso[1].coord_x && i== perso[1].coord_y) {
+
+            if(j== perso[0].coord_x && i== perso[0].coord_y || j== perso[1].coord_x && i== perso[1].coord_y|| j== perso[2].coord_x && i== perso[2].coord_y || j== perso[3].coord_x && i== perso[3].coord_y) {
                 pl[i][j].visible = 1;
+                pl[0][0].visible=0;
             }
         }
     }
@@ -228,7 +228,7 @@ void Salle_noire(salle_t** pl, persos_t* perso){
 
 
 void Salle_prison(persos_t* perso){
-    perso->nb_actions=0;
+    perso->nb_actions--;
 }
 
 void Salle_copie(salle_t** pl,persos_t* persos,int x,int y){
@@ -250,7 +250,10 @@ void Perte_vie(salle_t** pl,salle_t* salle , persos_t* persos,int tour_perso,int
     Cherche_salle(pl,persos,tour_perso,'U',&a,&b);
     if(pl[persos->coord_y][persos->coord_x].type!='H'&& persos[tour_perso].affecter==0){
         Salle_virus(persos,tour_perso);
+        if(persos->vie==0){
+            persos->state=0;
         }
+    }
 }
 
 void Salle_soin(persos_t* persos,int tour_persos){

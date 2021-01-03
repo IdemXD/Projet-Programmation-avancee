@@ -86,10 +86,23 @@ void verifie_fin_du_jeu(int* terminer,persos_t* joueurs,salle_t** plateau,char t
                 est_vivant = 1;
             i++;
         }
+
         if (type_de_jeu == 'm' && !est_vivant){//si tous les joueurs ont perdu
             *terminer = 1; //On sort de la boucle de jeu
         }
     }
+    int abs,ord;
+    lettreToCoords('R',&abs,&ord,plateau);//On recherche les coordonnées de la salle 25
+    int i = 0,fini = 1;
+    while(i < nb_personnage && fini){
+        if (joueurs[i].coord_x != abs || joueurs[i].coord_y != ord)
+            fini = 0;
+        i++;
+    }
+    if (fini){
+        *terminer = 2; //On sort de la boucle de jeu
+    }
+
 }
 
 data_t* gestion_plateau(int num_plateau){

@@ -2,6 +2,13 @@
 
 ## Description du projet  
 
+
+## Auteur et Lien git 
+
+Trunkenwald Marie
+Mathias Chloé
+Boudhane Medi
+https://github.com/IdemXD/Projet-Programmation-avancee.git
 ### Concept  
 
 *Ce jeu est grandement inspiré du jeu de plateau Room-25.*
@@ -217,3 +224,4 @@ Medi: Finalisation du menu de jeu
 Marie: Finalisation du design du jeu, implémentation sauvegarde de jeu dans le main
 
 Chloé: Support technique
+
