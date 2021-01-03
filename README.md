@@ -19,8 +19,11 @@ Dans un premier temps chaque joueur choisi consécutivement ses 2 actions du tou
 * **Programmation actions du tour:** 
 
 Joueur 1 -> choix action 1 -> choix action 2
+
 Joueur 2 -> choix action 1 -> choix action 2
+
 Joueur 3 -> choix action 1 -> choix action 2
+
 Joueur 4 -> choix action 1 -> choix action 2
 
 * **Deroulenement première partie du tour:**
