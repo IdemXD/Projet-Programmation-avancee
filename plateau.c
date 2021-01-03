@@ -169,8 +169,8 @@ salle_t** charger_plateau(char* niveau)
                  salle_count += 1; // On prend en compte qu'on a avancé de char_count elements dans le fichier
              }
          }
+         fclose(plateau);
     }
-    fclose(plateau);
 
     if(salle_count != 25) // Pas assez de salle dans le plateau
     {
@@ -195,14 +195,14 @@ void proposition_sauvegarde(salle_t** pl)
     scanf( "%i", &choix );
 
 	if(choix)
-        sauvegarder_plateau(pl, preparation_chemin());
+        sauvegarder_plateau(pl);
 }
 
-void sauvegarder_plateau(salle_t** pl, char* niveau)
+void sauvegarder_plateau(salle_t** pl)
 {
-    // Création du fichier qui va contenir la sauvegarde
+    // Création du fichier qui va contenir la sauvegarde car mode w
     FILE* save = NULL ;
-    save = fopen(niveau,"w") ;
+    save = fopen("niveaux/plateau7.txt","w") ;
 
     // "buffer" permettant de stocké les chars representant une salle et ses caracts
     char tampon[6] = "" ;
@@ -218,6 +218,20 @@ void sauvegarder_plateau(salle_t** pl, char* niveau)
         }
     }
     fclose(save);
+    printf("Plateau sauvegardé en tant que plateau no 7 !");
+}
+
+int existence_sauvegarde(){
+    FILE* save = NULL ;
+    save = fopen("niveaux/plateau7.txt","r") ;
+
+    if (save == NULL){
+        return 0;
+    }
+    else {
+        fclose(save);
+        return 1;
+    }
 }
 
 void free_plateau(salle_t** pl)

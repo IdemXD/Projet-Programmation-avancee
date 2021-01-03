@@ -236,7 +236,7 @@ void Salle_copie(salle_t** pl,persos_t* persos,int x,int y){
 }
 
 void Salle_surprise(salle_t **pl,persos_t* persos,char salle_Depile,int tour_perso,int a,int b,int* dir){
-    Cherche_salle(pl,persos,tour_perso,'X',&a,&b);
+    Cherche_salle(pl,persos,tour_perso,'Z',&a,&b);
     pl[a][b].type=salle_Depile;
 }
 

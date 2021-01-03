@@ -72,7 +72,13 @@ void proposition_sauvegarde(salle_t** pl);
     * \brief Sauvegarde le plateau dans un fichier
     * \param pl Tableau 2D representant le plateau
 */
-void sauvegarder_plateau(salle_t** pl, char* niveau);
+void sauvegarder_plateau(salle_t** pl);
+
+/**
+    * \brief Verifie que le fichier de sauvegarde existe
+    * \return 1 si une sauvegarde existe, 0 sinon
+*/
+int existence_sauvegarde();
 
 /**
   * \brief Libère l'espace alloué au tableau
