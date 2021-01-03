@@ -59,7 +59,8 @@ int main(int argc, char *argv[]){
 							break;
 
 						case SDLK_s:
-							proposition_sauvegarde(data->salles);
+							printf("Plateau sauvegardé en tant que plateau no 6 !\n");
+							sauvegarder_plateau(data->salles);
 							break;
 
 						case SDLK_DOWN:

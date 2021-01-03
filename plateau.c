@@ -202,7 +202,7 @@ void sauvegarder_plateau(salle_t** pl)
 {
     // Création du fichier qui va contenir la sauvegarde car mode w
     FILE* save = NULL ;
-    save = fopen("niveaux/plateau7.txt","w") ;
+    save = fopen("niveaux/plateau6.txt","w") ;
 
     // "buffer" permettant de stocké les chars representant une salle et ses caracts
     char tampon[6] = "" ;
@@ -218,12 +218,11 @@ void sauvegarder_plateau(salle_t** pl)
         }
     }
     fclose(save);
-    printf("Plateau sauvegardé en tant que plateau no 7 !");
 }
 
 int existence_sauvegarde(){
     FILE* save = NULL ;
-    save = fopen("niveaux/plateau7.txt","r") ;
+    save = fopen("niveaux/plateau6.txt","r") ;
 
     if (save == NULL){
         return 0;

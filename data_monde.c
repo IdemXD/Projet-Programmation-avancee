@@ -125,8 +125,7 @@ void affichage_menu(int* jouer, SDL_Event* evenements,SDL_Renderer* ecran,ressou
     SDL_Rect Plateau_4={40,345,255,40};
     SDL_Rect Plateau_5={340,345,255,40};
     SDL_Rect Plateau_6={640,345,255,40};
-	SDL_Rect Plateau_7={340,545,255,40};
-	SDL_Rect rectPlateau[7]={Plateau_1,Plateau_2,Plateau_3,Plateau_4,Plateau_5,Plateau_6,Plateau_7};
+	SDL_Rect rectPlateau[6]={Plateau_1,Plateau_2,Plateau_3,Plateau_4,Plateau_5,Plateau_6};
     SDL_Rect Player_1={230,245,255,40};
     SDL_Rect Player_2={230,445,255,40};
     SDL_Rect Player_3={530,245,255,40};
@@ -174,9 +173,8 @@ void appliquer_texte_menu(int numero_menu,SDL_Renderer* ecran,SDL_Rect** rectMes
         appliquer_texte(ecran,rectMessages[numero_menu-1][2].x, rectMessages[numero_menu-1][2].y, rectMessages[numero_menu-1][2].w, rectMessages[numero_menu-1][2].h, "Plateau 3", textures.police);
         appliquer_texte(ecran,rectMessages[numero_menu-1][3].x, rectMessages[numero_menu-1][3].y, rectMessages[numero_menu-1][3].w, rectMessages[numero_menu-1][3].h, "Plateau 4", textures.police);
         appliquer_texte(ecran,rectMessages[numero_menu-1][4].x, rectMessages[numero_menu-1][4].y, rectMessages[numero_menu-1][4].w, rectMessages[numero_menu-1][4].h, "Plateau 5", textures.police);
-        appliquer_texte(ecran,rectMessages[numero_menu-1][5].x, rectMessages[numero_menu-1][5].y, rectMessages[numero_menu-1][5].w, rectMessages[numero_menu-1][5].h, "Plateau 6", textures.police);
 		if(existence_sauvegarde()){
-			appliquer_texte(ecran,rectMessages[numero_menu-1][6].x, rectMessages[numero_menu-1][6].y, rectMessages[numero_menu-1][6].w, rectMessages[numero_menu-1][6].h, "Plateau 7", textures.police);
+			appliquer_texte(ecran,rectMessages[numero_menu-1][5].x, rectMessages[numero_menu-1][5].y, rectMessages[numero_menu-1][5].w, rectMessages[numero_menu-1][5].h, "Plateau 6", textures.police);
 		}
     }
     if(numero_menu==3){
