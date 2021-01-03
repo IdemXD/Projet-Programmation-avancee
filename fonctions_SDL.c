@@ -114,6 +114,7 @@ void appliquer_texte(SDL_Renderer *renderer,int x, int y, int w, int h, const ch
 
 void init_textures(ressources * textures,SDL_Renderer* renderer){
 
+	textures->sprites_menu=charger_image("ressources/sprites_menu.bmp", renderer);
 
 	textures->fond = charger_image("ressources/background.bmp", renderer );
 
@@ -125,6 +126,7 @@ void init_textures(ressources * textures,SDL_Renderer* renderer){
 }
 
 void liberer_textures(ressources * textures){
+    liberer_texture(textures->sprites_menu);
 	liberer_texture(textures->fond);
 	liberer_texture(textures->sprites_salles);
 	liberer_texture(textures->sprites_elements);
@@ -332,4 +334,8 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
 	appliquer_texte(renderer,601,160,295,40,texte,police);
 	appliquer_texte(renderer,601,200,295,40,texte2,police);
 	appliquer_texte(renderer,601,240,295,40,texte3,police);
+}
+
+int clic_menu(SDL_Rect mot,int x_souris, int y_souris){
+	return mot.x<x_souris && (mot.x + mot.w)>x_souris && mot.y<y_souris && (mot.y + mot.h)>y_souris;
 }

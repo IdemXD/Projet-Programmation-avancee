@@ -16,6 +16,7 @@ struct textures_s{
 
 	SDL_Texture * fond;/*!<Texture du fond de l'écran */
 	SDL_Texture * sprites_salles;/*!<Textures des salles */
+	SDL_Texture * sprites_menu;/*!<Texture du menu  */
 	SDL_Texture * sprites_elements;/*!<Textures des éléments du jeu*/
 	TTF_Font* police; /*!<TPolice de texte*/
 };
@@ -164,4 +165,6 @@ void affiche_message_actions(int peut_afficher,int num_action,SDL_Renderer* ecra
 	* \param salle Salle dont on veut la description
 */
 void affiche_texte_salle(SDL_Renderer* renderer, TTF_Font *police, salle_t salle);
+
+int clic_menu(SDL_Rect mot,int x_souris, int y_souris);
 #endif

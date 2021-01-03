@@ -10,8 +10,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "actions.h"
 #include "fonctions_SDL.h"
+#include "actions.h"
 #include "personnages.h"
 #include "plateau.h"
 
@@ -43,7 +43,7 @@ typedef struct data_s data_t;
     * \brief Initialisation des données du jeu
     * \param data les éléments du joueur
 */
-data_t* init_data();
+data_t * init_data();
 
 /**
     * \brief Rafraichis l'affichage du jeu
@@ -73,4 +73,19 @@ void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, 
 */
 
 void verifie_fin_du_jeu(int* terminer,persos_t* joueurs,salle_t** plateau,char type_de_jeu,int nb_personnage);
+
+data_t* gestion_plateau(int num_plateau);
+
+void mode_de_jeu(int choix,SDL_Rect rectPlateau, char* mode);
+
+void affichage_menu(int* jouer, SDL_Event* evenements,SDL_Renderer* ecran,ressources textures,data_t** data);
+
+void appliquer_texte_menu(int numero_menu,SDL_Renderer* ecran,SDL_Rect** rectMessages,ressources textures);
+
+void choix_du_menu(int choix,int* rester_dans_menu,SDL_Rect message, int* numero_menu);
+
+SDL_Rect* recherche_rect_messages(int numero_menu, int* nb_choix,SDL_Rect** rectMessages);
+
+void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int* numero_menu,data_t** data,int * jouer, SDL_Rect** rectMessages);
+
 #endif

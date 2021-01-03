@@ -34,6 +34,7 @@ void init_salles(char salle[5], salle_t** pl, int n);
 */
 char* preparation_chemin();
 
+char * nom_du_plateau(int plateau);
 /**
   * \brief Verifie qu'un paquet de caractère d'une salle est valide
   * \param paquet char sensé contenir lettre, boolean, boolean, boolean

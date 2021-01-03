@@ -16,9 +16,9 @@ int main(int argc, char *argv[]){
 
 	ressources textures;
 
-	data_t* data;
-	data = init_data();
+	data_t* data = NULL;
 
+	int jouer = 0;
 
 	init_sdl();
 	// Créer la fenêtre
@@ -35,13 +35,12 @@ int main(int argc, char *argv[]){
 	ecran = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
 
 	init_textures(&textures,ecran);
-	modif_taille(textures.sprites_elements,data->actions);
+	affichage_menu(&jouer,&evenements,ecran,textures,&data);
 
-	int x_curseur;
-	int y_curseur;
+	int x_curseur = -1, y_curseur = -1;
 
 	// Boucle principale
-	while(!data->terminer)
+	while(jouer && !data->terminer)
 	{
 		refresh_game(ecran, textures, data);
 
@@ -97,11 +96,7 @@ int main(int argc, char *argv[]){
 					}
 					break;
 				case SDL_MOUSEMOTION:
-					if (1){
-
-						pixToSalle(evenements.motion.x,evenements.motion.y,&x_curseur,&y_curseur);
-
-					}
+					pixToSalle(evenements.motion.x,evenements.motion.y,&x_curseur,&y_curseur);
 					break;
 				case SDL_MOUSEBUTTONDOWN:
                     if(data->active_direction_salle==2 ){
@@ -190,7 +185,7 @@ int main(int argc, char *argv[]){
             data->active_direction = 'n';//On remet à aucune action choisie
 		}
 
-		if(data->salles[y_curseur][x_curseur].visible){
+		if(x_curseur > -1 && y_curseur > -1  && data->salles[y_curseur][x_curseur].visible){
 			affiche_texte_salle(ecran,textures.police,data->salles[y_curseur][x_curseur]);
 		}
 

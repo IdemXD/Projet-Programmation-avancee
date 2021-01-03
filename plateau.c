@@ -51,6 +51,17 @@ char* preparation_chemin()
     return niv;
 }
 
+char * nom_du_plateau(int plateau){
+
+    char* niv; // Taille: nb de char + '\0' de fin de chaine de charactère
+    niv = malloc(sizeof(char)*23);
+
+    // fonction de concatenation du numero du niveau de du chemin
+    snprintf(niv, 23,"niveaux/plateau%d.txt",plateau);
+
+    return niv;
+}
+
 int chars_valide(char paquet[6])
 {
     // Si un des elements le respecte pas cette suite, on renvoie 0
