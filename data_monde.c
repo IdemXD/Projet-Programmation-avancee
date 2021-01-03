@@ -23,7 +23,7 @@ data_t * init_data()
     data->terminer = 0;
     data->nb_action = 0;
 	data->tour_perso = data->tour_action = 0;
-	data->affiche_message = 1;
+	//data->affiche_message = 1;
 	return data;
 
 }
@@ -51,6 +51,7 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
     }
 
     for (int i = 0; i<NB_ACTIONS_TOTAl; i++){
+
         if (data->actions[i].etat) { //On affiche seulement si la salle est visible
             affiche_action(ecran, textures.sprites_elements, data->actions[i], i);
         }
@@ -139,7 +140,7 @@ void affichage_menu(int* jouer, SDL_Event* evenements,SDL_Renderer* ecran,ressou
                     }
                 	break;
                 case SDL_MOUSEBUTTONDOWN:
-                	trouve_selection_menu(evenements->button.x, evenements->button.y,&rester_dans_menu,&numero_menu,data,jouer,rectTout);
+                	trouve_selection_menu(evenements->button.x, evenements->button.y,&rester_dans_menu,&numero_menu,data,jouer,rectTout,textures.sprites_elements);
                    	break;
             }
         SDL_RenderPresent(ecran);
@@ -191,7 +192,7 @@ SDL_Rect* recherche_rect_messages(int numero_menu, int* nb_choix,SDL_Rect** rect
 	return rectMessages[numero_menu-1];
 }
 
-void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int* numero_menu,data_t** data,int * jouer, SDL_Rect** rectMessages){
+void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int* numero_menu,data_t** data,int * jouer, SDL_Rect** rectMessages,SDL_Texture* actions){
 	int trouve = 0, choix = 0, nb_choix;
 	SDL_Rect* rect = recherche_rect_messages(*numero_menu,&nb_choix,rectMessages);
 	while (!trouve && choix<nb_choix){
@@ -206,6 +207,7 @@ void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int*
                 
 				(*data)->joueur = creer_persos((*data)->nb_personnages);
 				(*data)->actions = creer_actions((*data)->type_de_jeu);
+                modif_taille(actions, (*data)->actions);
                 *jouer = 1;//On sort du menu et on peut jouer
         		*rester_dans_menu = 1;
 			}

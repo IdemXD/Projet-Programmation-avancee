@@ -322,7 +322,7 @@ void affiche_texte_salle(SDL_Renderer* renderer,TTF_Font *police,salle_t salle){
 			sprintf(texte2,"l'effet de votre salle preferee");
 			break;
 		case 'U':
-			sprintf(texte,"Cette salle n'a pas bien été");
+			sprintf(texte,"Cette salle n'a pas bien ete");
 			sprintf(texte2,"desinfectee... qui quelle ");
 			sprintf(texte3,"maladie il s'y trouve.");
 			break;

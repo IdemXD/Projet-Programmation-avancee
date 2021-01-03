@@ -38,7 +38,6 @@ int main(int argc, char *argv[]){
 	affichage_menu(&jouer,&evenements,ecran,textures,&data);
 
 	int x_curseur = -1, y_curseur = -1;
-
 	// Boucle principale
 	while(jouer && !data->terminer)
 	{
