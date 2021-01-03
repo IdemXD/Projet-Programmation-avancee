@@ -16,14 +16,24 @@ En début de chaque tour les joueurs **programment** leurs **actions** dans l'or
 
 Dans un premier temps, chaque joueur choisi sa première action, puis chaque joueur choisi sa deuxième action.
 
+* **Programmation première partie du tour:**
+
 Joueur 1 -> action 1
+
 Joueur 2 -> action 1
+
 Joueur 3 -> action 1 
+
 Joueur 4 -> action 1
 
+* **Programmation deuxième partie du tour:**
+
 Joueur 1 -> action 2
+
 Joueur 2 -> action 2
+
 Joueur 3 -> action 2
+
 Joueur 4 -> action 2
 
 Avec joueurs 3 et 4 disponibles seulement dans le mode multijoueurs.
