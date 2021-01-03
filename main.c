@@ -65,14 +65,14 @@ int main(int argc, char *argv[]){
 
 						case SDLK_DOWN:
 
-								if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4)){ //Seulement si le joueur est en train de faire un choix de direction
+								if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4 && data->active_direction_salle==0 )){ //Seulement si le joueur est en train de faire un choix de direction
 									data->active_direction = 'b';
 
 								}
 						break;
 
 						case SDLK_UP:
-							if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4)){
+							if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4 && data->active_direction_salle==0 )){
 								data->active_direction = 'h';
 
 							}
@@ -80,13 +80,13 @@ int main(int argc, char *argv[]){
 
 						case SDLK_LEFT:
 
-							if (data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4)){
+							if (data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4 && data->active_direction_salle==0 )){
 								data->active_direction = 'g';
 							}
 							break;
 
 						case SDLK_RIGHT:
-							if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4)){
+							if(data->etape == 2 && (data->joueur[data->tour_perso].actions[data->tour_action]>0  && data->joueur[data->tour_perso].actions[data->tour_action]<4 && data->active_direction_salle==0 )){
 								data->active_direction = 'd';
 							}
 
