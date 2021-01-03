@@ -6,22 +6,40 @@
 
 *Ce jeu est grandement inspiré du jeu de plateau Room-25.*
 
-**Deux personnages** sont enfermés dans un complexe ayant **25 salles** aux effets divers et dangereux représentées par des cases. Le but est d'essayer de sortir le plus rapidement possible sans mourir et arriver ensemble à trouver la Room 25 pour **s’échapper**. Or, la partie commence alors que les personnages se trouve sur la seule case révélée, la salle centrale. Le jeu demande **programmer les actions** des personnages au début de chaque tour, sachant que la perte d'un de ces derniers nous fait perdre la partie. Il existe un **mode solo** et un **mode multijoueurs** où des "gardiens" peuvent se mêler aux personnages et peuvent empêcher la fuite en les sabotants.
+**Des personnages** sont enfermés dans un complexe ayant **25 salles** aux **effets divers et dangereux** représentées par des cases. Le but est d'essayer de sortir le plus rapidement possible sans mourir et arriver ensemble à trouver la Room 25 pour **s’échapper**. Or, la partie commence alors que les personnages se trouve sur la seule case révélée, la salle centrale. Le jeu demande **programmer les actions** des personnages au début de chaque tour, sachant que la perte de ces derniers nous fait perdre la partie. Il existe un **mode solo** et un **mode multijoueurs** où les participants peuvent saboter la fuite des autres joueurs.
 
 
-### Mécaniques de jeu  
+### Règles et mecaniques de jeu  
 
-#### 1. Action possible
-* **Regarder**: Action permettant au joueur de regarder n'importe carte cachée du plateau
+#### 1. Tours de jeu
+En début de chaque tour les joueurs **programment** leurs **actions** dans l'ordre suivant: 
 
-* **Controler**: Action permettant de faire glisser les salles en lignes ou en colonnes à l'exception de la ligne et de la colonne de la salle de départ.
+Dans un premier temps, chaque joueur choisi sa première action, puis chaque joueur choisi sa deuxième action.
+
+Joueur 1 -> action 1
+Joueur 2 -> action 1
+Joueur 3 -> action 1 
+Joueur 4 -> action 1
+
+Joueur 1 -> action 2
+Joueur 2 -> action 2
+Joueur 3 -> action 2
+Joueur 4 -> action 2
+
+Avec joueurs 3 et 4 disponibles seulement dans le mode multijoueurs.
+
+#### 2. Actions possibles
+
+* **Regarder**: Action permettant au joueur de regarder n'importe carte cachée du plateau.
+
+* **Controler**: Action permettant de faire glisser les salles en lignes ou en colonnes **à l'exception de la ligne et de la colonne de la salle de départ**.
 
 * **Se Déplacer**: Action permettant aux personnages de bouger d'une salle à une autre. 
 
-* **Pousser**: Action permettant aux personnages de pousser un autre personnage.
+* **Pousser**: Action permettant aux personnages de pousser un autre personnage. **(/!\ Seulement disponible dans le mode multijoueurs)**
 
 
-#### 2. Caractéristique des Salles
+#### 3. Caractéristiques des Salles
 
 * **Salle 25**: Salle que l'on veut atteindre, condition de reussite
 
@@ -33,11 +51,11 @@
 
 * **Salle Tunnel**: Déplace immédiatement votre personnage sur une autre salle tunnel visible de votre choix. S’il n’y en a pas, rien ne se passe.
 
-* **Salle Mobile**: Interverti la position de cette salle et du personnage avec une salle cachée n’importe où sur le plateau. Cette dernière salle reste cachée. Si toutes les salles sont déjà révélées, rien ne se passe.
+* **Salle Mobile**: Interverti la position de cette salle et du personnage avec une salle cachée n’importe où sur le plateau. Si toutes les salles sont déjà révélées, rien ne se passe.
 
-* **Salle Mortelle**: Elimine le joueur.
+* **Salle Mortelle**: Elimine le personnage.
 
-* **Salle Noire**: Tant que le personnage est dans cette salle,l’action Regarder est inutilisable.
+* **Salle Noire**: Tant que le personnage est dans cette salle, l’action Regarder est inutilisable.
 
 * **Salle Froide**: Tant que le personnage est dans cette salle, il ne peut programmer qu'une seule action alors pour le tour.
 
@@ -47,7 +65,7 @@
 
 * **Salle Vide**: Salle n'ayant aucun effet
 
-* **Salle Prison**: Retiens le joueur prisonier pendant 1 tour
+* **Salle Prison**: Retiens le personnage prisonier pendant 1 tour
 
 * **Salle surprise**: Prend l'effet d'une autre salle aléatoirement
 
@@ -56,8 +74,6 @@
 * **Salle virus**: Condamne le joueur à vivre un certain nombre de tour
 
 * **Salle soin**:  Annule l'effet de la salle virus 
-
-*(D'autres salles pourront être ajoutées)*
 
 
 ## Prérequis  
@@ -70,7 +86,7 @@
 ```
 git clone
 cd 
-make .
+make
 ./main
 ```
 
@@ -170,6 +186,14 @@ Medi: Implémentation de nouvelles salles avec structure de données, avancement
 Marie: Creation du design final du jeu, implémentation de l'affichage de description de salle lors de survol du curseur
 
 Chloé: Création de design final du jeu, implémentation de l'action pousser, prise en compte de 2 modes Solo/multijoueur
+
+### Semaine 10
+
+Medi: Finalisation du menu de jeu
+
+Marie: Finalisation du design du jeu 
+
+Chloé: Support technique
 
 
 
