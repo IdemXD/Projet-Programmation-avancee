@@ -67,13 +67,6 @@ void Salle_vortex(persos_t* perso);
 */
 void Salle_tunnel(salle_t** pl, persos_t* perso);
 
-
-/**
-	*\brief Fonction qui initialise les états de la salle et qui permet la victoire
-*/
-void Salle_25();
-
-
 /**
 	*\brief Fonction qui oblige le joueur à programmer une seule action
 */
@@ -84,25 +77,47 @@ void Salle_froide(persos_t* perso,int tour_perso);
 */
 void Salle_mobile(salle_t** pl, persos_t* perso,int tour_perso ,int* x,  int* y);
 
+/**
+	*\brief Fonction qui rend non-visible
+*/
+void Salle_noire(salle_t** pl, persos_t* perso,int tour_perso);
 
-void Salle_noire(salle_t** pl, persos_t* perso);
 
+/**
+	*\brief Fonction qui change le type d'une salle
+*/
 void change_type(salle_t** pl,persos_t* perso ,int tour_perso, int *x, int* y);
 
-
+/**
+	*\brief Fonction qui fait perdre un tour au joueur
+*/
 void Salle_prison(persos_t* perso);
 
-
+/**
+	*\brief Fonction qui cherche une salle selon le parametre char
+*/
 void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso, char salle, int* a , int* b);
 
-
+/**
+	*\brief Fonction qui change le type de la salle grace à une pile
+*/
 void Salle_surprise(salle_t **pl,persos_t* persos,char salle_Depile,int tour_perso,int a,int b,int* dir);
-
+/**
+	*\brief Fonction qui permet de copier l'effet d'une salle
+*/
 void Salle_copie(salle_t** pl,persos_t* persos,int x,int y);
 
+/**
+	*\brief Fonction qui fait perdre de la vie au personnage
+*/
 void Perte_vie(salle_t** pl,salle_t* salle , persos_t* persos,int tour_perso,int a,int b);
 
+/**
+	*\brief Fonction qui rend malade le joueur
+*/
 void Salle_virus(persos_t* persos,int tour_perso);
-
+/**
+	*\brief Fonction qui soigne le joueur
+ */
 void Salle_soin(persos_t* persos,int tour_pero);
 #endif

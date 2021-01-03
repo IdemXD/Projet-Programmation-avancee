@@ -110,4 +110,7 @@ void affichage_plateau_caracteristique(salle_t** pl);
   * \return 1 si le plateau est entièrement visible, 0 sinon
 */
 int plateau_est_visible(salle_t** pl);
+
+void lettreToCoords(char lettre,int* abs,int* ord, salle_t** pl);
+
 #endif

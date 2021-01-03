@@ -86,10 +86,12 @@ void verifie_fin_du_jeu(int* terminer,persos_t* joueurs,salle_t** plateau,char t
                 est_vivant = 1;
             i++;
         }
+
         if (type_de_jeu == 'm' && !est_vivant){//si tous les joueurs ont perdu
             *terminer = 1; //On sort de la boucle de jeu
         }
     }
+
 }
 
 data_t* gestion_plateau(int num_plateau){

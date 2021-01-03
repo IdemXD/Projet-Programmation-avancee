@@ -44,18 +44,9 @@ int depiler(Pile *pile)
 }
 
 void creer_pile(Pile* pile) {
-    char SALLES[13] = {'V', 'C', 'O', 'S', 'E', 'F', 'M', 'D', 'N', 'T', 'X', 'P', 'Z'};
-    empiler_pile(pile, SALLES[0]);
-    empiler_pile(pile, SALLES[1]);
-    empiler_pile(pile, SALLES[2]);
-    empiler_pile(pile, SALLES[3]);
-    empiler_pile(pile, SALLES[4]);
-    empiler_pile(pile, SALLES[5]);
-    empiler_pile(pile, SALLES[6]);
-    empiler_pile(pile, SALLES[7]);
-    empiler_pile(pile, SALLES[8]);
-
-
+    for(int i = 0; i < 18; i++) {
+        empiler_pile(pile, LETTRES_SALLES[rand() % 18]);
+    }
 }
 
 

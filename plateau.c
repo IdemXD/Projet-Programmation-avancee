@@ -301,3 +301,19 @@ int plateau_est_visible(salle_t** pl){
     }
     return est_visible;
 }
+
+void lettreToCoords(char lettre,int* abs,int* ord, salle_t** pl){
+    int x = 0, y = 0, trouve = 0;
+    while (!trouve && x != 5){
+        while (!trouve && y != 5){
+            if (pl[x][y].type == lettre){
+                *abs = y;
+                *ord = x;
+                trouve++;
+            }
+            y++;
+        }
+        y = 0;
+        x++;
+    }
+}

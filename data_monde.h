@@ -88,4 +88,5 @@ SDL_Rect* recherche_rect_messages(int numero_menu, int* nb_choix,SDL_Rect** rect
 
 void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int* numero_menu,data_t** data,int * jouer, SDL_Rect** rectMessages,SDL_Texture* actions);
 
+void lettreToCoords(char lettre,int* abs,int* ord, salle_t** pl);
 #endif
