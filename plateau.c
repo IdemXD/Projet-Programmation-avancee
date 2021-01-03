@@ -103,7 +103,7 @@ int verif_emplacements(salle_t** pl)
     }
 
     if (count_S_R != 2) {
-        perror("Salle 25 ou/et Salle Centrale manquantes");
+        perror("Nombre d'elements Salle 25 ou/et Salle Centrale incorrect");
         return 1;
     }
 
