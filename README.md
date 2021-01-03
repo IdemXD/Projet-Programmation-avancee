@@ -6,7 +6,7 @@
 
 *Ce jeu est grandement inspiré du jeu de plateau Room-25.*
 
-**Des personnages** sont enfermés dans un complexe ayant **25 salles** aux **effets divers et dangereux** représentées par des cases. Le but est d'essayer de sortir le plus rapidement possible sans mourir et arriver ensemble à trouver la Room 25 pour **s’échapper**. Or, la partie commence alors que les personnages se trouve sur la seule case révélée, la salle centrale. Le jeu demande **programmer les actions** des personnages au début de chaque tour, sachant que la perte de ces derniers nous fait perdre la partie. Il existe un **mode solo** et un **mode multijoueurs** où les participants peuvent saboter la fuite des autres joueurs.
+**Des personnages** sont enfermés dans un complexe ayant **25 salles** aux **effets divers et dangereux** représentées par des cases. Le but est d'essayer de sortir le plus rapidement possible sans mourir et arriver ensemble à trouver la Room 25 pour **s’échapper**. Or, la partie commence alors que les personnages se trouve sur la seule case révélée, la salle centrale. Le jeu demande **programmer les actions** des personnages au début de chaque tour, sachant que la perte de ces derniers nous fait perdre la partie. Il existe un **mode solo** (2 personnages) et un **mode multijoueurs** (4 personnages) où les participants peuvent saboter la fuite des autres joueurs.
 
 
 ### Règles et mecaniques de jeu  
@@ -14,29 +14,36 @@
 #### 1. Tours de jeu
 En début de chaque tour les joueurs **programment** leurs **actions** dans l'ordre suivant: 
 
-Dans un premier temps, chaque joueur choisi sa première action, puis chaque joueur choisi sa deuxième action.
+Dans un premier temps chaque joueur choisi consécutivement ses 2 actions du tour. 
 
-* **Programmation première partie du tour:**
+* **Programmation actions du tour:** 
 
-Joueur 1 -> action 1
+Joueur 1 -> choix action 1 -> choix action 2
+Joueur 2 -> choix action 1 -> choix action 2
+Joueur 3 -> choix action 1 -> choix action 2
+Joueur 4 -> choix action 1 -> choix action 2
 
-Joueur 2 -> action 1
+* **Deroulenement première partie du tour:**
 
-Joueur 3 -> action 1 
+Joueur 1 -> execution action 1
 
-Joueur 4 -> action 1
+Joueur 2 -> execution action 1
 
-* **Programmation deuxième partie du tour:**
+Joueur 3 -> execution action 1 
 
-Joueur 1 -> action 2
+Joueur 4 -> execution action 1
 
-Joueur 2 -> action 2
+* **Deroulement deuxième partie du tour:**
 
-Joueur 3 -> action 2
+Joueur 1 -> execution action 2
 
-Joueur 4 -> action 2
+Joueur 2 -> execution action 2
 
-Avec joueurs 3 et 4 disponibles seulement dans le mode multijoueurs.
+Joueur 3 -> execution action 2
+
+Joueur 4 -> execution action 2
+
+**(Avec joueurs 3 et 4 disponibles seulement dans le mode multijoueurs.)**
 
 #### 2. Actions possibles
 
