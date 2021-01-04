@@ -195,10 +195,10 @@ void appliquer_texte_menu(int numero_menu,SDL_Renderer* ecran,SDL_Rect** rectMes
     }
 }
 
-void choix_du_menu(int choix,int* rester_dans_menu,SDL_Rect message, int* numero_menu){
-    if(choix){
+void choix_du_menu(int choix,int* rester_dans_menu, int* numero_menu){
+    if(choix){ //Si le joueur choisit de quitter le menu
     	*rester_dans_menu = 1;
-    } else {
+    } else {//Si il veut jouer
     	*numero_menu = *numero_menu + 1;
     }
 }
@@ -225,9 +225,9 @@ void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int*
 	int trouve = 0, choix = 0, nb_choix;
 	SDL_Rect* rect = recherche_rect_messages(*numero_menu,&nb_choix,rectMessages);
 	while (!trouve && choix<nb_choix){
-		if (clic_menu(rect[choix],x_souris, y_souris)){
-			if (*numero_menu == 3){
-				if (!choix){
+		if (clic_menu(rect[choix],x_souris, y_souris)){//Si le joueur a cliqué sur un choix du menu 
+			if (*numero_menu == 3){ //Si le joueur est dans le menu 3
+				if (!choix){ //Si il choisit le premier choix (1 joueur), il joue en mode solo
                 	(*data)->type_de_jeu = 's';
                 } else {
                 	(*data)->type_de_jeu = 'm';
@@ -240,12 +240,12 @@ void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int*
                 *jouer = 1;//On sort du menu et on peut jouer
         		*rester_dans_menu = 1;
 			}
-			if (*numero_menu == 2){
+			if (*numero_menu == 2){//Si le joueur est dans le menu 2 (choix du plateau)
 				*data = gestion_plateau(choix + 1);
                 *numero_menu = *numero_menu + 1;
 			}
-			if (*numero_menu == 1){
-				choix_du_menu(choix, rester_dans_menu, rect[choix], numero_menu);
+			if (*numero_menu == 1){//Si le joueur est dans le menu 1 (jouer/quitter)
+				choix_du_menu(choix, rester_dans_menu, numero_menu);
 			}
 			trouve++;
 

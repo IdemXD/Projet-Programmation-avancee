@@ -83,11 +83,19 @@ void affichage_menu(int* jouer, SDL_Event* evenements,SDL_Renderer* ecran,ressou
 
 void appliquer_texte_menu(int numero_menu,SDL_Renderer* ecran,SDL_Rect** rectMessages,ressources textures);
 
-void choix_du_menu(int choix,int* rester_dans_menu,SDL_Rect message, int* numero_menu);
+void choix_du_menu(int choix,int* rester_dans_menu, int* numero_menu);
 
 SDL_Rect* recherche_rect_messages(int numero_menu, int* nb_choix,SDL_Rect** rectMessages);
-
+/**
+    * \brief Actualise le menu à partir du choix du joueur
+    * \param x_souris Abscisse de la souris
+    * \param y_souris Ordonnée de la souris
+    * \param rester_dans_menu Indique si le joueur reste dans le menu
+    * \param data Les données du jeu
+    * \param jouer Indique si le joueur veut lancer une partie
+    * \param rectMessages Ensemble des choix possibles dans le menu pous le joueur
+    * \param actions Le sprite des actions
+*/
 void trouve_selection_menu(int x_souris,int y_souris, int* rester_dans_menu,int* numero_menu,data_t** data,int * jouer, SDL_Rect** rectMessages,SDL_Texture* actions);
 
-void lettreToCoords(char lettre,int* abs,int* ord, salle_t** pl);
 #endif

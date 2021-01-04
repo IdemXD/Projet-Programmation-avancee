@@ -34,6 +34,12 @@ void init_salles(char salle[5], salle_t** pl, int n);
 */
 char* preparation_chemin();
 
+/**
+    * \brief Demande au joueur le niveau voulu
+    * \param plateau Numéro du plateau dans le menu
+    * \return nom du niveau choisi par le joueur
+*/
+
 char * nom_du_plateau(int plateau);
 /**
   * \brief Verifie qu'un paquet de caractère d'une salle est valide
@@ -110,6 +116,14 @@ void affichage_plateau_caracteristique(salle_t** pl);
   * \return 1 si le plateau est entièrement visible, 0 sinon
 */
 int plateau_est_visible(salle_t** pl);
+
+/**
+  * \brief Renvoie les coordonnées d'une salle dont on donne le type
+  * \param lettre Type de la salle
+  * \param abs Abscisse de la salle
+  * \param ord Ordonnée de la salle
+  * \param pl Tableau 2D representant le plateau
+*/
 
 void lettreToCoords(char lettre,int* abs,int* ord, salle_t** pl);
 
