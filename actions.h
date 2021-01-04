@@ -63,7 +63,7 @@ void clic_action(action_t* actions,int* nb_action,int* trouve,int x,int y);
  * \param tour_perso Numéro du personnage dont c'est le tour
  * \param nb_personnage Nombre de personnages choisi
 */
-void applique_action(salle_t** plateau, persos_t* joueurs, char* active_direction,int tour_action,int tour_perso, int nb_personnage,int* direction_salle);
+void applique_action(salle_t** plateau, persos_t* joueurs, char* active_direction,int tour_action,int tour_perso, int nb_personnage,int* direction_salle,int* move);
 
 /**
  * \brief Permet au personnage de se déplacer sur une des salles adjacentes
@@ -72,7 +72,7 @@ void applique_action(salle_t** plateau, persos_t* joueurs, char* active_directio
  * \param direction direction vers laquelle déplacer le personnage
  * \param choix_dir 1 si le joueur peut choisir une direction, 0 sinon
 */
-void deplacer(salle_t** plateau,persos_t* perso,const char* direction,int tour_perso,int* direction_salle);
+void deplacer(salle_t** plateau,persos_t* perso,const char* direction,int tour_perso,int* direction_salle,int* move);
 
 /**
  * \brief Renvoie la lettre représentant l'action
@@ -156,5 +156,5 @@ void change_action(action_t* actions,int* tour_action,int* tour_perso,int* etape
  * \param direction_salle direction vers laquelle les personnages seront poussés
 */
 
-void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau,int tour_perso,int* direction_salle);
+void pousser(persos_t* joueurs,int num_joueur, int nb_personnages,char* direction, salle_t** plateau,int tour_perso,int* direction_salle,int* move);
 #endif

@@ -13,7 +13,7 @@
 #include "pile.h"
 
 
-void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
+void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir,int* move){
     int x=joueur->coord_x;
     int y=joueur->coord_y;
     int a,b;
@@ -24,9 +24,11 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
         switch (pl[y][x].type) {
             case 'V':
                 *dir = 2;
+                *move=2;
                 break;
             case 'M':
                 *dir = 3;
+                *move=3;
                 break;
             case 'D':
                 Salle_mortelle(joueur, &pl[y][x]);
@@ -58,6 +60,7 @@ void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* dir){
                 break;
             case 'Y':
                 *dir=4;
+                *move=4;
                 break;
             case 'U':
                 Salle_virus(joueur,tour_perso);
@@ -190,6 +193,20 @@ void Cherche_salle(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, i
     }
 }
 
+
+void Cherche_salle_specifique(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, int* a , int* b) {
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+
+            if (pl[i][j].type == salle && persos->coord_x == pl[i][j].x &&
+                persos->coord_y == pl[i][j].y) {
+                *a = i;
+                *b = j;
+            }
+        }
+    }
+}
+
 void Salle_mobile(salle_t** pl,persos_t* perso ,int tour_perso, int* x, int*y){
     if(*x != -1 && *y != -1 && pl[*y][*x].visible==0) {
        change_type(pl, perso, tour_perso, x, y);
@@ -236,7 +253,7 @@ void Salle_copie(salle_t** pl,persos_t* persos,int x,int y){
 }
 
 void Salle_surprise(salle_t **pl,persos_t* persos,char salle_Depile,int tour_perso,int a,int b,int* dir){
-    Cherche_salle(pl,persos,tour_perso,'Z',&a,&b);
+    Cherche_salle_specifique(pl,persos,tour_perso,'Z',&a,&b);
     pl[a][b].type=salle_Depile;
 }
 

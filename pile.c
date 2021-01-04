@@ -30,7 +30,7 @@ int depiler(Pile *pile)
         exit(EXIT_FAILURE);
     }
 
-    int salleDepile = 0;
+    int salleDepile = rand() % 18;
     Element *elementDepile = pile->premier;
 
     if (pile != NULL && pile->premier != NULL)

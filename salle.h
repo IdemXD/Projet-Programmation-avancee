@@ -22,7 +22,7 @@ struct salle_s{
 typedef struct salle_s salle_t;
 
 
-void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* direction);
+void action_salle(salle_t**  pl,persos_t* joueur,int tour_perso,int* direction,int* move);
 
 
 /**
@@ -120,4 +120,6 @@ void Salle_virus(persos_t* persos,int tour_perso);
 	*\brief Fonction qui soigne le joueur
  */
 void Salle_soin(persos_t* persos,int tour_pero);
+
+void Cherche_salle_specifique(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, int* a , int* b);
 #endif

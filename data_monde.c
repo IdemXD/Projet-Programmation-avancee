@@ -19,11 +19,13 @@ data_t * init_data()
 	data->etape = 1; //etape 1 : choix de l'action
 	data->active_direction = 'n'; // définit quel direction le joueur choisit
     data->active_direction_salle = 0;
+    data->move=0;
     data->trouve = 0;
     data->terminer = 0;
     data->nb_action = 0;
 	data->tour_perso = data->tour_action = 0;
-	//data->affiche_message = 1;
+	data->joueur = NULL;
+    data->actions = NULL;
 	return data;
 
 }
@@ -62,12 +64,19 @@ void refresh_game(SDL_Renderer *ecran, ressources textures, data_t* data)
 
 void clean_game(SDL_Window *fenetre, SDL_Renderer *ecran, ressources *textures, data_t* data)
 {
-	if (data != NULL){
-		free_plateau(data->salles);
-		free(data->actions);
-		liberer_persos(data->joueur,data->nb_personnages);
-		free(data);
-	}
+    if (data != NULL && data->actions != NULL){
+        free(data->actions);
+    }
+    if (data != NULL && data->salles != NULL){
+        free_plateau(data->salles);
+    }
+    if (data != NULL && data->joueur != NULL){
+        liberer_persos(data->joueur,data->nb_personnages);
+    }
+
+    if (data != NULL){
+        free(data);
+    }
 	liberer_textures(textures);
 	TTF_Quit();
 
@@ -188,7 +197,7 @@ void appliquer_texte_menu(int numero_menu,SDL_Renderer* ecran,SDL_Rect** rectMes
 
 void choix_du_menu(int choix,int* rester_dans_menu,SDL_Rect message, int* numero_menu){
     if(choix){
-    	*rester_dans_menu = 0;
+    	*rester_dans_menu = 1;
     } else {
     	*numero_menu = *numero_menu + 1;
     }
@@ -199,7 +208,12 @@ SDL_Rect* recherche_rect_messages(int numero_menu, int* nb_choix,SDL_Rect** rect
 		*nb_choix = 2;
 	}
 	if (numero_menu == 2){
-		*nb_choix = 6;
+        if(existence_sauvegarde()){
+		  *nb_choix = 6;
+        }
+        else {
+          *nb_choix = 5;
+        }
 	}
 	if (numero_menu == 3){
 		*nb_choix = 4;
