@@ -120,6 +120,8 @@ void Salle_virus(persos_t* persos,int tour_perso);
 	*\brief Fonction qui soigne le joueur
  */
 void Salle_soin(persos_t* persos,int tour_pero);
-
+/**
+	*\brief Fonction qui cherche une salle selon le parametre char
+*/
 void Cherche_salle_specifique(salle_t** pl ,persos_t*  persos,int tour_perso ,char salle, int* a , int* b);
 #endif
